@@ -63,8 +63,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
   window.resetDeck();
   if (Array.isArray(window.deck) && window.deck.length > 0) {
     initCardLookup();
-    positionSpecialCards();
-    shuffle(deck);
+    prepareSubdecks();
     dealOpeningHands();
     console.log(
       "[DSG] Dealt hands — player:",
@@ -275,21 +274,33 @@ function clearHighlightedActions() {
   setHighlightedActions([]);
 }
 
-function positionSpecialCards() {
+function prepareSubdecks() {
   if (!Array.isArray(window.deck)) return;
 
-  const i32 = deck.findIndex((card) => card.id === 32);
-  if (i32 !== -1) {
-    const card32 = deck.splice(i32, 1)[0];
-    deck.splice(19, 0, card32);
-  }
+  const subdeckA = [];
+  const subdeckB = [];
 
-  const i1 = deck.findIndex((card) => card.id === 1);
-  if (i1 !== -1) {
-    const card1 = deck.splice(i1, 1)[0];
-    const r = 2 + Math.floor(Math.random() * 3); // 2..4
-    deck.splice(r, 0, card1);
-  }
+  deck.forEach((card) => {
+    const belongsToSubdeckA =
+      (card.id >= 1 && card.id <= 12) ||
+      (card.id >= 38 && card.id <= 50);
+
+    if (belongsToSubdeckA) subdeckA.push(card);
+    else subdeckB.push(card);
+  });
+
+  shuffle(subdeckA);
+  shuffle(subdeckB);
+
+  // Cards are drawn with deck.pop(), so Subdeck A must be at the end.
+  window.deck = [...subdeckB, ...subdeckA];
+
+  console.log(
+    "[DSG] Prepared subdecks — A:",
+    subdeckA.length,
+    "B:",
+    subdeckB.length,
+  );
 }
 
 function dealOpeningHands() {
@@ -641,8 +652,7 @@ window.onload = () => {
 
   if (Array.isArray(window.deck) && window.deck.length > 0) {
     initCardLookup();
-    positionSpecialCards();
-    shuffle(deck);
+    prepareSubdecks();
     dealOpeningHands();
     console.log(
       "[DSG] Dealt hands — player:",
