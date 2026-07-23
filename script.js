@@ -636,7 +636,7 @@ function generateOutroMessage(P, A1, A2) {
   }
 
   const personalSection = `<p><strong>Your result (${placeText}):</strong> ${personalMsg}</p>`;
-  const globalSection = `<p><strong>Global picture:</strong> ${globalMsg} Total sustainability points: ${total}.</p>`;
+  const globalSection = `<p><strong>Global picture:</strong> ${globalMsg} Total RAIs: ${total}.</p>`;
   return `${personalSection}${globalSection}`;
 }
 
