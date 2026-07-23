@@ -1,0 +1,426 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>The Digital Sustainability Game</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --card-width: 260px;
+        --card-height: 340px;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: black;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #intro,
+      #outro {
+        font-family: "Montserrat", sans-serif;
+        position: absolute;
+        inset: 0;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.785);
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #outro {
+        display: none;
+      }
+
+      .intro-content,
+      .outro-content {
+        max-width: 700px;
+        max-height: 80vh;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.3);
+        color: white;
+        border-radius: 12px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .intro-text,
+      .outro-text {
+        overflow-y: auto;
+      }
+
+      button {
+        font-family: "Montserrat", sans-serif;
+        background-color: steelblue;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        align-self: center;
+        padding: 0.5rem 1.2rem;
+        font-size: 1rem;
+        cursor: pointer;
+
+        transition:
+          background-color 0.2s ease,
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+
+      a {
+        color: rgb(215, 215, 215);
+        font-weight: 400;
+      }
+
+      a:focus {
+        outline: none;
+        background-color: rgb(255, 255, 255);
+        color: black;
+        border-radius: 2px;
+      }
+
+      button:hover {
+        background-color: #3a6ea5;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      }
+
+      button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      }
+
+      button:focus-visible {
+        outline: 2px solid #ffffff;
+        outline-offset: 2px;
+      }
+
+      .example-list {
+        margin-left: 2rem;
+        margin-top: 0.3rem;
+        list-style-type: circle;
+      }
+
+      h1 {
+        text-align: center;
+        flex-shrink: 0;
+        color: #f9f9f9;
+        font-family: "Montserrat";
+      }
+
+      #pageLayout {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      #gameArea,
+      #infoArea {
+        justify-content: center;
+        flex: 1;
+        padding: 10px;
+        color: #f9f9f9;
+      }
+
+      #gameArea {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+      }
+
+      #playerHand {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: nowrap;
+      }
+
+      #playerHand img {
+        object-fit: contain;
+        border-radius: 10px;
+      }
+
+      #infoArea {
+        gap: 20px;
+        flex-wrap: wrap;
+        background-color: #242424;
+        display: flex;
+        margin: auto;
+        font-family: "Montserrat";
+        font-size: 14px;
+        width: 600px;
+        padding: 20px;
+        white-space: pre-line;
+        overflow: auto;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        flex: 0.5;
+      }
+
+      @media (max-width: 768px) {
+        #infoArea {
+          max-width: 90%;
+          font-size: 12px;
+        }
+      }
+
+      .card {
+        font-family: "Montserrat", sans-serif;
+        width: var(--card-width);
+        height: var(--card-height);
+        min-width: var(--card-width);
+        max-width: var(--card-width);
+        flex: 0 0 var(--card-width);
+        box-sizing: border-box;
+        padding: 10px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 10px;
+        cursor: pointer;
+        display: block;
+        word-break: break-word;
+        white-space: pre-line;
+        overflow-wrap: break-word;
+        font-size: 14px;
+        box-shadow: 0 0 10px 2px rgba(134, 134, 134, 0.5);
+        transition: transform 0.2s ease;
+      }
+
+      .card-header-row {
+        position: relative;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .card-id {
+        position: absolute;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: black;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .card-type {
+        font-size: 18px;
+        font-weight: 900;
+        text-align: center;
+        flex: 1;
+        text-transform: uppercase;
+      }
+
+      /* Card name (still centered) */
+      .card-name {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .card-desc {
+        font-size: 14px;
+        line-height: 1.3;
+        text-align: left;
+      }
+
+      .card:hover {
+        transform: scale(1.01) translateY(-10px) translateX(0px);
+      }
+
+      @media (max-width: 768px) {
+        :root {
+          --card-width: 140px;
+          --card-height: 200px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        :root {
+          --card-width: 110px;
+          --card-height: 160px;
+        }
+      }
+
+      #gameInfo {
+        color: rgb(255, 255, 255);
+        width: 150px;
+        font-family: "Montserrat", sans-serif;
+        position: absolute;
+        font-size: 13px;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        padding: 5px;
+        border-radius: 4px;
+      }
+
+      .highlighted-action {
+        font-weight: 700;
+      }
+
+      .ai-entry {
+        margin-bottom: 8px;
+      }
+
+      #aiLog {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%;
+      }
+
+      .credits {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 1rem;
+      }
+
+      .credits p {
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .credits .title {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="intro">
+      <div class="intro-content">
+        <div class="intro-text">
+          <p>
+            The digital is material. Digital systems use energy and run on
+            hardware made from metals extracted from the earth. Data centres
+            generate heat and often rely on large volumes of water for cooling.
+            Some AI systems are trained using poorly paid click-workers, and
+            discarded devices contribute to growing mountains of e-waste.
+            Digital infrastructure may feel invisible, but its environmental and
+            social impacts are real. <br /><br />
+
+            You are about to take charge of an organisation making strategic
+            decisions about its digital systems — the tools you adopt, the
+            platforms you rely on, how data is stored, how work gets done. Your
+            choices will shape your organisation’s environmental impact as the
+            years go by.
+          </p>
+
+          <h2 style="text-align: center">How to Play</h2>
+          <ul>
+            <li>
+              Earn Progress Points and convert them into
+              <strong>Sustainability Points</strong>.
+            </li>
+            <li>
+              You can play <strong>Action</strong> cards to prepare your
+              organisation for future challenges.
+            </li>
+            <li>
+              You can also play <strong>Event</strong> cards, which trigger
+              effects depending on the Actions already in play.
+            </li>
+            <li>
+              You will be competing alongside two AI-controlled organisations.
+            </li>
+            <li>
+              Read the cards to learn more about digital sustainability, and
+              explore the work of the
+              <a
+                href="https://sas-dhrh.github.io/dhcc-toolkit/index.html"
+                target="_blank"
+                >Digital Humanities Climate Coalition</a
+              >
+              and
+              <a href="https://susaifutures.com/" target="_blank"
+                >Sustainable AI Futures</a
+              >
+              project.
+            </li>
+            <li>Good luck!</li>
+          </ul>
+        </div>
+
+        <button id="closeIntro">Play</button>
+      </div>
+    </div>
+
+    <div id="outro">
+      <div class="outro-content">
+        <div class="outro-text"></div>
+        <button id="resetButton">Play Again</button>
+        <button id="feedbackButton">Give Feedback</button>
+        <div class="credits">
+          <p class="title">Game Design:</p>
+          <p>Jo Lindsay Walton</p>
+          <p>Nathalie Huegler</p>
+          <p>Tomas Vancisin</p>
+          <p>Florence Okoye</p>
+          <br />
+          <p>
+            Published by the
+            <a
+              href="https://sas-dhrh.github.io/dhcc-toolkit/index.html"
+              target="_blank"
+              >Digital Humanities Climate Coalition</a
+            >
+            and
+            <a href="https://susaifutures.com/" target="_blank"
+              >Sustainable AI Futures</a
+            >
+            Special thanks to AHRC BRAID and the AHRC Impact Accelerator Fund
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h1>The Digital Sustainability Game</h1>
+    <div id="pageLayout">
+      <div id="gameInfo"></div>
+      <div id="gameArea">
+        <div id="playerHand"></div>
+      </div>
+      <div id="infoArea">
+        <h2>Cards Played</h2>
+        <div id="aiLog"></div>
+      </div>
+    </div>
+
+    <!-- If you move these into <head>, add defer -->
+    <script src="deck.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
