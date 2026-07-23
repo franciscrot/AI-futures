@@ -34,7 +34,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
     name: playerName,
     hand: [],
     progress: 0,
-    sustainability: 0,
+    RAI points: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
   };
@@ -42,7 +42,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
     name: AI1Name,
     hand: [],
     progress: 0,
-    sustainability: 0,
+    RAI points: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
   };
@@ -50,7 +50,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
     name: AI2Name,
     hand: [],
     progress: 0,
-    sustainability: 0,
+    RAI points: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
   };
@@ -110,6 +110,7 @@ const playerNames = [
   "First City Bank",
   "Baker Baker & McKenzie LLP",
   "The Museum of Lost Socks",
+  "Live Laugh Love Larp Lol Logout",
   "The World Wrestling Consortium",
 ];
 
@@ -221,7 +222,7 @@ let player = {
   name: playerName,
   hand: [],
   progress: 0,
-  sustainability: 0,
+  RAI points: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
 };
@@ -229,7 +230,7 @@ let AI1 = {
   name: AI1Name,
   hand: [],
   progress: 0,
-  sustainability: 0,
+  RAI points: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
 };
@@ -237,7 +238,7 @@ let AI2 = {
   name: AI2Name,
   hand: [],
   progress: 0,
-  sustainability: 0,
+  RAI points: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
 };
@@ -380,15 +381,15 @@ function updateGameInfo() {
   if (!infoDiv) return;
   infoDiv.innerHTML = `
     <strong>${player.name}</strong><br>
-    Progress: ${player.progress},<br> Sustainability: ${player.sustainability}<br>
+    Progress: ${player.progress},<br> RAI points: ${player.sustainability}<br>
     Actions: ${renderCards([...player.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br></br>
 
     <strong>${AI1.name}</strong><br>
-    Progress: ${AI1.progress},<br> Sustainability: ${AI1.sustainability}<br>
+    Progress: ${AI1.progress},<br> RAI points: ${AI1.sustainability}<br>
     Actions: ${renderCards([...AI1.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br><br>
 
     <strong>${AI2.name}</strong><br>
-    Progress: ${AI2.progress},<br> Sustainability: ${AI2.sustainability}<br>
+    Progress: ${AI2.progress},<br> RAI points: ${AI2.sustainability}<br>
     Actions: ${renderCards([...AI2.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br>
   `;
 }
@@ -488,30 +489,30 @@ function generateOutroMessage(P, A1, A2) {
   let personalMsg = "";
   switch (rankKey) {
     case "first":
-      personalMsg = "Digital sustainability is a shared challenge. You’ve done better than any of your competitors. Congratulations, you have shown leadership!";
+      personalMsg = "Using technology responsibly is a shared challenge. You’ve done better than any of your competitors. Congratulations, you have shown leadership!";
       break;
     case "first_tie":
-      personalMsg = "You’re tied for first place! Congratulations, you’ve shown leadership in digital sustainability. Digital sustainability is a shared challenge.";
+      personalMsg = "You’re tied for first place! Congratulations, you’ve shown leadership in using technology responsibility. This is a shared challenge.";
       break;
     case "second":
     case "second_tie":
-      personalMsg = "Digital sustainability is a shared challenge. You’re somewhere in the middle of the pack, neither leading the way nor lagging behind.";
+      personalMsg = "Using technology responsibly is a shared challenge. You’re somewhere in the middle of the pack, neither leading the way nor lagging behind.";
       break;
     case "third":
     default:
-      personalMsg = "You ended the game with some of the worst digital sustainability in the sector! Digital sustainability is a shared challenge.";
+      personalMsg = "You ended the game with some of the worst track record on AI in the sector! This is a shared challenge.";
       break;
   }
 
   let globalMsg = "";
   if (total <= 25) {
-    globalMsg = "As for the global picture? Oh no! The world really is in flames! Tech has a lot to answer for. Now what? Revenge?";
+    globalMsg = "As for the global picture? Oh no! The world really is in flames! We really did have a bit of an AI-pocalypse! Now what? Revenge?";
   } else if (total <= 30) {
-    globalMsg = "Of course, it’s not just about you. Efficiencies have come too slowly, and the growth has outpaced the gains. The social and ecological cost of delay has been enormous.";
+    globalMsg = "Of course, it’s not just about you. The social and ecological costs of AI have been enormous.";
   } else if (total <= 35) {
-    globalMsg = "Globally, we have a firm foundation, and the future is now looking very bright!";
+    globalMsg = "Globally, we have mostly managed to contain the risks of AI, and the future is now looking very bright!";
   } else if (total <= 40) {
-    globalMsg = "Globally, we did it! We achieved a rapid and just climate transition. Tech can be proud of the part that it played.";
+    globalMsg = "Globally, we did it! We pivoted from harmful AI to more convivial, ecologically aligned technologies.";
   } else {
     globalMsg = "Incredible! Radical, deep change has been achieved. Tech is much more green, democratic, and convivial. You must have been smart AND lucky!";
   }
