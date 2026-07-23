@@ -25,6 +25,7 @@ document.getElementById("feedbackButton").addEventListener("click", () => {
 // play again
 document.getElementById("resetButton").addEventListener("click", () => {
   emptyDeckStreak = 0;
+  window.playerChoices = {};
   // reset players
   playerName = pickRandom(playerNames);
   AI1Name = pickRandom(ai1Names);
@@ -210,6 +211,109 @@ function generateAI2Name() {
   if (p < 0.66)
     return `${pickRandom(wildcard)} ${pickRandom(buzzwords)} ${pickRandom(suffixes)}`;
   return `${pickRandom(buzzwords)} ${pickRandom(wildcard)} ${pickRandom(techTerms)} ${pickRandom(suffixes)}`;
+}
+
+
+// --- Player choices ---
+const CHOICE_CARD_OPTIONS = {
+  33: {
+    prompt: "Which approach to AI systems do you prefer?",
+    options: [
+      { value: "general-purpose", label: "General-purpose AI systems" },
+      { value: "domain-specific", label: "Smaller, domain-specific AI systems" },
+    ],
+  },
+  34: {
+    prompt: "Where should most computation take place?",
+    options: [
+      { value: "machine-meshes", label: "On devices and local machine meshes" },
+      { value: "cloud-computing", label: "In remotely accessible cloud computing" },
+    ],
+  },
+  35: {
+    prompt: "Which unexpected technology is working rather well?",
+    options: [
+      { value: "space-data-centres", label: "Data centres in space and on the Moon" },
+      {
+        value: "organic-data-centres",
+        label: "Organic data centres powered partly by algae and mud batteries",
+      },
+      { value: "something-else", label: "Something else" },
+    ],
+  },
+  36: {
+    prompt: "Which environmental priority matters more?",
+    options: [
+      { value: "sustainable-ai", label: "Reducing the impacts of AI itself" },
+      {
+        value: "ai-for-sustainability",
+        label: "Using AI to achieve wider environmental benefits",
+      },
+    ],
+  },
+  37: {
+    prompt: "How extensively should AI become part of everyday perception and action?",
+    options: [
+      { value: "a-bit-cyborg", label: "A bit cyborg" },
+      { value: "very-cyborg", label: "Very cyborg" },
+    ],
+  },
+};
+
+window.playerChoices = {};
+
+function promptForCardChoice(card) {
+  const config = CHOICE_CARD_OPTIONS[card.id];
+  if (!config) return Promise.resolve(null);
+
+  const modal = document.getElementById("choiceModal");
+  const title = document.getElementById("choiceModalTitle");
+  const question = document.getElementById("choiceModalQuestion");
+  const options = document.getElementById("choiceModalOptions");
+  const image = document.getElementById("choiceModalImage");
+  const imagePlaceholder = document.getElementById("choiceModalImagePlaceholder");
+
+  title.textContent = card.name.replace(/^\d+:\s*/, "");
+  question.textContent = config.prompt;
+  options.innerHTML = "";
+
+  if (config.imagePath) {
+    image.src = config.imagePath;
+    image.alt = "";
+    image.hidden = false;
+    imagePlaceholder.hidden = true;
+  } else {
+    image.removeAttribute("src");
+    image.hidden = true;
+    imagePlaceholder.hidden = false;
+  }
+
+  modal.style.display = "flex";
+  modal.setAttribute("aria-hidden", "false");
+
+  return new Promise((resolve) => {
+    config.options.forEach((option, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "choice-modal-option";
+      button.textContent = option.label;
+      button.addEventListener(
+        "click",
+        () => {
+          window.playerChoices[card.id] = {
+            value: option.value,
+            label: option.label,
+          };
+          modal.style.display = "none";
+          modal.setAttribute("aria-hidden", "true");
+          resolve(window.playerChoices[card.id]);
+        },
+        { once: true },
+      );
+      options.appendChild(button);
+      if (index === 0) requestAnimationFrame(() => button.focus());
+    });
+  });
 }
 
 // --- Players ---
@@ -587,7 +691,14 @@ function playAI2Card() {
 }
 
 let emptyDeckStreak = 0;
-function playPlayerCard(index) {
+async function playPlayerCard(index) {
+  const selectedCard = player.hand[index];
+  if (!selectedCard) return;
+
+  if (CHOICE_CARD_OPTIONS[selectedCard.id]) {
+    await promptForCardChoice(selectedCard);
+  }
+
   const chosenCard = player.hand.splice(index, 1)[0];
   if (!chosenCard) return;
 
