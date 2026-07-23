@@ -494,9 +494,18 @@ function updateGameInfo() {
   const infoDiv = el("gameInfo");
 
   if (!infoDiv) return;
+
+  const playerHeading = el("playerCompanyHeading");
+  if (playerHeading) {
+    playerHeading.textContent = `Your company: ${player.name}`;
+  }
+
   infoDiv.innerHTML = `
-    <strong>${player.name}</strong><br>
-    Progress: ${player.progress},<br> RAI points: ${player.sustainability}<br>
+    <div class="company-summary player-company">
+      <span class="you-badge">YOU</span>
+      <strong>${player.name}</strong><br>
+      Progress: ${player.progress},<br> RAI points: ${player.sustainability}<br>
+    </div>
     Actions: ${renderCards([...player.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br></br>
 
     <strong>${AI1.name}</strong><br>
