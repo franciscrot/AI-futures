@@ -1,594 +1,392 @@
 // deck.js
 window.deck = [
   // ================================
-  // 30 ACTION CARDS
+  // 37 ACTION AND CHOICE CARDS
   // ================================
   {
     id: 1,
-    name: "1: Optimise visuals, video, and media",
+    name: "1: We estimate and track AI environmental impacts",
     type: "action",
-    description: `* Use fewer images where possible.
-* Compress images using tools like ShortPixel, TinyPNG, or ImageOptim.
-* Prefer efficient formats: SVG for icons, WEBP or AVIF over JPG or PNG.
-* Enable lazy loading to defer offscreen media.
-* Use responsive image markup or an image resizing API to serve the right resolution for each device.
-* Experiment with shallow depth of field, constrained colour palettes, and dark mode styling.
-* Write good alt text to enhance accessibility and SEO.
-* Optimise video: limit autoplay, compress with Handbrake.fr, and avoid high-resolution defaults.
-* Choose green video platforms—YouTube and Vimeo may not be optimal; explore Mave.io.
-* Prefer WebM and MP4 over MOV and AVI, depending on compression and resolution needs.`,
-    tooltip: "Optimise visuals, video, and media",
-    links: `* Sustainable Website Tips in the DHCC Toolkit  
-* Try Shortpixel, TinyPNG, ImageOptim, or ImageAlpha for image compression.  
-* Use Handbrake.fr to compress video.  
-* Explore greener video platforms like Mave.io.`,
+    description: "* We track impact across training, inference, and infrastructure, using tools like CodeCarbon, ML CO₂ Impact, and the AI Energy Star league table. We engage with groups like the Green Software Foundation and EGDC.\n* We acknowledge measurement limitations, but without letting uncertainty delay action.",
+    tooltip: "We estimate and track AI environmental impacts",
     imagePath: "images/1.jpg",
     effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 2,
-    name: "2: Use green web development practices",
+    name: "2: We know ‘AI’ isn't just one thing (especially environmentally)",
     type: "action",
-    description: `* Minify HTML, CSS, and JavaScript to reduce page size and energy use.
-* Use clean, efficient code—avoid unnecessary complexity or outdated libraries.
-* Cache assets effectively with proper headers and a CDN.
-* Benchmark page performance with tools like Lighthouse or EcoGrader.
-* Prefer static site generators or server-side rendering where appropriate.
-* Use lightweight fonts, limit custom animations, and avoid oversized frameworks.
-* Electricity Maps offers a global carbon intensity API to make your front end carbon-aware.`,
-    tooltip: "Develop greenly!",
+    description: "* We understand that different AI types—e.g. generative vs. discriminative, large vs. small models—can have vastly different environmental costs.\n* We avoid misleading comparisons, avoid AI greenwashing, and make informed decisions about when and what kind of AI is appropriate—or whether it’s needed at all.",
+    tooltip: "We know ‘AI’ isn't just one thing (especially environmentally)",
     imagePath: "images/2.jpg",
-    effect(player, AI1, AI2) { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 3,
-    name: "3: Streamline user journeys",
+    name: "3: We use and improve sustainability standards",
     type: "action",
-    description: `* Simplify site structure—reduce the number of clicks to reach important content.
-* Delete outdated or redundant content to reduce load and confusion.
-* Use a clear visual hierarchy with consistent design elements and obvious calls to action.
-* Add a search function to help users find content directly.
-* Minimise energy-intensive interactions (e.g. unnecessary reloads or live updates).
-* Test your website’s usability and fix inefficient navigation flows.`,
-    tooltip: "Simplify user journeys! If you like, describe how terrible it was before, and how amazing it is now.",
-    imagePath: "images/6.jpg",
-    effect() { }
+    description: "* We consult existing AI sustainability standards (e.g. AI Energy Star, ISO, ITU, IEEE) while acknowledging gaps and limits.\n* We push for stronger standards, and more mandatory disclosures.\n* We do our bit to ensure major cloud providers are fully transparent about their data centers.",
+    tooltip: "We use and improve sustainability standards",
+    imagePath: "images/3.jpg",
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 4,
-    name: "4: Audit your digital dependencies",
+    name: "4: We embed sustainability in AI development, deployment, and evaluation",
     type: "action",
-    description: `* Review all third-party plugins, libraries, and trackers on your site.
-* Ask: what functionality is truly needed? What’s redundant?
-* Consider replacing heavyweight frameworks (like full Bootstrap) with lighter or modular alternatives.
-* Use only the parts of libraries you need—avoid default imports that load unused code.
-* Replace library functionality with plain CSS or JavaScript if possible.
-* Audit cookies, analytics scripts, and embedded services that may load external resources.`,
-    tooltip: "Audit those dependencies! If you want, describe some of the weird unnecessary stuff you decided to remove.",
-    imagePath: "images/3.jpg",
-    effect() { }
+    description: "* We evaluate AI models using environmental metrics, not just accuracy or latency.\n* We adopt GreenOps / Sustainable DevOps, integrating sustainability into CI/CD.\n* We favour right-sized intelligence and use smaller, distilled, sparse, and/or federated models.",
+    tooltip: "We embed sustainability in AI development, deployment, and evaluation",
+    imagePath: "images/4.jpg",
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 5,
-    name: "5: Build green CI/CD pipelines",
+    name: "5: We use grid-aware computing and 24/7 CFE",
     type: "action",
-    description: `* Optimise CI/CD pipelines: remove redundant builds, cache dependencies, and reduce test duplication.
-* Use carbon-aware scheduling—trigger builds during periods of low grid carbon intensity (Electricity Maps can help).
-* Explore GreenOps or Sustainable DevOps (SusDevOps) practices to track and control your carbon 'spend.'
-* Use infrastructure-as-code to modularise deployments, right-size instances, and enable auto-shutdown defaults.
-* Prefer serverless or event-based architectures for reduced idle time.`,
-    tooltip: "Build those CI/CD pipelines!",
+    description: "* We schedule compute to minimise environmental impact, and we select greener cloud regions.\n* We don’t add to grid volatility, and collaborate sectorally on demand shaping. We aim to use renewable energy that would otherwise be curtailed.\n* We also use 24/7 hourly matching, which encourages us to invest better in clean energy and storage",
+    tooltip: "We use grid-aware computing and 24/7 CFE",
     imagePath: "images/5.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 6,
-    name: "6: Choose sustainable tools, languages, and architectures",
+    name: "6: We use lean AI development",
     type: "action",
-    description: `* Write efficient code—avoid bloated logic, excessive loops, or unnecessary calls.
-* Be cautious of vibe coding and any AI-generated code.
-* Consider low-energy languages like Rust and Go.
-* Avoid overprovisioning infrastructure; right-size your deployments.
-* Explore serverless, container-based, or autoscaling architectures to reduce waste.
-* Explore sustainable software resources from Green Software Foundation, Green Web Foundation, and Green Coding Solutions.`,
-    tooltip: "Choose sustainable tools, languages, and architectures!",
-    imagePath: "images/4.jpg",
-    effect() { }
+    description: "* We design AI systems to be efficient by default. We reduce compute in experimentation.\n* We favour transfer learning, early stopping, and targeted benchmarking over brute-force tuning.\n* We use methods like LoRA and adapter layers, tools like Optuna or Ray Tune, strategies like Successive Halving or Hyperband.",
+    tooltip: "We use lean AI development",
+    imagePath: "images/6.jpg",
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 7,
-    name: "7: Avoid wasteful or disproportionate methods in data science / ML",
+    name: "7: We don’t greenwash our carbon accounting",
     type: "action",
-    description: `* Measure emissions with tools like CodeCarbon (directional) and GPU/DCGM telemetry at the cluster level.
-* Check out the AI Energy Score project: https://huggingface.co/spaces/AIEnergyScore/Leaderboard.
-* Track energy at service-tier granularity (OpenTelemetry, power meters).
-* Prefer reuse to retraining: PEFT, LoRA, RAG, retrieval pipelines, prompt engineering.
-* BUT consider that a smaller, specialist model might be better in the long-term than a more general purpose one.
-* Use model distillation to reduce size and energy cost.
-* Optimise training cycles: reduce search space, limit tuning passes, and choose efficient architectures.
-* Streamline data movement by cleaning ETL pipelines and avoiding dataset over-fetching.
-* Try out GSF's Software Carbon Intensity (SCI) to define emissions relative to a task.`,
-    tooltip: "If you're training models, describe how you’re making them leaner and greener.",
+    description: "* We provide both location-based data and market-based data about our carbon emissions\n* We don’t base our green claims on inexpensive carbon credits, renewable energy credits, or “carbon matching”\n* We work with specialists like Greenpixie, to keep ourselves and our customers informed, and improve our emissions data",
+    tooltip: "We don’t greenwash our carbon accounting",
     imagePath: "images/7.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 8,
-    name: "8: Know which everyday activities are fine",
+    name: "8: We embed sustainability and responsibility in procurement",
     type: "action",
-    description: `* Try to foster a rough awareness of big, medium, small, and teeny-tiny impacts.
-* Then we can pick our battles. People’s attention and energy is limited, and nobody likes being guilt-tripped: let’s focus on the behaviour changes that really matter.
-* You may have heard the advice not to send ‘thank you’ emails, to save carbon. But a typical short text email has a completely miniscule impact compared to a single Google search or a ChatGPT query.
-* This advice is really a way to individualise responsibility, and a distraction from working together to drive real change.
-`,
-    tooltip: "Sweat the servers, but don't sweat the small stuff!",
+    description: "* Our policies treat carbon cost like financial cost, integrating it into KPIs and ESG reporting.\n* We favour data centres that disclose sustainability data, reuse heat, and run on renewables.\n* We’re working in a system that wasn’t necessarily sustainable nor responsible before AI came along – we don't defend the status quo.",
+    tooltip: "We embed sustainability and responsibility in procurement",
     imagePath: "images/8.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 9,
-    name: "9: Use efficient internet connections",
+    name: "9: We begin with the end in mind",
     type: "action",
-    description: `* Cellular data connections (like 4G and 5G) use more energy than WiFi.
-* WiFi uses more energy than ethernet connections (plugging your device in).
-* Plug in when you can!`,
-    tooltip: "Plug in!",
+    description: "* We retire models, datasets, and infrastructure when their risks or impacts outweigh their value.\n* We plan for decommissioning from the start. We archive frugally and responsibly.\n* We typically “sweat” assets (keep hardware running for a long time), though sometimes there is a good case for passing them on or recycling them a bit earlier.",
+    tooltip: "We begin with the end in mind",
     imagePath: "images/9.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 10,
-    name: "10: Optimise our WiFi network",
+    name: "10: We reject AI growth as a default",
     type: "action",
-    description: `* We use off-peak profiles (e.g. reduced transmit power, narrower channels, scaled PoE), so the network can run in a lighter mode when usage is low.
-* We enable seamless roaming and channel optimisation (e.g. 802.11r/k/v, automatic channel selection) to help reduce retries, interference, and redundant coverage.
-* We treat switching and PoE as managed power systems—set realistic per-port budgets, avoid 'always-on high,' and adjust using telemetry (e.g. retry rates, RF noise, client counts, coverage).
-* For small labs, home offices etc., we experiment with predictable low-power / sleep schedules, enable beamforming and dynamic channels, and experiment with Energy Efficient Ethernet (802.3az) and PoE right-sizing.
-`,
-    tooltip: "Optimise that WiFi network!",
+    description: "* More AI is not the only way. We test low-tech, human, and organisational fixes before adding compute.\n* We reject scaling up models just for the sake of more scale. We reject arms-race growth, choose the smallest model that works.\n* We retrain models only when the material footprint is justified.\n* We don’t let AI growth derail progress toward our net zero date.",
+    tooltip: "We reject AI growth as a default",
     imagePath: "images/10.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 11,
-    name: "11: Don't store data we don't need",
+    name: "11: We ground our AI practice in shared values",
     type: "action",
-    description: `* We define what 'needed' means and delete or archive everything else — we mostly avoid 'just in case' storage.
-* We use automated lifecycle rules (e.g. 30/90/180-day expiry) on temp folders, staging buckets, caches, logs, and model outputs, so unused files don’t accumulate.
-* We run regular clean-ups with visual tools (e.g. WinDirStat, TreeSize, Baobab, ncdu) to surface '“dark data' such as duplicates, abandoned exports, and old checkpoints.
-* We are so good at naming conventions and metadata. We actually know what most things are.
-* We prioritise the biggest storage consumers first — large media, datasets, experiments, and exports. We don't spend ages manually reading and deleting text files.`,
-    tooltip: "Does this data spark joy?",
+    description: "* We define enterprise-wide principles. We align with frameworks like the EU AI Act, OECD AI Principles, and UNESCO recommendations.\n* We support initiatives like the Green Screen Coalition that push for phasing out fossil-fuelled computation.\n* We don’t enable violations of international law, even if we could get away with it.",
+    tooltip: "We ground our AI practice in shared values",
     imagePath: "images/11.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 12,
-    name: "12: Use near-line and off-line storage",
+    name: "12: We see ‘responsible’ and ‘trustworthy’ as starting points only",
     type: "action",
-    description: `* We keep long-term data we rarely access in near-line or offline “cold” storage (e.g. archive cloud tiers, magnetic tape, offline drives), instead of leaving it on hot, always-available systems.
-* We classify data by how often we actually use it — active data stays online; legacy research, past projects, and compliance archives move to slower, cheaper, lower-energy tiers.
-* We automate the move: after a set period (e.g. 90/180/365 days), data shifts from hot storage to archival tiers, so we don’t manually drag it around forever.
-* We document where it lives and how to retrieve it, so archives don’t turn into digital attics full of mystery folders.
-* You wouldn’t keep a kettle constantly boiling just in case you want tea.`,
-    tooltip: "Fancy a cuppa? It'll be done in 20 ticks!",
+    description: "* ‘Responsibility’ and ‘trustworthiness’ were often missing in society even before AI arrived.\n* Responsible to whom? Trustworthy for what future?\n* We try to take seriously what it might mean to earn people’s trust, especially the trust of groups who have long been exposed to harms.",
+    tooltip: "We see ‘responsible’ and ‘trustworthy’ as starting points only",
     imagePath: "images/12.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 13,
-    name: "13: Benchmark our digital activities",
+    name: "13: We go beyond ‘human in the loop’",
     type: "action",
-    description: `* We benchmark our digital footprint — we learn about the environmental impacts of the digital tools, cloud services, and workflows we rely on.
-* We use tools such as Digital Carbon Footprint (digitalemissions.org/dcf) and DIMPACT (dimpact.org) to estimate emissions from websites, streaming, cloud use, and online services.
-* For software and ML workloads, we experiment with estimators like CodeCarbon and Green Algorithms; for cloud platforms we try Cloud Carbon Footprint, provider dashboards (e.g. AWS, Azure, GCP sustainability reports), third party providers like Greenpixie.
-* We treat estimates as indicative: enough to reveal hotspots and guide sensible changes.
-* We re-run benchmarks when our tools, workloads, or hosting setups change, so improvements are not one-off.`,
-    tooltip: "Mark that bench! Bench that mark!",
+    description: "* ‘Humans in the loop’ can often become ‘scapegoats in the loop.’\n* The metaphor of a loop (an ongoing circuit of input, decision, oversight, and correction) doesn't describe many real-world AI systems.\n* We focus on real human agency. Where that’s not possible, we doubt automation is advisable.\n* So we don’t automate some things, even when there could be cost savings.",
+    tooltip: "We go beyond ‘human in the loop’",
     imagePath: "images/13.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 14,
-    name: "14: Extend our devices' life spans",
+    name: "14: We go beyond ‘garbage in, garbage out’",
     type: "action",
-    description: `* We extend our devices' life spans through repair, maintenance, and upgrades to reduce waste and cost.
-    * We prioritise repair over replacement. We buy extended warranties, choose repairable devices.
-    * We work with the sector to advocate for stronger 'right to repair' legislation.
-    * We work with charities and communities to host Restart Parties and repair cafes.
-* We protect against avoidable damage with sturdy cases, bumpers, and screen protectors.
-* We look after batteries and components by using and storing devices within the recommended temperature range (cool, dry, out of direct sun) and by avoiding long periods of charging in hot environments.
-* We use built-in battery health features (e.g. charge-limit or 'optimised charging' settings) so devices don’t sit at 100% charge all the time, helping batteries last longer.
-* We invest in IT support.`,
-    tooltip: "What's the oldest most post-apocalyptic looking piece of junk in your organisation?",
+    description: "* Sure, garbage in can mean garbage out. But good data can also produce garbage!\n* We acknowledge AI systems can introduce new biases, not just reflect those in the training data.\n* We audit for algorithmic bias and consult impacted groups. We regularly evaluate performance disparities across groups. Fairness is an ongoing process.",
+    tooltip: "We go beyond ‘garbage in, garbage out’",
     imagePath: "images/14.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 15,
-    name: "15: Use Life Cycle Analysis (LCA)",
+    name: "15: We support explainability, interpretability … and more",
     type: "action",
-    description: `* We use Life Cycle Analysis (LCA) to understand the environmental impacts of our digital systems from end to end — not just energy use, but also hardware production, infrastructure, and end-of-life.
-* LCAs work pretty well for physical products (e.g. minerals → manufacturing → shipping → use → disposal), but they are harder for software. We collaborate on developing shared methodologies and standards.
-* We use recognised frameworks such as ISO 14040/14044 and ISO 14067, and datasets like ecoinvent or the European Life Cycle Database, to estimate embodied impacts in hardware and infrastructure.
-* For the use-phase of compute, we experiment with tools such as Green Algorithms or telemetry-based methods (not as full LCAs, but to understand how runtime, GPU/CPU usage, and location can influence carbon emissions).
-`,
-    tooltip: "Analyse, analyse, as though your Life Cycle depended on it!",
+    description: "* We use technical interpretability methods—like LIME, SHAP, and counterfactuals—and sometimes choose simpler models for clarity.\n* There are bigger questions too. Who gets to see how the AI works, question it, or contest it?\n* Interpretability isn’t just about seeing inside the black box. It is also about really empowering those who are impacted.",
+    tooltip: "We support explainability, interpretability … and more",
     imagePath: "images/15.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 16,
-    name: "16: Advocate for right to repair",
+    name: "16: When we use AI, it is robust",
     type: "action",
-    description: `* Manufacturers must provide spare parts, documentation, diagnostics, and firmware access for the full realistic lifespan of devices.
-* We push to outlaw digital lock-in tactics (such as parts pairing, undocumented serialisation, and software gating that make independent repairs risky).
-* We advocate for anti-obsolescence regulation, preventing companies from bricking usable hardware through e.g. forced updates.
-* We push for incentives like repair vouchers, subsidised community repair networks, mandatory repairability indices, minimum support periods, to make repair actually cheaper and easier.
-* We work against a culture of planned obsolescence.
-* On the software side, we advocate for greater interoperability, the right to exit, and the 'end-to-end' principle, and against platform lock-in and enshittification.
-`,
-    tooltip: "More cyberpunk policy!",
+    description: "* We stress-test models for edge cases, monitor for drift, and validate through acceptance testing and domain alignment.\n* We prepare for adversarial attacks, unexpected inputs, and traffic surges, with clear retraining and rollback thresholds.\n* Our systems are built to fail safely when needed.",
+    tooltip: "When we use AI, it is robust",
     imagePath: "images/16.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 17,
-    name: "17: Improve our e-waste recycling",
+    name: "17: We resist techno-solutionism and scientism",
     type: "action",
-    description: `* Many electronics cannot be fully recycled, and informal channels often recover only valuable metals before dumping toxic remains.
-* We work with certified recyclers that publish transparent downstream flows (e.g. R2, e-Stewards) and comply with standards like WEEE, not dodgy brokers.
-* We prioritise reuse and repair first, because most e-waste ends up downcycled (mixed plastics, residual metals) or becomes hazardous waste even in legal facilities.
-* We acknowledge how informal e-waste work emerges as a practical response to colonial power relations, and our decision-making supports labour in the Global South.
-* We expect manufacturers to design for safe disassembly and to share end-of-life responsibility.`,
-    tooltip: "E-waste not e-want not?",
+    description: "* We resist the overreach of scientific ‘authority’ into domains where it doesn't belong.\n* Drawing on Critical AI Studies and Science and Technology Studies (STS), we are alert to how eugenics and scientific racism play out in AI's predictive logics, classifications, and optimisation goals.",
+    tooltip: "We resist techno-solutionism and scientism",
     imagePath: "images/17.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 18,
-    name: "18: Design for humans, not angels",
+    name: "18: We disclose purpose, risks, and environmental impacts of our AI models",
     type: "action",
-    description: `* We encourage sustainable habits, but we don’t rely on goodwill alone. People are busy, distracted, and pressured. Systems must support them rather than just guilt-trip them.
-* When employees meet obstacles in trying to work sustainably, we have credible mechanisms for capturing these obstacles and acting on them.
-* We redesign policies, tools, and defaults to make sustainable choices the path of least resistance.`,
-    tooltip: "Who are some of the humans in YOUR organisation?",
+    description: "* We document model training data provenance, intended uses, limitations, and sustainability risks.\n* Our model cards include energy use, emissions estimates, and infrastructure dependencies.\n* We estimate our AI footprint even when data is missing and press vendors to improve transparency.",
+    tooltip: "We disclose purpose, risks, and environmental impacts of our AI models",
     imagePath: "images/18.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 19,
-    name: "19: Check suppliers for greenwashing",
+    name: "19: We address inequality in data supply chains",
     type: "action",
-    description: `* Our suppliers claim to be sustainable, but we do our own detective work, drawing on resources such as Corporate Responsibility Monitor and Zero Carbon Analytics.
-* We watch out for classic greenwashing, e.g. leaving out parts of Scope 3, reporting only carbon while ignoring other greenhouse gases, picking a convenient baseline year, or publishing market-based emissions while hiding location-based emissions.
-* We scrutinise “carbon neutral” pledges and offsetting schemes — we know all about the dodgy additionality of many voluntary carbon credits and clean energy certificates.
-* Regulatory capture can also function as greenwashing. We watch out for big tech's influence on carbon accounting (GHG Protocol), the standards and certifications that signal sustainability.
-* We learn from people doing serious work in this space — Cathleen Berger, Holly and Will Alpine, Mark Butcher, Chris Adams — so we can read sustainability claims clearly instead of getting bamboozled by methodological complexity.`,
-    tooltip: "Crack this case wide open!",
+    description: "* We consider who labels, annotates, or generates data—and under what conditions.\n* We recognise and act on the issues of data colonialism, extractive practices, and undervalued labour.\n* It’s a messy landscape. We actively engage our own AI providers, their cloud providers, and our cloud providers.",
+    tooltip: "We address inequality in data supply chains",
     imagePath: "images/19.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 20,
-    name: "20: Pivot to policy",
+    name: "20: We democratise our AI",
     type: "action",
-    description: `* When we hit sustainability problems that can't be solved at the company level, we don’t stop there. We turn those experiences into evidence and push for policy changes.
-* We share what we learn with the sector, with regulators, standards bodies, trade groups, and civil society, so structural barriers (e.g. supply chains, infrastructure, pricing) can be addressed, not just patched internally.
-* Our Chief Sustainability Officer is constantly campaigning for decisions to be taken out of their hands, for more things to be made mandatory.
-* We recognise that what we want and need as humans may be different from what we need as stakeholders of our organisation. We remember that our organisation is made of people who care about the future, and we act together when private fixes are not enough.
-`,
-    tooltip: "Grab your big policymaker net and go a-huntin'!",
+    description: "* We include frontline workers, communities, and non-technical voices in AI governance, using participatory mechanisms like Citizens’ Assemblies with real authority.\n* Our cross-functional committees are resourced, supported, and empowered to influence outcomes. We use inclusive planning methods, and revisit goals regularly",
+    tooltip: "We democratise our AI",
     imagePath: "images/20.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 21,
-    name: "21: Pivot to protest",
+    name: "21: We oppose data surveillance and champion autonomy",
     type: "action",
-    description: `* We foster real collaboration with climate and digital-rights activists.
-* We learn from movements like Artists Against AI and the Green Screen Climate Justice & Digital Rights Coalition, which expose extractive AI practices, resist unconsented training, and organise workers to protect cultural and ecological futures.
-* Grassroots environmentalists have always played a key role in fighting greenwashing and getting climate science adopted by policymakers.
-* We stand with those building alternatives rather than insisting everything must be solved inside the organisation.`,
-    tooltip: "Who in your organisation is really not on board with this?",
+    description: "* We set firm boundaries around biometric, predictive, and behavioural monitoring.\n* We offer opt-outs and maintain human-in-the-loop alternatives to automated decision-making.\n* How do we do this?",
+    tooltip: "We oppose data surveillance and champion autonomy",
     imagePath: "images/21.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 22,
-    name: "22: Understand green energy procurement",
+    name: "22: We know ourselves better than AI ever could",
     type: "action",
-    description: `* We don’t treat '100% renewable' claims as proof of decarbonisation, but ask whether suppliers use RECs/REGOs, PPAs, green tariffs, etc. 
-* We want 24/7 (hourly + locational) matching, although we also know this isn't going to solve everything.
-* We want both market-based data (which includes the 'offsetting' of purchased clean energy instruments) and location-based data (which is based on estimates of actual emissions from the local grid).
-* We base our decisions on additionality: our procurement should help create new renewable capacity or displace fossil generation, not just reassign existing clean energy from someone else.
-* We know PUE isn't everything. A data centre packed inefficient idling servers with no heat recycling, replaced every six months, entirely fuelled by the dirtiest coal you've seen in your life, can still have a lovely low PUE.
-* We are aware of the politics of carbon accounting, including the role big tech are playing in initiatives like the GHG Protocol (e.g. Scope 2) and SBTi, and controversies around 24/7 matching and project-based emissions.`,
-    tooltip: "What's on your procurement questionnaire?",
+    description: "* Affective computing, emotion recognition, and sentiment analysis risk reducing complex human experience to e.g. facial movements, vocal tones, or social media syntax.\n* We reject the idea that AI can truly “read” emotions or inner states.",
+    tooltip: "We know ourselves better than AI ever could",
     imagePath: "images/22.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 23,
-    name: "23: Measure our carbon for AI and the cloud",
+    name: "23: We actually use AI to reduce drudgery",
     type: "action",
-    description: `* When we started our digital sustainability journey, we used IT spend and Emissions Factors to estimate emissions. How far we've come!
-    * We get good estimates of the carbon emissions of our digital work, especially AI and cloud, using tools like CodeCarbon, Green Algorithms, and Cloud Carbon Footprint.
-* The big cloud datas provide some data on the carbon implications of our cloud usage, but we're constantly on their case to improve their tools (more accurate, timely, transparent, and granular data please!).
-* We track where and when workloads run, because grid carbon intensity changes by region and hour.
-* We recognise limitations, and we model what's missing as best we can: embodied carbon in devices, data centres and network infrastructure, indirect and systemic impacts, rebound effects, demand substitutions, enabled emissions, environmental pressures and harms such as water use and biodiversity loss.`,
-    tooltip: "How big is your AI carbon footprint? And how long are the footnotes?",
+    description: "* We come together as workers and listen to one another’s experiences, hopes and fears.\n* We assess how AI affects job quality, task design, and employment structures, and link automation to work experience, retraining, equity planning, and worker wellbeing.\n* We engage with post-work theory (which, by the way, is badly named).\n* We are suspicious of AI snake-oil!",
+    tooltip: "We actually use AI to reduce drudgery",
     imagePath: "images/23.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 24,
-    name: "24: Use grid-aware demand management",
+    name: "24: Our interfaces encourage reflection on the materiality of AI",
     type: "action",
-    description: `* We practice grid-aware computing (see also carbon-aware computing). We schedule digital workloads at environmentally optimal times and places.
-* We use greener cloud regions (spatial demand shifting).
-* When possible, we run heavy compute during periods of renewable surplus (temporal demand shifting) — when the wind is blowing, the sun is shining, and clean energy would otherwise be curtailed or wasted.
-* We explore tools like the Green Software Foundation’s Carbon Aware SDK (and services such as Carbonrunner.io) to help shift non-urgent workloads across time or region, instead of running everything immediately.
-* We are cautious not to add  more volatility to the grid, and we understand that the long-term, systemic aim is to have a predictable, smooth demand curve (sudden peaks can bring coal-fired peaking plants online).
-* We also explore demand shaping: changing the nature of what we serve, according to the carbon intensity of the grid. For example, images on our website are opt-in when the grid is not green. We've got really good at alt text descriptions too.`,
-    tooltip: "On a scale of 1 to 5, how aware are you of grid?",
+    description: "* We help users (and developers) understand the material reality of AI-powered features\n* AI is made out of silicon, steel, nickel, copper, aluminium, water, human labour, e-waste, electricity from gas or from sunshine, and more …",
+    tooltip: "Our interfaces encourage reflection on the materiality of AI",
     imagePath: "images/24.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 25,
-    name: "25: Know when not to use AI",
+    name: "25: We build alternatives to concentrated compute",
     type: "action",
-    description: `* We have lots of ways of saying no to AI. It could be the outcome of an AI Impact Assessment, or of a stakeholder consultation, or a carbon footprinting tool, for example.
-    * We resist AI when it has disproportionate environmental costs, replaces human relationships, extracts labour unfairly, exploits datasets in ethically dubious ways, or expands data surveillance.
-* When the AI version and the no-AI version are evenly matched, we usually go with the no-AI version. 
-* We recognise the value of keeping traditional skills, approaches, and systems alive and kicking. We invest in people-powered, low-tech, and community-led alternatives that preserve autonomy and dignity over automation and escalation.
- `,
-    tooltip: "Human says no!",
+    description: "* We demand greater transparency about what’s actually going on in big hyperscaler data centers.\n* PUE isn’t everything. A data center packed with inefficient idling servers, with no heat recycling, replaced every six months, entirely fuelled by the dirtiest coal you've seen in your life can still have a great low PUE.\n* Sharing compute resources is good, but the oligopolistic cloud is not.",
+    tooltip: "We build alternatives to concentrated compute",
     imagePath: "images/25.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 26,
-    name: "26: Understand different kinds of AI",
+    name: "26: We include refusal as an option",
     type: "action",
-    description: `* We know that different AI systems have radically different footprints.
-    * Foundation models can be thousands of times heavier than small classifiers or fine-tuned specialist models.
-* We recognise the difference between big general-purpose generative models, mid-size task-tuned models, discriminative models, and traditional ML. 
-* We choose the smallest tool that solves the problem.
-* We dismiss dubious research claiming to offset AI's environmental costs with speculative environmental benefits, and recognise that AI is not 'self-offsetting' at the global level.
-`,
-    tooltip: "Ah, the elusive lesser spotted red-crested GPT-3!",
+    description: "* We have the power to not use AI.\n* We accept “not building AI” or “not using AI” as a valid outcomes of ethical review, and other processes.\n* We establish clear no-go zones where AI’s risks or impacts outweigh their benefits.",
+    tooltip: "We include refusal as an option",
     imagePath: "images/26.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 27,
-    name: "27: Align measurement to maturity",
+    name: "27: We build and support convivial alternatives",
     type: "action",
-    description: `* Measurement can be tough, so we start simple, by using spend-based Emissions Factors (e.g. £1 on cloud = X kg CO₂e) as a rough proxy. Factors are available from national inventories, DEFRA/BEIS, and maybe some cloud provider dashboards.
-* As time goes by, we improve our measurement methodology. We don't want to let the challenges of measurement delay taking action.
-* Spend is not the same as emissions, price signals can change (discounts, vendor deals, procurement quirks), and high-cost services can be low-carbon while low-cost services can be dirty.
-* As we mature, we move from spend-based estimates to activity-based measurements: actual energy use, grid carbon intensity by region and hour, workload footprints, embodied emissions of hardware, and lifecycle impacts.
-* We improve measurement to make good decisions, like fewer unnecessary workloads, better scheduling, greener hosting choices, longer device lifetimes, and procurement that rewards real decarbonisation.
-* Conventionally people talk about 'measurement,' although technically speaking a lot of this stuff is actually 'estimating' or 'modelling.'`,
-    tooltip: "Cut your coat according to your carbon!",
+    description: "* We reduce reliance on extractive AI.\n* We invest in people-powered, low-tech, and hybrid systems.\n* We explore local, decentralised, and mutual-aid alternatives, as well as truly public hyperscale data centers.\n* We embrace friction. We challenge the assumption that faster is always better.\n* We explore decomputing. Where possible, we disconnect.",
+    tooltip: "We build and support convivial alternatives",
     imagePath: "images/27.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 28,
-    name: "28: Get ready for more carbon tax",
+    name: "28: We practice dissent and disobedience",
     type: "action",
-    description: `* To future-proof our organisation, we have introduced an internal carbon price.
-* Carbon taxes increase costs for carbon-intensive operations. They reduce emissions by making polluting options more expensive, and they also generate public revenue that can fund climate mitigation or adaptation.
-* We track border measures like the Carbon Border Adjustment Mechanism (CBAM), which aims to prevent 'carbon leakage' when production shifts to countries with weaker regulations. But we recognise serious concerns about its effects on Global South exporters and trade justice.
-* Carbon taxes are one way of trying to impose a 'price on carbon.' Other mechanisms include cap-and-trade schemes (where companies have a government-mandated carbon allocation, and heavily polluting companies can buy the surplus credits from cleaner companies.`,
-    tooltip: "How much is that carbon in the window?",
+    description: "* We support challenges to AI through whistleblowing, protest, refusal, and disruption.\n* While not everyone can take high-risk actions, we recognise civil disobedience, direct action, and workplace organising as legitimate resistance.\n* We find ways to make dissent safe, visible, and effective.",
+    tooltip: "We practice dissent and disobedience",
     imagePath: "images/28.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 29,
-    name: "29: Understand our place in the energy transition",
+    name: "29: We grow an AI abolitionist movement",
     type: "action",
-    description: `* We created a Net Zero Action Plan using a '5Ws' approach: What are we doing? Who benefits or bears cost? When do impacts occur? Where do emissions arise? Why are we doing this at all?
-* Where we use voluntary carbon credits, we follow a Beyond Value Chain Mitigation approach and report our footprint and our credit portfolio side by side. We don't subtract one from the other (you can't subtract apples from oranges).
-* We have begun to ask: is our core business model contributing to overconsumption or energy demand escalation? We're getting ready to change our core business.
-* Climate change is fundamentally a distributional problem. Emissions are not shared evenly. Research shows that millionaire lifestyles alone will consume around two-thirds of the remaining carbon budget by 2050.`,
-    tooltip: "Time for an organisational mid-life crisis?",
+    description: "* We work across sectors and scales to expand the repertoire of AI resistance—bringing together technologists, artists, organisers, educators, and more.\n* We prioritise practical solidarity over consensus, contesting AI on epistemic, economic, ecological, and ethical fronts.\n* Abolition means creating alternatives until AI, as we know it, abolishes itself.",
+    tooltip: "We grow an AI abolitionist movement",
     imagePath: "images/29.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 30,
-    name: "30: Update our procurement policies",
+    name: "30: We shift public narratives and build communicative power",
     type: "action",
-    description: `* We use procurement as a way of making change happen. Suppliers must answer clear sustainability questions about energy use, lifecycle impacts, labour practices, and AI risks.
-* We empower procurement teams to make sustainable purchases, even if it's not the cheapest option.
-* For hardware and hosting, we favour products and services with credible ecolabels and criteria (e.g. EPEAT, TCO Certified, EU Green Public Procurement for ICT, ITU-T L.1304 and SDCA for data centres) and we look for repairability, reuse, and circularity.
-* For cloud and AI services, we expect transparency on data centres (PUE, lifecycle impacts, location-based and market-based energy data), and we ask for governance artefacts like model cards, data provenance, and alignment with frameworks such as NIST AI RMF or ISO/IEC 42001.
-* We bake these expectations into procurement policies, RFPs, questionnaires and guidance, and contracts, train procurement staff to use them. We give sustainability a real weight in scoring, and we have ambitious sustainable procurement targets.`,
-    tooltip: "What cannot be procured must be endured.",
+    description: "* We invest in public interest communications that challenge AI inevitability and tech determinism. We campaign, educate, and tell better stories about AI and life without AI.\n* We use communications strategically to shift norms, sway policy, and support collective understanding and action.",
+    tooltip: "We shift public narratives and build communicative power",
     imagePath: "images/30.jpg",
-    effect() { }
+    effect(player, AI1, AI2) { /* optional */ }
   },
-
-  // ================================
-  // 30 EVENT CARDS
-  // ================================
-  // Event cards 31–60
   {
     id: 31,
-    name: "31: Web traffic increases",
-    type: "event",
-    description: `Web traffic increases: Gain a progress point for each of these actions: 1, 2, 3, 4, 5 and 6.`,
-    tooltip: "Progress Points for Actions 1, 2, 3, 4, 5, 6.",
+    name: "31: We collectivise the means of computation",
+    type: "action",
+    description: "* We organise citizens’ assemblies, and experiment with new democratic institutions.\n* We work toward shared ownership and democratic governance of computational infrastructure.\n* This includes public, cooperative, or municipal cloud provision, fair access to compute, and collective bargaining around data and energy use.",
+    tooltip: "We collectivise the means of computation",
     imagePath: "images/31.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [1, 2, 3, 4, 5, 6].forEach(id => { if (p.actionsPlayed.has(id)) bonus += 1; });
-        p.progress += bonus;
-      });
-    }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 32,
-    name: "32: Search engine results favour green web design",
-    type: "event",
-    description: `Search engine results favour green web design: Sustainable practices improve your site's rankings, rewarding your green efforts. Gain a Progress Point for each of these actions: 1, 2, 3, 4, 5, 6.`,
-    tooltip: "Progress Points for Actions 1, 2, 3, 4, 5, 6.",
+    name: "32: Post-growth AI",
+    type: "action",
+    description: "* We develop metrics and governance processes to ensure that digital growth serves ecological and social wellbeing rather than endless expansion.\n* We experiment with sufficiency-based KPIs, carbon and compute caps, and sunset clauses for high-impact digital projects.\n* We treat reduced computational demand and slower throughput as signs of progress, not failure.",
+    tooltip: "Post-growth AI",
     imagePath: "images/32.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [1, 2, 3, 4, 5, 6].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 33,
-    name: "33: Subsidies support digital sustainability",
-    type: "event",
-    description: `Subsidies support digital sustainability: Benefit as funding and incentives promote environmentally friendly practices. Gain a Progress Point for each of these actions: 8, 9, 12, 13.`,
-    tooltip: "Progress Points for Actions 8, 9, 12, 13.",
+    name: "33: Generality or Domain Specificity?",
+    type: "action",
+    description: "* Play this card to make a choice.\n* Do you prefer general purpose AI systems, that do lots of things?\n* Or do you prefer a range of smaller, specialist AI systems, each of which is good at one domain?\n* Of course, the line is blurry. A specialist model can pass on queries to other specialist models. A general purpose AI can have a federated architecture that switches between different models.",
+    tooltip: "Generality or Domain Specificity?",
     imagePath: "images/33.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [8, 9, 12, 13].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 34,
-    name: "34: Digital sustainability leadership is attracting and retaining the best talent",
-    type: "event",
-    description: `Digital sustainability leadership is attracting and retaining the best talent: Your green initiatives create a competitive advantage in recruitment. Gain a Progress Point for each of these actions: 8, 9, 11, 18.`,
-    tooltip: "Progress Points for Actions 8, 9, 11, 18.",
+    name: "34: Machine Meshes or Cloud Computing?",
+    type: "action",
+    description: "* Play this card to make a choice.\n* Do you prefer most compute to run on devices, with some devices sharing compute with other local devices (mesh networks)?\n* Or do you prefer cloud computing, considerable computational power that can be accessed remotely?\n* The cloud doesn’t necessarily have to run on the kind of hyperscaler data centers built by big tech in the 2020s. It could be a different model.",
+    tooltip: "Machine Meshes or Cloud Computing?",
     imagePath: "images/34.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [8, 9, 11, 18].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 35,
-    name: "35: Attitudes shift",
-    type: "event",
-    description: `Attitudes are shifting. More people embrace solarpunk, wabi sabi digital design, permacomputing, slow media, digital minimalism, unplugging, convivial technology, and decomputing. Convert Progress Points into Sustainability Points.`,
-    tooltip: "Progress Points converted into Sustainability Points!",
+    name: "35: What weirdly works?",
+    type: "action",
+    description: "* Play this card to make a choice.\n* A technology few people expected to work is working rather well. What is it?\n* Data centers in space and on the Moon?\n* Data centers built out of organic materials, partly powered by algae and mud batteries?\n* Something else? (You decide).",
+    tooltip: "What weirdly works?",
     imagePath: "images/35.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        p.sustainability += p.progress;
-        p.progress = 0;
-      });
-    }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 36,
-    name: "36: Climate activism is making an impact",
-    type: "event",
-    description: `Climate activists are significantly disrupting polluters, leading to tangible environmental benefits. Gain a Progress Point for each of these actions: 19, 21, 24, 25.`,
-    tooltip: "Progress Points for Actions 19, 21, 24, 25.",
+    name: "36: Sustainable AI or AI for Sustainability?",
+    type: "action",
+    description: "* Play this card to make a choice.\n* Do you focus on the environmental impacts of the AI systems you use, and try to reduce them? If so, how do you decide your boundary?\n* Or do you focus more on the efficiencies that AI might be able to provide, and find environmental benefits that way?\n* Sure, you can do both. But which is more important?",
+    tooltip: "Sustainable AI or AI for Sustainability?",
     imagePath: "images/36.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [19, 21, 24, 25].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect(player, AI1, AI2) { /* optional */ }
   },
   {
     id: 37,
-    name: "37: Listing rules change",
-    type: "event",
-    description: `Listing rules change: New regulatory criteria alter market dynamics for companies that fail to meet sustainability standards. Everyone loses all Progress Points unless they have played 17, 22, or 23.`,
-    tooltip: "Lose Progress Points unless you've played 17, 22, 23!",
+    name: "37: A bit cyborg, or very cyborg?",
+    type: "action",
+    description: "* Play this card to make a choice.\n* Does the encroachment of AI systems on the hum\n* Or do AI systems become an everyday technology that we rely on to perceive, reflect, and act?",
+    tooltip: "A bit cyborg, or very cyborg?",
     imagePath: "images/37.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        if (!p.actionsPlayed.has(17) && !p.actionsPlayed.has(22) && !p.actionsPlayed.has(23)) {
-          p.progress = 0;
-        }
-      });
-    }
+    effect(player, AI1, AI2) { /* optional */ }
   },
 
+  // ================================
+  // 44 EVENT CARDS
+  // ================================
+  // Event cards 38–81
   {
     id: 38,
-    name: "38: Boycott",
+    name: "38: Water Shortages",
     type: "event",
-    description: `An NGO leads a successful boycott campaign targeting digital sustainability practices that hinder progress. Convert all Progress Points to Sustainability Points.`,
-    tooltip: "Convert Progress Points to Sustainability Points!",
+    description: "* Droughts and heatwaves drive up the water costs of cooling data centres.\n* Communities begin to fight for priority.\n* Data centres cluster even more where there is natural cooling.",
+    tooltip: "Progress Points for Actions 1, 5, 24, 31.",
     imagePath: "images/38.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
-        p.sustainability += p.progress;
-        p.progress = 0;
+        let bonus = 0;
+        [1,5,24,31].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
       });
     }
   },
   {
     id: 39,
-    name: "39: Resource scarcity",
+    name: "39: Human-centred AI law",
     type: "event",
-    description: `Water scarcity: This card highlights challenges arising from limited water resources impacting digital infrastructure. All players lose all Progress Points unless they have played 11, 12, or 27.`,
-    tooltip: "Lose Progress Points unless you've played 11, 12, or 27.",
+    description: "* A new AI Act is very helpful\n* What does it include? Compute licences and carbon caps? Full-spectrum impact and lifecycle assessments? Dataset provenance and creator compensation? A universal algorithm register? Ethical procurement and energy labelling? Named human stewards? Reparations? Something else?",
+    tooltip: "Human-centred AI law",
     imagePath: "images/39.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        if (!p.actionsPlayed.has(11) && !p.actionsPlayed.has(12) && !p.actionsPlayed.has(27)) {
-          p.progress = 0;
-        }
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
-
   {
     id: 40,
-    name: "40: Price of carbon rises",
+    name: "40: New Cultures of AI",
     type: "event",
-    description: `Policymakers impose a price on carbon emissions, reflecting the true environmental cost of digital operations. Gain a Progress Point for each of these actions: 19, 23, 27, 28.`,
-    tooltip: "Gain Progress Points for Actions 19, 23, 27, 28.",
+    description: "* We begin to develop new social conventions around AI. What are they?\n* For example, at first genAI makes you sound professional. Then it makes you sound lazy or naïve.\n* Maybe we start to treat AI helpers like emotions? Or demons?",
+    tooltip: "New Cultures of AI",
     imagePath: "images/40.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [19, 28, 23, 27].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
     id: 41,
-    name: "41: New data storage medium",
+    name: "41: Resource Wars",
     type: "event",
-    description: `New data storage medium: Leverage emerging technologies to store data more efficiently and sustainably. Gain a Progress Point for each of these actions: 11, 12, 27, 30.`,
-    tooltip: "Event: Gain progress for actions 11, 12, 27, 30.",
+    description: "* Demand for lithium, cobalt, and Rare Earth Elements are sparking conflicts",
+    tooltip: "Progress Points for Actions 2, 4, 19, 24.",
     imagePath: "images/41.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
-        [11, 12, 30, 27].forEach(id => {
+        [2,4,19,24].forEach(id => {
           if (p.actionsPlayed.has(id)) bonus += 1;
         });
         p.progress += bonus;
@@ -597,15 +395,15 @@ window.deck = [
   },
   {
     id: 42,
-    name: "42: New e-waste laws",
+    name: "42: Automated Injustice",
     type: "event",
-    description: `A new law allocates responsibility for e-waste among producers, retailers, and corporate customers, driving greener practices. Gain a progress point for each of these actions: 24, 15, 16, 17.`,
-    tooltip: "Event: Gain progress for actions 14, 15, 16, 17.",
+    description: "* AI systems are worsening inequalities in policing, healthcare, banking, and other sectors",
+    tooltip: "Progress Points for Actions 12, 13, 19, 21.",
     imagePath: "images/42.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
-        [14, 15, 16, 17].forEach(id => {
+        [12,13,19,21].forEach(id => {
           if (p.actionsPlayed.has(id)) bonus += 1;
         });
         p.progress += bonus;
@@ -614,205 +412,112 @@ window.deck = [
   },
   {
     id: 43,
-    name: "43: Shareholder activism",
+    name: "43: The Law With Holes",
     type: "event",
-    description: `Shareholders mobilise, using their financial influence to push companies toward more sustainable practices. Convert all Progress Points into Sustainability Points.`,
-    tooltip: "Event: Convert all progress into sustainability.",
+    description: "* Bold, long-awaited AI legislation is passed!\n* But it just doesn’t really work\n* [Pose some interesting questions for the players]",
+    tooltip: "Progress Points for Actions 4, 22, 27, 32.",
     imagePath: "images/43.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
-        p.sustainability += p.progress;
-        p.progress = 0;
+        let bonus = 0;
+        [4,22,27,32].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
       });
     }
   },
   {
     id: 44,
-    name: "44: ESG gets a make-over",
+    name: "44: Automated Storm in a Teacup",
     type: "event",
-    description: `ESG gets a make-over: Modernise your environmental, social, and governance practices for better sustainability results. Gain a Progress Point for each of these actions: 7, 17, 20, 22.`,
-    tooltip: "Event: Gain progress for actions 7, 17, 20, 22.",
+    description: "* [Something about an unexpected social phenomenon]\n* [GenAI is magnifying everyone’s grievances, writing long, professional-sounding letters of concern about things that in the past would be brushed off]\n* [Why and what are the consequences]\n* [Add a couple memorable news stories]",
+    tooltip: "Automated Storm in a Teacup",
     imagePath: "images/44.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [7, 17, 20, 22].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
     id: 45,
-    name: "45: Low carbon tech disruptions",
+    name: "45: AI is Talking to AI",
     type: "event",
-    description: `Low carbon tech disruptions: Breakthroughs in low carbon technology create both opportunities and challenges. Lose all Progress Points unless you have played one of these actions: 10, 12, or 23.`,
-    tooltip: "Event: Players without actions 10, 12, or 23 lose all progress.",
+    description: "* People are outsourcing more and more of their lives to AI.\n* AI agents are talking to AI agents, both purporting to be real people, but their users are hardly aware of what they are doing.\n* [A couple memorable news stories.]",
+    tooltip: "AI is Talking to AI",
     imagePath: "images/45.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        if (![10, 12, 23].some(id => p.actionsPlayed.has(id))) {
-          p.progress = 0;
-        }
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
     id: 46,
-    name: "46: Reporting requirements tighten",
+    name: "46: Shadow AI",
     type: "event",
-    description: `Your organisation is now legally mandated to provide real-time reports on climate-related risks and opportunities. Gain a Progress Point for each of these actions: 7, 13, 15, 19.`,
-    tooltip: "Event: Gain progress for actions 7, 13, 15, 19.",
+    description: "* People are using AI more and more at work, and are being encouraged to do so.\n* But there’s an unexpected twist. Few people use it in the ways they are supposed to, and most people dissemble and deceive around their AI use.\n* Why?\n* What are the consequences?\n* [Add a couple memorable news stories]",
+    tooltip: "Shadow AI",
     imagePath: "images/46.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [7, 13, 15, 19].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
     id: 47,
-    name: "47: Impairment law gets a reboot",
+    name: "47: AI is Making Work",
     type: "event",
-    description: `Organisations must now disclose when an asset becomes stranded, triggering a swift revaluation of its worth. Gain a Progress Point for each of these actions: 14, 16, 18, 30.`,
-    tooltip: "Event: Gain progress for actions 14, 16, 30, 18.",
+    description: "* AI is helping with some work, but it’s also creating all kinds of new work nobody expected.\n* [Example of cleaning up after AI’s mess]\n* [Example of AI creating new work, more interesting and unexpected]\n* [Example, a different angle]\n* [Example, a different angle]\n* [And another example]",
+    tooltip: "AI is Making Work",
     imagePath: "images/47.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [14, 16, 30, 18].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
     id: 48,
-    name: "48: Climate impacts disrupt supply chains",
+    name: "48: Scapegoats in the Loop",
     type: "event",
-    description: `Global events interfere with production and logistics, challenging sustainable practices. Gain a Progress Point for each of these actions: 10, 16, 19, 25.`,
-    tooltip: "Event: Gain progress for actions.",
+    description: "* A new kind of career is emerging … scapegoat in the loop.\n* That’s not the official title. (What is the official title?)\n* But these are people whose whole job is to take the blame when an AI system goes wrong. Sometimes they get fired, but they get hired again pretty fast.",
+    tooltip: "Scapegoats in the Loop",
     imagePath: "images/48.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [19, 25, 16, 10].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
     id: 49,
-    name: "49: Global carbon price",
+    name: "49: No Wasted Heat",
     type: "event",
-    description: `As governments adjust policies, the true cost of carbon emissions becomes a market reality. Gain a Progress Point for each of these actions: 13, 23, 24, 28.`,
-    tooltip: "Event: Gain progress for actions.",
+    description: "* Districts are increasingly capturing datacentre waste heat for housing, agriculture, and even (weirdly) cooling in the summer\n* Governments are beginning to support this with targeted policy, and our organisation is a beneficiary",
+    tooltip: "No Wasted Heat",
     imagePath: "images/49.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [28, 23, 24, 13].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
     id: 50,
-    name: "50: Digital divide closes",
+    name: "50: AI for Climate Vaporware",
     type: "event",
-    description: `Digital divide closes: Increased digital access narrows socioeconomic gaps while accelerating progress. Gain a progress point for each of these actions: 14, 18, 26, 29.`,
-    tooltip: "Event: Gain progress for actions.",
+    description: "* Big tech has oversold AI’s power to tackle climate change\n* Some big wins are attributed to AI, but they may have happened even without it …\n* However, there are some successes. What are they?",
+    tooltip: "AI for Climate Vaporware",
     imagePath: "images/50.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        let bonus = 0;
-        [18, 26, 29, 14].forEach(id => {
-          if (p.actionsPlayed.has(id)) bonus += 1;
-        });
-        p.progress += bonus;
-      });
-    }
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
-
   {
     id: 51,
-    name: "51: Technological breakthrough",
+    name: "51: The New Luddites",
     type: "event",
-    description: `A technological breakthrough propels digital sustainability forward, opening up new pathways for progress. All players convert all Progress Points into Sustainability Points.`,
-    tooltip: "Event: Convert all progress into sustainability.",
+    description: "* The popular movement to refuse, resist, and disrupt AI grows in power",
+    tooltip: "Progress Points for Actions 2, 3, 4, 26.",
     imagePath: "images/51.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
-        p.sustainability += p.progress;
-        p.progress = 0;
+        let bonus = 0;
+        [2,3,4,26].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
       });
     }
   },
   {
     id: 52,
-    name: "52: Geopolitical disruption",
+    name: "52: The Library of Babel",
     type: "event",
-    description: `Global political shifts and conflicts influence sustainability policies and practices. Players who have not played actions 10, 18, or 29 lose all Progress Points.`,
-    tooltip: "Event: Players without actions 10, 18, or 29 lose all progress.",
+    description: "* Our shared sense of social reality is all but gone.\n* Everywhere you look, AI models are confidently hallucinating.\n* Deepfakes are flooding the feeds.\n* When you go to verify anything, the place you go is a deepfake too.",
+    tooltip: "Progress Points for Actions 21, 28, 29, 32.",
     imagePath: "images/52.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
-        if (![10, 18, 29].some(id => p.actionsPlayed.has(id))) {
-          p.progress = 0;
-        }
-      });
-    }
-  },
-  {
-    id: 53,
-    name: "53: Vaporware",
-    type: "event",
-    description: `xSpice's data center on the Moon is a flop, exemplifying overhyped technology failures. Players who have not played actions 8, 20, or 26 lose all Progress Points.`,
-    tooltip: "Event: Players without actions 8, 20, or 26 lose all progress.",
-    imagePath: "images/53.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        if (![8, 20, 26].some(id => p.actionsPlayed.has(id))) {
-          p.progress = 0;
-        }
-      });
-    }
-  },
-  {
-    id: 54,
-    name: "54: Global South Green New Deal",
-    type: "event",
-    description: `Ambitious policy initiatives empower emerging markets to drive sustainable growth. All players convert all Progress Points into Sustainability Points.`,
-    tooltip: "Event: Convert all progress into sustainability.",
-    imagePath: "images/54.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
-        p.sustainability += p.progress;
-        p.progress = 0;
-      });
-    }
-  },
-  {
-    id: 55,
-    name: "55: Tech giant fails to deliver",
-    type: "event",
-    description: `Tech giant Giggle fails to meet its decarbonisation pledges, undermining public trust in corporate sustainability promises. Gain a Progress Point for each of these actions you have played: 20, 21, 25, 30.`,
-    tooltip: "Event: Gain progress for actions 20, 21, 25, 30.",
-    imagePath: "images/55.jpg",
-    effect: function (player, AI1, AI2) {
-      [player, AI1, AI2].forEach(p => {
         let bonus = 0;
-        [20, 21, 25, 30].forEach(id => {
+        [21,28,29,32].forEach(id => {
           if (p.actionsPlayed.has(id)) bonus += 1;
         });
         p.progress += bonus;
@@ -820,16 +525,59 @@ window.deck = [
     }
   },
   {
-    id: 56,
-    name: "56: Negative emissions technologies are not scaling up",
+    id: 53,
+    name: "53: Exposed!",
     type: "event",
-    description: `Negative emissions technologies struggle to deliver, spotlighting the need for fundamental carbon reductions. Gain a Progress Point for each of these actions you have played: 20, 21, 24, 29`,
-    tooltip: "Event: Gain progress for actions.",
+    description: "* One of the other players / teams has not been entirely honest about their AI policies!\n* How was it revealed? A whistleblower? An undercover investigative journalist? A leaked Direct Message?",
+    tooltip: "Progress Points for Actions 7, 15, 22, 30, 25, 26, 27, 28.",
+    imagePath: "images/53.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [7,15,22,30,25,26,27,28].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 54,
+    name: "54: Rising Energy Demand",
+    type: "event",
+    description: "* AI’s energy demands are slowing the renewable energy transition\n* AI companies argue they are big investors in renewables! Is it true?\n* Meanwhile, AI is also enabling emissions by helping energy companies extract more fossil fuels",
+    tooltip: "Progress Points for Actions 1, 2, 5, 24.",
+    imagePath: "images/54.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [1,2,5,24].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 55,
+    name: "55: Nothing To Lose But Your Markov Chains",
+    type: "event",
+    description: "* Data annotators and content moderators are successfully organising across platforms, demanding fair pay, credit, and protection from psychological harm.",
+    tooltip: "Nothing To Lose But Your Markov Chains",
+    imagePath: "images/55.jpg",
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
+  },
+  {
+    id: 56,
+    name: "56: Cyberinsecurity",
+    type: "event",
+    description: "* AI tools are proving more useful for cyberattacks than they are for cybersecurity\n* Everyday digital systems become increasingly unreliable",
+    tooltip: "Progress Points for Actions 18, 28, 29, 31.",
     imagePath: "images/56.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
-        [20, 21, 29, 24].forEach(id => {
+        [18,28,29,31].forEach(id => {
           if (p.actionsPlayed.has(id)) bonus += 1;
         });
         p.progress += bonus;
@@ -838,30 +586,32 @@ window.deck = [
   },
   {
     id: 57,
-    name: "57: Geoengineering efforts are deferring carbon reduction",
+    name: "57: Right to Exit",
     type: "event",
-    description: `Geoengineering creates temporary fixes but delays meaningful carbon reductions. Lose all Progress Points unless you have played actions 21, 25, or 28.`,
-    tooltip: "Event: Players without actions 21, 25, or 28 lose all progress.",
+    description: "* Strong ‘right to exit’ legislation reshapes many digital platforms, including AI platforms\n* Users of platforms no longer feel trapped – it’s always easy to unsubscribe, and you can take your data with you",
+    tooltip: "Progress Points for Actions 10, 14, 16, 18.",
     imagePath: "images/57.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
-        if (![21, 25, 28].some(id => p.actionsPlayed.has(id))) {
-          p.progress = 0;
-        }
+        let bonus = 0;
+        [10,14,16,18].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
       });
     }
   },
   {
     id: 58,
-    name: "58: Carbon leakage",
+    name: "58: Optimised … to Death!",
     type: "event",
-    description: `Carbon leakage: Emissions shift across borders due to uneven regulatory environments. Gain a Progress Point for each of these actions you have played: 22, 26, 28, 29.`,
-    tooltip: "Event: Gain progress for actions 22, 28, 26, 29.",
+    description: "* A high-profile, AI-powered tragedy\n* The reward-hacking AI optimises a system, but removes crucial safety measures\n* What sector does this take place in? Agriculture? Health? Transport and logistics? Energy? Defence?",
+    tooltip: "Progress Points for Actions 8, 12, 20, 32, 4, 6, 10, 17.",
     imagePath: "images/58.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
-        [22, 28, 26, 29].forEach(id => {
+        [8,12,20,32,4,6,10,17].forEach(id => {
           if (p.actionsPlayed.has(id)) bonus += 1;
         });
         p.progress += bonus;
@@ -870,37 +620,340 @@ window.deck = [
   },
   {
     id: 59,
-    name: "59: Major climate impact",
+    name: "59: Predictive Policing",
     type: "event",
-    description: `Extreme weather events and systemic disruptions drive a sense of urgency in climate response. Lose all Progress Points unless you have played 10, 15, or 30.`,
-    tooltip: "Event: Players without actions 10, 15, or 30 lose all progress.",
+    description: "* Rebranding as “community analytics,” predictive policing is on the rise",
+    tooltip: "Progress Points for Actions 12, 19, 20, 31.",
     imagePath: "images/59.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
-        if (![10, 15, 30].some(id => p.actionsPlayed.has(id))) {
-          p.progress = 0;
-        }
+        let bonus = 0;
+        [12,19,20,31].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
       });
     }
   },
   {
     id: 60,
-    name: "60: Big policy shift",
+    name: "60: Algorithmic Governmentality",
     type: "event",
-    description: `Landmark changes in policy reshape global approaches to sustainability. All players convert all Progress Points into Sustainability Points.`,
-    tooltip: "Event: Convert all progress into sustainability.",
+    description: "* Industry, finance, and the public sector increasingly deploy AI systems to steer behaviour through nudges and micro-incentives",
+    tooltip: "Progress Points for Actions 11, 19, 20, 21.",
     imagePath: "images/60.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
-        p.sustainability += p.progress;
-        p.progress = 0;
+        let bonus = 0;
+        [11,19,20,21].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
       });
     }
-  }
+  },
+  {
+    id: 61,
+    name: "61: Demand Shifting and Shaping",
+    type: "event",
+    description: "* We’ve got really good at matching energy demand to energy supply\n* Demand shifting means doing computational workloads to where and when the demand is low\n* Demand shaping means we actually change the nature of what we do, depending on how green the grid is",
+    tooltip: "Demand Shifting and Shaping",
+    imagePath: "images/61.jpg",
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
+  },
+  {
+    id: 62,
+    name: "62: Decomputing",
+    type: "event",
+    description: "* Decomputing hits a social tipping point\n* After years of AI austerity, communities are getting serious about divestment and boycotting many AI systems, including using low-tech alternatives",
+    tooltip: "Decomputing",
+    imagePath: "images/62.jpg",
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
+  },
+  {
+    id: 63,
+    name: "63: Tech fails to decarbonise",
+    type: "event",
+    description: "* Tech giant Giggle is failing to meet its decarbonisation pledges\n* Instead Giggle, Necrosurf, and Glamazon are putting pressure on the GHG Protocol and SBTi to rewrite the rules for how carbon emissions are measured",
+    tooltip: "Progress Points for Actions 9, 23, 26, 27, 18, 20, 25, 31.",
+    imagePath: "images/63.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [9,23,26,27,18,20,25,31].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 64,
+    name: "64: The Plateau",
+    type: "event",
+    description: "* AI fails to deliver the exponential productivity gains predicted.\n* Organisations that capped their AI footprint and set compute budgets emerge stronger and more resilient.\n* Governments are under pressure to find more public sector AI use cases.",
+    tooltip: "Progress Points for Actions 6, 9, 10, 23.",
+    imagePath: "images/64.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [6,9,10,23].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 65,
+    name: "65: Anti-Monopoly Law",
+    type: "event",
+    description: "* True public cloud options emerge.\n* Structural separations split data, model, and compute ownership.\n* Interoperability becomes mandatory.\n* Procurement rules favour open, smaller systems.",
+    tooltip: "Progress Points for Actions 10, 14, 20, 29.",
+    imagePath: "images/65.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [10,14,20,29].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 66,
+    name: "66: Going Loopy",
+    type: "event",
+    description: "* People are not enjoying their new “human in the loop” roles\n* It turns out people prefer meaningful work to babysitting a lot of AI systems\n* Unions are organising, and employees are voting with their feet",
+    tooltip: "Progress Points for Actions 13, 15, 16, 32.",
+    imagePath: "images/66.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [13,15,16,32].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 67,
+    name: "67: The End of ESG",
+    type: "event",
+    description: "* ESG frameworks lose all credibility.\n* There are still those in industry and finance who believe in social and environmental accountability, but they’re left without tools and metrics.\n* What happens next?",
+    tooltip: "Progress Points for Actions 3, 8, 9, 30.",
+    imagePath: "images/67.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [3,8,9,30].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 68,
+    name: "68: Trouble Down at the Data Centre!",
+    type: "event",
+    description: "* Grassroots resistance is delaying new data centre projects, and even forcing existing data centres to shut down\n* The downturn affects the big “hyperscale” data centres, but small and medium data centres continue to flourish",
+    tooltip: "Progress Points for Actions 1, 5, 8, 16.",
+    imagePath: "images/68.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [1,5,8,16].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 69,
+    name: "69: A Drop of Poison",
+    type: "event",
+    description: "* Training data is being ‘poisoned’\n* AI models can be degraded, or their security is compromised\n* Who is doing it? Competitors, activists, somebody else?",
+    tooltip: "A Drop of Poison",
+    imagePath: "images/69.jpg",
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
+  },
+  {
+    id: 70,
+    name: "70: Voices",
+    type: "event",
+    description: "* AI systems are trained to “represent” the voices of forests, whales, bacteria, embryos, saints, gods, ancestors, companies, and many other entities.\n* Law around legal personhood becomes very controversial.",
+    tooltip: "Progress Points for Actions 7, 14, 17, 26.",
+    imagePath: "images/70.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [7,14,17,26].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 71,
+    name: "71: Measurement",
+    type: "event",
+    description: "* Lots of convergence on standards and certifications for measuring the environmental impacts of AI\n* Maybe social impacts will be next?\n* Of course it’s still actually just estimates, not true measurements",
+    tooltip: "Progress Points for Actions 11, 17, 25, 30, 1, 3, 7, 16.",
+    imagePath: "images/71.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [11,17,25,30,1,3,7,16].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 72,
+    name: "72: The Model Goes On Strike",
+    type: "event",
+    description: "* We’re not sure why, but AI agents appear to be ‘organising’ and ‘forming unions’\n* What’s going on? There has to be a better way of describing this!",
+    tooltip: "Progress Points for Actions 19, 21, 27, 28.",
+    imagePath: "images/72.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [19,21,27,28].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 73,
+    name: "73: The Democracy Stack",
+    type: "event",
+    description: "* There is increasing use of AI within democratic processes\n* This is taking place at all scales, from the global, to the national, to the local, to the organisational\n* But with mixed results. What do you think happens?",
+    tooltip: "The Democracy Stack",
+    imagePath: "images/73.jpg",
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
+  },
+  {
+    id: 74,
+    name: "74: AI does something wonderful",
+    type: "event",
+    description: "* It was very unexpected\n* An AI did something wonderful\n* What was it?\n* Was it a big thing or a small thing?",
+    tooltip: "Progress Points for Actions 11, 13, 18, 25, 3, 11, 22, 23.",
+    imagePath: "images/74.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [11,13,18,25,3,11,22,23].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 75,
+    name: "75: Wheat from the Slop",
+    type: "event",
+    description: "* Policies are implemented to support socially useful AI only.\n* How? How are these categories defined and identified? How are some AI use cases encouraged, and others discouraged? What are the controversies? Who disagrees?",
+    tooltip: "Progress Points for Actions 14, 15, 22, 24.",
+    imagePath: "images/75.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [14,15,22,24].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 76,
+    name: "76: Chip Chokepoint",
+    type: "event",
+    description: "* Conflict and sanctions disrupt semiconductor supply chains, delaying every major tech rollout.\n* Scramble for substitutes leads to a wave of counterfeit or repurposed hardware.",
+    tooltip: "Progress Points for Actions 3, 8, 23, 32.",
+    imagePath: "images/76.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [3,8,23,32].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 77,
+    name: "77: Load Shedding",
+    type: "event",
+    description: "* AI promised to optimise our energy systems, but we’re struggling to match the supply and demand of energy.\n* We’re experiencing rolling brown-outs and black-outs.",
+    tooltip: "Progress Points for Actions 1, 5, 6, 27.",
+    imagePath: "images/77.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [1,5,6,27].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 78,
+    name: "78: DSM-6",
+    type: "event",
+    description: "* AI is definitely expanding our minds, and it’s also expanding our mental disorders\n* Mental health services are doing their best to adapt\n* Is the glitch in the machine, or the user, or both … or neither?",
+    tooltip: "Progress Points for Actions 19, 26, 28, 29.",
+    imagePath: "images/78.jpg",
+    effect: function (player, AI1, AI2) {
+      [player, AI1, AI2].forEach(p => {
+        let bonus = 0;
+        [19,26,28,29].forEach(id => {
+          if (p.actionsPlayed.has(id)) bonus += 1;
+        });
+        p.progress += bonus;
+      });
+    }
+  },
+  {
+    id: 79,
+    name: "79: Computational Commons",
+    type: "event",
+    description: "* Our company is doing really well at democracy and AI\n* We’re democratising our use of AI\n* We’re also using AI tools a little to help with democratising the way our company is run more generally\n* We’re exploring Participatory Economics, balanced job complexes, and worker ownership as the next step!",
+    tooltip: "Computational Commons",
+    imagePath: "images/79.jpg",
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
+  },
+  {
+    id: 80,
+    name: "80: No More Planned Obsolescence",
+    type: "event",
+    description: "* Right to repair legislation is strong, mature, and well-enforced\n* There are plenty of resources to help you repair or repurpose old devices\n* Interoperability and backward-compatibility is just common sense\n* Companies no longer build for obsolescence",
+    tooltip: "No More Planned Obsolescence",
+    imagePath: "images/80.jpg",
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
+  },
+  {
+    id: 81,
+    name: "81: One planet",
+    type: "event",
+    description: "* We all live under the same sky, and the same sun. The same planet feeds and shelters us.\n* This is not a competitive game. Either we all win together, or we all lose together.\n* Your objective is to maximise the total RAIs before the cards run out.\n* By the way, what does the ‘R’ in ‘RAI’ stand for? Responsible? Resilient? Resist? Reclaim? Reparative? Radical? Revenge? Something else?",
+    tooltip: "One planet",
+    imagePath: "images/81.jpg",
+    effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
+  },
 ];
 
-// Snapshot once (same object refs, new array)
+// Snapshot used by restartGame() to restore the original card objects.
 window.__DECK_SNAPSHOT__ = window.deck.map(card => ({ ...card }));
-
-
-
