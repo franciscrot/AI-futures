@@ -232,7 +232,7 @@ window.deck = [
     id: 26,
     name: "26: We include refusal as an option",
     type: "action",
-    description: "* We have the power to not use AI.\n* We accept “not building AI” or “not using AI” as a valid outcomes of ethical review, and other processes.\n* We establish clear no-go zones where AI’s risks or impacts outweigh their benefits.",
+    description: "* We have the power to not use AI.\n* We accept “not building AI” or “not using AI” as a valid outcomes of ethical review, and other processes.\n* We establish clear no-go zones where AI’s risks or impacts outweigh its benefits.",
     tooltip: "We include refusal as an option",
     imagePath: "images/26.jpg",
     effect(player, AI1, AI2) { /* optional */ }
