@@ -34,7 +34,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
     name: playerName,
     hand: [],
     progress: 0,
-    RAI points: 0,
+    sustainability: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
   };
@@ -42,7 +42,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
     name: AI1Name,
     hand: [],
     progress: 0,
-    RAI points: 0,
+    sustainability: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
   };
@@ -50,7 +50,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
     name: AI2Name,
     hand: [],
     progress: 0,
-    RAI points: 0,
+    sustainability: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
   };
@@ -222,7 +222,7 @@ let player = {
   name: playerName,
   hand: [],
   progress: 0,
-  RAI points: 0,
+  sustainability: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
 };
@@ -230,7 +230,7 @@ let AI1 = {
   name: AI1Name,
   hand: [],
   progress: 0,
-  RAI points: 0,
+  sustainability: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
 };
@@ -238,7 +238,7 @@ let AI2 = {
   name: AI2Name,
   hand: [],
   progress: 0,
-  RAI points: 0,
+  sustainability: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
 };
