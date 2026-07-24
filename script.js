@@ -15,6 +15,22 @@ const MUSIC_TRACKS = [
 ];
 
 let currentMusicTrackIndex = -1;
+let musicRetryPending = false;
+
+function queueMusicRetry() {
+  if (musicRetryPending) return;
+  musicRetryPending = true;
+
+  const retry = () => {
+    document.removeEventListener("pointerdown", retry);
+    document.removeEventListener("keydown", retry);
+    musicRetryPending = false;
+    startBackgroundMusic();
+  };
+
+  document.addEventListener("pointerdown", retry, { once: true });
+  document.addEventListener("keydown", retry, { once: true });
+}
 
 function chooseRandomMusicTrack() {
   if (MUSIC_TRACKS.length === 1) return 0;
@@ -42,6 +58,7 @@ async function playRandomMusicTrack() {
       "[DSG] Music playback is waiting for another user interaction.",
       error,
     );
+    queueMusicRetry();
   }
 }
 
