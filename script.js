@@ -357,14 +357,64 @@ function initCardLookup() {
 // Track which action IDs should be highlighted while hovering an event card.
 let highlightedActionIds = new Set();
 
-// Pull action IDs (1-30) out of an event's text description.
-function getActionIdsFromEvent(card) {
-  if (!card || card.type !== "event") return [];
-  const sourceText = [card.name, card.description, card.tooltip]
+// The final bullet on each event card is the single source of truth for
+// both its mechanics and its mouseover highlighting.
+function getEventRule(card) {
+  if (!card || card.type !== "event") return null;
+
+  const finalBullet = String(card.description || "")
+    .split("\n")
+    .map((line) => line.trim())
     .filter(Boolean)
-    .join(" ");
-  const matches = sourceText.match(/\b([1-9]|[12]\d|30)\b/g) || [];
-  return [...new Set(matches.map((value) => Number(value)))];
+    .at(-1) || "";
+
+  const actionIds = [
+    ...new Set(
+      (finalBullet.match(/\b(?:[1-9]|[12]\d|3[0-2])\b/g) || []).map(Number),
+    ),
+  ];
+
+  if (finalBullet.includes("convert all Progress into RAI Points")) {
+    return { type: "milestone", actionIds: [] };
+  }
+
+  if (finalBullet.includes("lose all progress points")) {
+    return { type: "crisis", actionIds };
+  }
+
+  if (finalBullet.startsWith("* Impacts players who have played action")) {
+    return { type: "opportunity", actionIds };
+  }
+
+  console.warn("[DSG] Event card has no recognised final-bullet rule:", card);
+  return { type: "none", actionIds: [] };
+}
+
+function getActionIdsFromEvent(card) {
+  const rule = getEventRule(card);
+  return rule ? rule.actionIds : [];
+}
+
+function applyEventEffect(card, players) {
+  const rule = getEventRule(card);
+  if (!rule) return;
+
+  players.forEach((currentPlayer) => {
+    if (rule.type === "opportunity") {
+      const bonus = rule.actionIds.filter((id) =>
+        currentPlayer.actionsPlayed.has(id),
+      ).length;
+      currentPlayer.progress += bonus;
+    } else if (rule.type === "milestone") {
+      currentPlayer.sustainability += currentPlayer.progress;
+      currentPlayer.progress = 0;
+    } else if (rule.type === "crisis") {
+      const isProtected = rule.actionIds.some((id) =>
+        currentPlayer.actionsPlayed.has(id),
+      );
+      if (!isProtected) currentPlayer.progress = 0;
+    }
+  });
 }
 
 // Update UI to bold action IDs that are relevant to the hovered event card.
@@ -642,14 +692,17 @@ function generateOutroMessage(P, A1, A2) {
 
 // --- Turn logic with error guards ---
 function safeEffectInvoke(card, P, A1, A2) {
-  if (typeof card.effect !== "function") {
-    console.warn("[DSG] Card has no effect function:", card);
-    return;
-  }
   try {
-    card.effect(P, A1, A2);
+    if (card.type === "event") {
+      applyEventEffect(card, [P, A1, A2]);
+      return;
+    }
+
+    if (typeof card.effect === "function") {
+      card.effect(P, A1, A2);
+    }
   } catch (e) {
-    console.error("[DSG] Error in card.effect for", card, e);
+    console.error("[DSG] Error applying effect for", card, e);
   }
 }
 
