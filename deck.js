@@ -345,7 +345,7 @@ window.deck = [
     id: 38,
     name: "38: Water Shortages",
     type: "event",
-    description: "* Droughts and heatwaves drive up the water costs of cooling data centres.\n* Communities begin to fight for priority.\n* Data centres cluster even more where there is natural cooling.",
+    description: "* Droughts and heatwaves drive up the water costs of cooling data centres.\n* Communities begin to fight for priority.\n* Data centres cluster even more where there is natural cooling.\n* Impacts players who have played action cards 1 or 24.",
     tooltip: "Progress Points for Actions 1, 5, 24, 31.",
     imagePath: "images/38.jpg",
     effect: function (player, AI1, AI2) {
@@ -362,7 +362,7 @@ window.deck = [
     id: 39,
     name: "39: Human-centred AI law",
     type: "event",
-    description: "* A new AI Act is very helpful\n* What does it include? Compute licences and carbon caps? Full-spectrum impact and lifecycle assessments? Dataset provenance and creator compensation? A universal algorithm register? Ethical procurement and energy labelling? Named human stewards? Reparations? Something else?",
+    description: "* A new AI Act is very helpful\n* What does it include? Compute licences and carbon caps? Full-spectrum impact and lifecycle assessments? Dataset provenance and creator compensation? A universal algorithm register? Ethical procurement and energy labelling? Named human stewards? Reparations? Something else?\n* Impacts players who have played action cards 3, 11, 12, 15, or 20.",
     tooltip: "Human-centred AI law",
     imagePath: "images/39.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -371,7 +371,7 @@ window.deck = [
     id: 40,
     name: "40: New Cultures of AI",
     type: "event",
-    description: "* We begin to develop new social conventions around AI. What are they?\n* For example, at first genAI makes you sound professional. Then it makes you sound lazy or naïve.\n* Maybe we start to treat AI helpers like emotions? Or demons?",
+    description: "* We begin to develop new social conventions around AI. What are they?\n* For example, at first genAI makes you sound professional. Then it makes you sound lazy or naïve.\n* Maybe we start to treat AI helpers like emotions? Or demons?\n* Impacts players who have played action cards 14, 27, or 30.",
     tooltip: "New Cultures of AI",
     imagePath: "images/40.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -380,7 +380,7 @@ window.deck = [
     id: 41,
     name: "41: Resource Wars",
     type: "event",
-    description: "* Demand for lithium, cobalt, and Rare Earth Elements are sparking conflicts",
+    description: "* Demand for lithium, cobalt, and Rare Earth Elements are sparking conflicts\n* Impacts players who have played action cards 8, 9, 19, or 24.",
     tooltip: "Progress Points for Actions 2, 4, 19, 24.",
     imagePath: "images/41.jpg",
     effect: function (player, AI1, AI2) {
@@ -397,7 +397,7 @@ window.deck = [
     id: 42,
     name: "42: Automated Injustice",
     type: "event",
-    description: "* AI systems are worsening inequalities in policing, healthcare, banking, and other sectors",
+    description: "* AI systems are worsening inequalities in policing, healthcare, banking, and other sectors\n* Impacts players who have played action cards 12, 14, 15, 21, or 22.",
     tooltip: "Progress Points for Actions 12, 13, 19, 21.",
     imagePath: "images/42.jpg",
     effect: function (player, AI1, AI2) {
@@ -414,7 +414,7 @@ window.deck = [
     id: 43,
     name: "43: The Law With Holes",
     type: "event",
-    description: "* Bold, long-awaited AI legislation is passed!\n* But it just doesn’t really work\n* [Pose some interesting questions for the players]",
+    description: "* Bold, long-awaited AI legislation is passed!\n* But it just doesn’t really work\n* [Pose some interesting questions for the players]\n* Impacts players who have played action card 11.",
     tooltip: "Progress Points for Actions 4, 22, 27, 32.",
     imagePath: "images/43.jpg",
     effect: function (player, AI1, AI2) {
@@ -431,7 +431,7 @@ window.deck = [
     id: 44,
     name: "44: Automated Storm in a Teacup",
     type: "event",
-    description: "* [Something about an unexpected social phenomenon]\n* [GenAI is magnifying everyone’s grievances, writing long, professional-sounding letters of concern about things that in the past would be brushed off]\n* [Why and what are the consequences]\n* [Add a couple memorable news stories]",
+    description: "* [Something about an unexpected social phenomenon]\n* [GenAI is magnifying everyone’s grievances, writing long, professional-sounding letters of concern about things that in the past would be brushed off]\n* [Why and what are the consequences]\n* [Add a couple memorable news stories]\n* Impacts players who have played action card 30.",
     tooltip: "Automated Storm in a Teacup",
     imagePath: "images/44.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -440,7 +440,7 @@ window.deck = [
     id: 45,
     name: "45: AI is Talking to AI",
     type: "event",
-    description: "* People are outsourcing more and more of their lives to AI.\n* AI agents are talking to AI agents, both purporting to be real people, but their users are hardly aware of what they are doing.\n* [A couple memorable news stories.]",
+    description: "* People are outsourcing more and more of their lives to AI.\n* AI agents are talking to AI agents, both purporting to be real people, but their users are hardly aware of what they are doing.\n* [A couple memorable news stories.]\n* Impacts players who have played action cards 13 or 21.",
     tooltip: "AI is Talking to AI",
     imagePath: "images/45.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -449,7 +449,7 @@ window.deck = [
     id: 46,
     name: "46: Shadow AI",
     type: "event",
-    description: "* People are using AI more and more at work, and are being encouraged to do so.\n* But there’s an unexpected twist. Few people use it in the ways they are supposed to, and most people dissemble and deceive around their AI use.\n* Why?\n* What are the consequences?\n* [Add a couple memorable news stories]",
+    description: "* People are using AI more and more at work, and are being encouraged to do so.\n* But there’s an unexpected twist. Few people use it in the ways they are supposed to, and most people dissemble and deceive around their AI use.\n* Why?\n* What are the consequences?\n* [Add a couple memorable news stories]\n* Impacts players who have played action cards 11 or 18.",
     tooltip: "Shadow AI",
     imagePath: "images/46.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -458,7 +458,7 @@ window.deck = [
     id: 47,
     name: "47: AI is Making Work",
     type: "event",
-    description: "* AI is helping with some work, but it’s also creating all kinds of new work nobody expected.\n* [Example of cleaning up after AI’s mess]\n* [Example of AI creating new work, more interesting and unexpected]\n* [Example, a different angle]\n* [Example, a different angle]\n* [And another example]",
+    description: "* AI is helping with some work, but it’s also creating all kinds of new work nobody expected.\n* [Example of cleaning up after AI’s mess]\n* [Example of AI creating new work, more interesting and unexpected]\n* [Example, a different angle]\n* [Example, a different angle]\n* [And another example]\n* Impacts players who have played action cards 13 or 23.",
     tooltip: "AI is Making Work",
     imagePath: "images/47.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -467,7 +467,7 @@ window.deck = [
     id: 48,
     name: "48: Scapegoats in the Loop",
     type: "event",
-    description: "* A new kind of career is emerging … scapegoat in the loop.\n* That’s not the official title. (What is the official title?)\n* But these are people whose whole job is to take the blame when an AI system goes wrong. Sometimes they get fired, but they get hired again pretty fast.",
+    description: "* A new kind of career is emerging … scapegoat in the loop.\n* That’s not the official title. (What is the official title?)\n* But these are people whose whole job is to take the blame when an AI system goes wrong. Sometimes they get fired, but they get hired again pretty fast.\n* Impacts players who have played action card 13.",
     tooltip: "Scapegoats in the Loop",
     imagePath: "images/48.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -476,7 +476,7 @@ window.deck = [
     id: 49,
     name: "49: No Wasted Heat",
     type: "event",
-    description: "* Districts are increasingly capturing datacentre waste heat for housing, agriculture, and even (weirdly) cooling in the summer\n* Governments are beginning to support this with targeted policy, and our organisation is a beneficiary",
+    description: "* Districts are increasingly capturing datacentre waste heat for housing, agriculture, and even (weirdly) cooling in the summer\n* Governments are beginning to support this with targeted policy, and our organisation is a beneficiary\n* Impacts players who have played action cards 5 or 8.",
     tooltip: "No Wasted Heat",
     imagePath: "images/49.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -485,7 +485,7 @@ window.deck = [
     id: 50,
     name: "50: AI for Climate Vaporware",
     type: "event",
-    description: "* Big tech has oversold AI’s power to tackle climate change\n* Some big wins are attributed to AI, but they may have happened even without it …\n* However, there are some successes. What are they?",
+    description: "* Big tech has oversold AI’s power to tackle climate change\n* Some big wins are attributed to AI, but they may have happened even without it …\n* However, there are some successes. What are they?\n* Impacts players who have played action cards 2 or 17.",
     tooltip: "AI for Climate Vaporware",
     imagePath: "images/50.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -494,7 +494,7 @@ window.deck = [
     id: 51,
     name: "51: The New Luddites",
     type: "event",
-    description: "* The popular movement to refuse, resist, and disrupt AI grows in power",
+    description: "* The popular movement to refuse, resist, and disrupt AI grows in power\n* Impacts players who have played action cards 26, 28, or 29.",
     tooltip: "Progress Points for Actions 2, 3, 4, 26.",
     imagePath: "images/51.jpg",
     effect: function (player, AI1, AI2) {
@@ -511,7 +511,7 @@ window.deck = [
     id: 52,
     name: "52: The Library of Babel",
     type: "event",
-    description: "* Our shared sense of social reality is all but gone.\n* Everywhere you look, AI models are confidently hallucinating.\n* Deepfakes are flooding the feeds.\n* When you go to verify anything, the place you go is a deepfake too.",
+    description: "* Our shared sense of social reality is all but gone.\n* Everywhere you look, AI models are confidently hallucinating.\n* Deepfakes are flooding the feeds.\n* When you go to verify anything, the place you go is a deepfake too.\n* Impacts players who have played action cards 14 or 30.",
     tooltip: "Progress Points for Actions 21, 28, 29, 32.",
     imagePath: "images/52.jpg",
     effect: function (player, AI1, AI2) {
@@ -528,7 +528,7 @@ window.deck = [
     id: 53,
     name: "53: Exposed!",
     type: "event",
-    description: "* One of the other players / teams has not been entirely honest about their AI policies!\n* How was it revealed? A whistleblower? An undercover investigative journalist? A leaked Direct Message?",
+    description: "* One of the other players / teams has not been entirely honest about their AI policies!\n* How was it revealed? A whistleblower? An undercover investigative journalist? A leaked Direct Message?\n* Impacts players who have played action cards 7, 12, 18, or 28.",
     tooltip: "Progress Points for Actions 7, 15, 22, 30, 25, 26, 27, 28.",
     imagePath: "images/53.jpg",
     effect: function (player, AI1, AI2) {
@@ -545,7 +545,7 @@ window.deck = [
     id: 54,
     name: "54: Rising Energy Demand",
     type: "event",
-    description: "* AI’s energy demands are slowing the renewable energy transition\n* AI companies argue they are big investors in renewables! Is it true?\n* Meanwhile, AI is also enabling emissions by helping energy companies extract more fossil fuels",
+    description: "* AI’s energy demands are slowing the renewable energy transition\n* AI companies argue they are big investors in renewables! Is it true?\n* Meanwhile, AI is also enabling emissions by helping energy companies extract more fossil fuels\n* Impacts players who have played action cards 1, 4, 5, 6, or 10.",
     tooltip: "Progress Points for Actions 1, 2, 5, 24.",
     imagePath: "images/54.jpg",
     effect: function (player, AI1, AI2) {
@@ -562,7 +562,7 @@ window.deck = [
     id: 55,
     name: "55: Nothing To Lose But Your Markov Chains",
     type: "event",
-    description: "* Data annotators and content moderators are successfully organising across platforms, demanding fair pay, credit, and protection from psychological harm.",
+    description: "* Data annotators and content moderators are successfully organising across platforms, demanding fair pay, credit, and protection from psychological harm.\n* Impacts players who have played action cards 19, 23, or 31.",
     tooltip: "Nothing To Lose But Your Markov Chains",
     imagePath: "images/55.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -571,7 +571,7 @@ window.deck = [
     id: 56,
     name: "56: Cyberinsecurity",
     type: "event",
-    description: "* AI tools are proving more useful for cyberattacks than they are for cybersecurity\n* Everyday digital systems become increasingly unreliable",
+    description: "* AI tools are proving more useful for cyberattacks than they are for cybersecurity\n* Everyday digital systems become increasingly unreliable\n* Impacts players who have played action card 16.",
     tooltip: "Progress Points for Actions 18, 28, 29, 31.",
     imagePath: "images/56.jpg",
     effect: function (player, AI1, AI2) {
@@ -588,7 +588,7 @@ window.deck = [
     id: 57,
     name: "57: Right to Exit",
     type: "event",
-    description: "* Strong ‘right to exit’ legislation reshapes many digital platforms, including AI platforms\n* Users of platforms no longer feel trapped – it’s always easy to unsubscribe, and you can take your data with you",
+    description: "* Strong ‘right to exit’ legislation reshapes many digital platforms, including AI platforms\n* Users of platforms no longer feel trapped – it’s always easy to unsubscribe, and you can take your data with you\n* Impacts players who have played action card 21.",
     tooltip: "Progress Points for Actions 10, 14, 16, 18.",
     imagePath: "images/57.jpg",
     effect: function (player, AI1, AI2) {
@@ -605,7 +605,7 @@ window.deck = [
     id: 58,
     name: "58: Optimised … to Death!",
     type: "event",
-    description: "* A high-profile, AI-powered tragedy\n* The reward-hacking AI optimises a system, but removes crucial safety measures\n* What sector does this take place in? Agriculture? Health? Transport and logistics? Energy? Defence?",
+    description: "* A high-profile, AI-powered tragedy\n* The reward-hacking AI optimises a system, but removes crucial safety measures\n* What sector does this take place in? Agriculture? Health? Transport and logistics? Energy? Defence?\n* Impacts players who have played action card 16.",
     tooltip: "Progress Points for Actions 8, 12, 20, 32, 4, 6, 10, 17.",
     imagePath: "images/58.jpg",
     effect: function (player, AI1, AI2) {
@@ -622,7 +622,7 @@ window.deck = [
     id: 59,
     name: "59: Predictive Policing",
     type: "event",
-    description: "* Rebranding as “community analytics,” predictive policing is on the rise",
+    description: "* Rebranding as “community analytics,” predictive policing is on the rise\n* Impacts players who have played action cards 15, 17, 21, or 22.",
     tooltip: "Progress Points for Actions 12, 19, 20, 31.",
     imagePath: "images/59.jpg",
     effect: function (player, AI1, AI2) {
@@ -639,7 +639,7 @@ window.deck = [
     id: 60,
     name: "60: Algorithmic Governmentality",
     type: "event",
-    description: "* Industry, finance, and the public sector increasingly deploy AI systems to steer behaviour through nudges and micro-incentives",
+    description: "* Industry, finance, and the public sector increasingly deploy AI systems to steer behaviour through nudges and micro-incentives\n* Impacts players who have played action card 17.",
     tooltip: "Progress Points for Actions 11, 19, 20, 21.",
     imagePath: "images/60.jpg",
     effect: function (player, AI1, AI2) {
@@ -656,7 +656,7 @@ window.deck = [
     id: 61,
     name: "61: Demand Shifting and Shaping",
     type: "event",
-    description: "* We’ve got really good at matching energy demand to energy supply\n* Demand shifting means doing computational workloads to where and when the demand is low\n* Demand shaping means we actually change the nature of what we do, depending on how green the grid is",
+    description: "* We’ve got really good at matching energy demand to energy supply\n* Demand shifting means doing computational workloads to where and when the demand is low\n* Demand shaping means we actually change the nature of what we do, depending on how green the grid is\n* Impacts players who have played action cards 4 or 5.",
     tooltip: "Demand Shifting and Shaping",
     imagePath: "images/61.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -665,7 +665,7 @@ window.deck = [
     id: 62,
     name: "62: Decomputing",
     type: "event",
-    description: "* Decomputing hits a social tipping point\n* After years of AI austerity, communities are getting serious about divestment and boycotting many AI systems, including using low-tech alternatives",
+    description: "* Decomputing hits a social tipping point\n* After years of AI austerity, communities are getting serious about divestment and boycotting many AI systems, including using low-tech alternatives\n* Impacts players who have played action cards 10, 26, 27, 29, or 32.",
     tooltip: "Decomputing",
     imagePath: "images/62.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -674,7 +674,7 @@ window.deck = [
     id: 63,
     name: "63: Tech fails to decarbonise",
     type: "event",
-    description: "* Tech giant Giggle is failing to meet its decarbonisation pledges\n* Instead Giggle, Necrosurf, and Glamazon are putting pressure on the GHG Protocol and SBTi to rewrite the rules for how carbon emissions are measured",
+    description: "* Tech giant Giggle is failing to meet its decarbonisation pledges\n* Instead Giggle, Necrosurf, and Glamazon are putting pressure on the GHG Protocol and SBTi to rewrite the rules for how carbon emissions are measured\n* Impacts players who have played action cards 3, 7, or 18.",
     tooltip: "Progress Points for Actions 9, 23, 26, 27, 18, 20, 25, 31.",
     imagePath: "images/63.jpg",
     effect: function (player, AI1, AI2) {
@@ -691,7 +691,7 @@ window.deck = [
     id: 64,
     name: "64: The Plateau",
     type: "event",
-    description: "* AI fails to deliver the exponential productivity gains predicted.\n* Organisations that capped their AI footprint and set compute budgets emerge stronger and more resilient.\n* Governments are under pressure to find more public sector AI use cases.",
+    description: "* AI fails to deliver the exponential productivity gains predicted.\n* Organisations that capped their AI footprint and set compute budgets emerge stronger and more resilient.\n* Governments are under pressure to find more public sector AI use cases.\n* Impacts players who have played action cards 6, 10, or 32.",
     tooltip: "Progress Points for Actions 6, 9, 10, 23.",
     imagePath: "images/64.jpg",
     effect: function (player, AI1, AI2) {
@@ -708,7 +708,7 @@ window.deck = [
     id: 65,
     name: "65: Anti-Monopoly Law",
     type: "event",
-    description: "* True public cloud options emerge.\n* Structural separations split data, model, and compute ownership.\n* Interoperability becomes mandatory.\n* Procurement rules favour open, smaller systems.",
+    description: "* True public cloud options emerge.\n* Structural separations split data, model, and compute ownership.\n* Interoperability becomes mandatory.\n* Procurement rules favour open, smaller systems.\n* Impacts players who have played action cards 8, 25, or 31.",
     tooltip: "Progress Points for Actions 10, 14, 20, 29.",
     imagePath: "images/65.jpg",
     effect: function (player, AI1, AI2) {
@@ -725,7 +725,7 @@ window.deck = [
     id: 66,
     name: "66: Going Loopy",
     type: "event",
-    description: "* People are not enjoying their new “human in the loop” roles\n* It turns out people prefer meaningful work to babysitting a lot of AI systems\n* Unions are organising, and employees are voting with their feet",
+    description: "* People are not enjoying their new “human in the loop” roles\n* It turns out people prefer meaningful work to babysitting a lot of AI systems\n* Unions are organising, and employees are voting with their feet\n* Impacts players who have played action cards 13 or 23.",
     tooltip: "Progress Points for Actions 13, 15, 16, 32.",
     imagePath: "images/66.jpg",
     effect: function (player, AI1, AI2) {
@@ -742,7 +742,7 @@ window.deck = [
     id: 67,
     name: "67: The End of ESG",
     type: "event",
-    description: "* ESG frameworks lose all credibility.\n* There are still those in industry and finance who believe in social and environmental accountability, but they’re left without tools and metrics.\n* What happens next?",
+    description: "* ESG frameworks lose all credibility.\n* There are still those in industry and finance who believe in social and environmental accountability, but they’re left without tools and metrics.\n* What happens next?\n* Impacts players who have played action cards 7 or 32.",
     tooltip: "Progress Points for Actions 3, 8, 9, 30.",
     imagePath: "images/67.jpg",
     effect: function (player, AI1, AI2) {
@@ -759,7 +759,7 @@ window.deck = [
     id: 68,
     name: "68: Trouble Down at the Data Centre!",
     type: "event",
-    description: "* Grassroots resistance is delaying new data centre projects, and even forcing existing data centres to shut down\n* The downturn affects the big “hyperscale” data centres, but small and medium data centres continue to flourish",
+    description: "* Grassroots resistance is delaying new data centre projects, and even forcing existing data centres to shut down\n* The downturn affects the big “hyperscale” data centres, but small and medium data centres continue to flourish\n* Impacts players who have played action cards 25, 26, or 28.",
     tooltip: "Progress Points for Actions 1, 5, 8, 16.",
     imagePath: "images/68.jpg",
     effect: function (player, AI1, AI2) {
@@ -776,7 +776,7 @@ window.deck = [
     id: 69,
     name: "69: A Drop of Poison",
     type: "event",
-    description: "* Training data is being ‘poisoned’\n* AI models can be degraded, or their security is compromised\n* Who is doing it? Competitors, activists, somebody else?",
+    description: "* Training data is being ‘poisoned’\n* AI models can be degraded, or their security is compromised\n* Who is doing it? Competitors, activists, somebody else?\n* Impacts players who have played action card 16.",
     tooltip: "A Drop of Poison",
     imagePath: "images/69.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -785,7 +785,7 @@ window.deck = [
     id: 70,
     name: "70: Voices",
     type: "event",
-    description: "* AI systems are trained to “represent” the voices of forests, whales, bacteria, embryos, saints, gods, ancestors, companies, and many other entities.\n* Law around legal personhood becomes very controversial.",
+    description: "* AI systems are trained to “represent” the voices of forests, whales, bacteria, embryos, saints, gods, ancestors, companies, and many other entities.\n* Law around legal personhood becomes very controversial.\n* Impacts players who have played action cards 17 or 22.",
     tooltip: "Progress Points for Actions 7, 14, 17, 26.",
     imagePath: "images/70.jpg",
     effect: function (player, AI1, AI2) {
@@ -802,7 +802,7 @@ window.deck = [
     id: 71,
     name: "71: Measurement",
     type: "event",
-    description: "* Lots of convergence on standards and certifications for measuring the environmental impacts of AI\n* Maybe social impacts will be next?\n* Of course it’s still actually just estimates, not true measurements",
+    description: "* Lots of convergence on standards and certifications for measuring the environmental impacts of AI\n* Maybe social impacts will be next?\n* Of course it’s still actually just estimates, not true measurements\n* Impacts players who have played action cards 1, 2, 3, 4, or 18.",
     tooltip: "Progress Points for Actions 11, 17, 25, 30, 1, 3, 7, 16.",
     imagePath: "images/71.jpg",
     effect: function (player, AI1, AI2) {
@@ -819,7 +819,7 @@ window.deck = [
     id: 72,
     name: "72: The Model Goes On Strike",
     type: "event",
-    description: "* We’re not sure why, but AI agents appear to be ‘organising’ and ‘forming unions’\n* What’s going on? There has to be a better way of describing this!",
+    description: "* We’re not sure why, but AI agents appear to be ‘organising’ and ‘forming unions’\n* What’s going on? There has to be a better way of describing this!\n* Impacts players who have played action cards 15 or 23.",
     tooltip: "Progress Points for Actions 19, 21, 27, 28.",
     imagePath: "images/72.jpg",
     effect: function (player, AI1, AI2) {
@@ -836,7 +836,7 @@ window.deck = [
     id: 73,
     name: "73: The Democracy Stack",
     type: "event",
-    description: "* There is increasing use of AI within democratic processes\n* This is taking place at all scales, from the global, to the national, to the local, to the organisational\n* But with mixed results. What do you think happens?",
+    description: "* There is increasing use of AI within democratic processes\n* This is taking place at all scales, from the global, to the national, to the local, to the organisational\n* But with mixed results. What do you think happens?\n* Impacts players who have played action card 20.",
     tooltip: "The Democracy Stack",
     imagePath: "images/73.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -845,7 +845,7 @@ window.deck = [
     id: 74,
     name: "74: AI does something wonderful",
     type: "event",
-    description: "* It was very unexpected\n* An AI did something wonderful\n* What was it?\n* Was it a big thing or a small thing?",
+    description: "* It was very unexpected\n* An AI did something wonderful\n* What was it?\n* Was it a big thing or a small thing?\n* Impacts players who have played action cards 4 or 20.",
     tooltip: "Progress Points for Actions 11, 13, 18, 25, 3, 11, 22, 23.",
     imagePath: "images/74.jpg",
     effect: function (player, AI1, AI2) {
@@ -862,7 +862,7 @@ window.deck = [
     id: 75,
     name: "75: Wheat from the Slop",
     type: "event",
-    description: "* Policies are implemented to support socially useful AI only.\n* How? How are these categories defined and identified? How are some AI use cases encouraged, and others discouraged? What are the controversies? Who disagrees?",
+    description: "* Policies are implemented to support socially useful AI only.\n* How? How are these categories defined and identified? How are some AI use cases encouraged, and others discouraged? What are the controversies? Who disagrees?\n* Impacts players who have played action cards 2 or 11.",
     tooltip: "Progress Points for Actions 14, 15, 22, 24.",
     imagePath: "images/75.jpg",
     effect: function (player, AI1, AI2) {
@@ -879,7 +879,7 @@ window.deck = [
     id: 76,
     name: "76: Chip Chokepoint",
     type: "event",
-    description: "* Conflict and sanctions disrupt semiconductor supply chains, delaying every major tech rollout.\n* Scramble for substitutes leads to a wave of counterfeit or repurposed hardware.",
+    description: "* Conflict and sanctions disrupt semiconductor supply chains, delaying every major tech rollout.\n* Scramble for substitutes leads to a wave of counterfeit or repurposed hardware.\n* Impacts players who have played action cards 6, 9, 19, or 24.",
     tooltip: "Progress Points for Actions 3, 8, 23, 32.",
     imagePath: "images/76.jpg",
     effect: function (player, AI1, AI2) {
@@ -896,7 +896,7 @@ window.deck = [
     id: 77,
     name: "77: Load Shedding",
     type: "event",
-    description: "* AI promised to optimise our energy systems, but we’re struggling to match the supply and demand of energy.\n* We’re experiencing rolling brown-outs and black-outs.",
+    description: "* AI promised to optimise our energy systems, but we’re struggling to match the supply and demand of energy.\n* We’re experiencing rolling brown-outs and black-outs.\n* Impacts players who have played action card 5.",
     tooltip: "Progress Points for Actions 1, 5, 6, 27.",
     imagePath: "images/77.jpg",
     effect: function (player, AI1, AI2) {
@@ -913,7 +913,7 @@ window.deck = [
     id: 78,
     name: "78: DSM-6",
     type: "event",
-    description: "* AI is definitely expanding our minds, and it’s also expanding our mental disorders\n* Mental health services are doing their best to adapt\n* Is the glitch in the machine, or the user, or both … or neither?",
+    description: "* AI is definitely expanding our minds, and it’s also expanding our mental disorders\n* Mental health services are doing their best to adapt\n* Is the glitch in the machine, or the user, or both … or neither?\n* Impacts players who have played action card 22.",
     tooltip: "Progress Points for Actions 19, 26, 28, 29.",
     imagePath: "images/78.jpg",
     effect: function (player, AI1, AI2) {
@@ -930,7 +930,7 @@ window.deck = [
     id: 79,
     name: "79: Computational Commons",
     type: "event",
-    description: "* Our company is doing really well at democracy and AI\n* We’re democratising our use of AI\n* We’re also using AI tools a little to help with democratising the way our company is run more generally\n* We’re exploring Participatory Economics, balanced job complexes, and worker ownership as the next step!",
+    description: "* Our company is doing really well at democracy and AI\n* We’re democratising our use of AI\n* We’re also using AI tools a little to help with democratising the way our company is run more generally\n* We’re exploring Participatory Economics, balanced job complexes, and worker ownership as the next step!\n* Impacts players who have played action cards 20, 25, 29, or 31.",
     tooltip: "Computational Commons",
     imagePath: "images/79.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -939,7 +939,7 @@ window.deck = [
     id: 80,
     name: "80: No More Planned Obsolescence",
     type: "event",
-    description: "* Right to repair legislation is strong, mature, and well-enforced\n* There are plenty of resources to help you repair or repurpose old devices\n* Interoperability and backward-compatibility is just common sense\n* Companies no longer build for obsolescence",
+    description: "* Right to repair legislation is strong, mature, and well-enforced\n* There are plenty of resources to help you repair or repurpose old devices\n* Interoperability and backward-compatibility is just common sense\n* Companies no longer build for obsolescence\n* Impacts players who have played action cards 8, 9, or 27.",
     tooltip: "No More Planned Obsolescence",
     imagePath: "images/80.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -948,7 +948,7 @@ window.deck = [
     id: 81,
     name: "81: One planet",
     type: "event",
-    description: "* We all live under the same sky, and the same sun. The same planet feeds and shelters us.\n* This is not a competitive game. Either we all win together, or we all lose together.\n* Your objective is to maximise the total RAIs before the cards run out.\n* By the way, what does the ‘R’ in ‘RAI’ stand for? Responsible? Resilient? Resist? Reclaim? Reparative? Radical? Revenge? Something else?",
+    description: "* We all live under the same sky, and the same sun. The same planet feeds and shelters us.\n* This is not a competitive game. Either we all win together, or we all lose together.\n* Your objective is to maximise the total RAIs before the cards run out.\n* By the way, what does the ‘R’ in ‘RAI’ stand for? Responsible? Resilient? Resist? Reclaim? Reparative? Radical? Revenge? Something else?\n* Impacts all players.",
     tooltip: "One planet",
     imagePath: "images/81.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
