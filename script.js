@@ -26,6 +26,7 @@ document.getElementById("feedbackButton").addEventListener("click", () => {
 document.getElementById("resetButton").addEventListener("click", () => {
   emptyDeckStreak = 0;
   window.playerChoices = {};
+  resetSkipToken();
   // reset players
   playerName = pickRandom(playerNames);
   AI1Name = pickRandom(ai1Names);
@@ -82,6 +83,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
   renderPlayerHand();
   updateGameInfo();
   updatePlayedLists();
+  updateSkipUI();
 
   // Set AI labels (matches YOUR HTML IDs). Falls back to alternative IDs if present.
   const a1Header = el("ai1ActionsHeader") || el("ai1ActionsLabel");
@@ -142,6 +144,70 @@ function shuffle(array) {
   }
   return array;
 }
+
+let skipAvailable = true;
+let skipArmed = false;
+let skipPointerX = 0;
+let skipPointerY = 0;
+
+function updateSkipUI() {
+  const token = el("skipToken");
+  const cursorBadge = el("skipCursor");
+
+  if (token) {
+    token.disabled = !skipAvailable;
+    token.classList.toggle("is-armed", skipArmed);
+    token.setAttribute("aria-pressed", String(skipArmed));
+    token.textContent = skipAvailable ? "SKIP" : "USED";
+    token.title = !skipAvailable
+      ? "The one-use skip has been used"
+      : skipArmed
+        ? "Click again to cancel the skip"
+        : "Discard one card without playing it";
+  }
+
+  document.body.classList.toggle("skip-armed", skipArmed);
+
+  if (cursorBadge) {
+    cursorBadge.style.display = skipArmed ? "block" : "none";
+    cursorBadge.style.left = `${skipPointerX}px`;
+    cursorBadge.style.top = `${skipPointerY}px`;
+  }
+}
+
+function setSkipArmed(armed) {
+  skipArmed = skipAvailable && armed;
+  updateSkipUI();
+}
+
+function resetSkipToken() {
+  skipAvailable = true;
+  skipArmed = false;
+  updateSkipUI();
+}
+
+function consumeSkipToken() {
+  skipAvailable = false;
+  skipArmed = false;
+  updateSkipUI();
+}
+
+const skipToken = el("skipToken");
+if (skipToken) {
+  skipToken.addEventListener("click", () => {
+    if (skipAvailable) setSkipArmed(!skipArmed);
+  });
+}
+
+window.addEventListener("pointermove", (event) => {
+  skipPointerX = event.clientX;
+  skipPointerY = event.clientY;
+  if (skipArmed) updateSkipUI();
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && skipArmed) setSkipArmed(false);
+});
 
 function generateAI2Name() {
   const buzzwords = [
@@ -547,6 +613,17 @@ function logAIPlay(aiName, card) {
   entry.scrollIntoView({ behavior: "smooth", block: "end" });
 }
 
+function logSkippedCard(card) {
+  const aiLogDiv = el("aiLog");
+  if (!aiLogDiv) return;
+
+  const entry = document.createElement("div");
+  entry.innerHTML = `<strong>${player.name}</strong> skipped <em>${card.name}</em>. No effect was applied.`;
+  entry.className = "ai-entry";
+  aiLogDiv.appendChild(entry);
+  entry.scrollIntoView({ behavior: "smooth", block: "end" });
+}
+
 function updateGameInfo() {
   const infoDiv = el("gameInfo");
 
@@ -758,21 +835,28 @@ async function playPlayerCard(index) {
   const selectedCard = player.hand[index];
   if (!selectedCard) return;
 
-  if (CHOICE_CARD_OPTIONS[selectedCard.id]) {
+  const isSkipping = skipArmed;
+
+  if (!isSkipping && CHOICE_CARD_OPTIONS[selectedCard.id]) {
     await promptForCardChoice(selectedCard);
   }
 
   const chosenCard = player.hand.splice(index, 1)[0];
   if (!chosenCard) return;
 
-  safeEffectInvoke(chosenCard, player, AI1, AI2);
+  if (isSkipping) {
+    consumeSkipToken();
+    logSkippedCard(chosenCard);
+  } else {
+    safeEffectInvoke(chosenCard, player, AI1, AI2);
 
-  if (chosenCard.type === "action") player.actionsPlayed.add(chosenCard.id);
-  else if (chosenCard.type === "event") player.eventsPlayed.add(chosenCard.id);
+    if (chosenCard.type === "action") player.actionsPlayed.add(chosenCard.id);
+    else if (chosenCard.type === "event") player.eventsPlayed.add(chosenCard.id);
+
+    logAIPlay(player.name, chosenCard);
+  }
 
   if (Array.isArray(window.deck) && deck.length) player.hand.push(deck.pop());
-
-  logAIPlay(player.name, chosenCard);
   playAI1Card();
   playAI2Card();
 
@@ -844,6 +928,7 @@ window.onload = () => {
   renderPlayerHand();
   updateGameInfo();
   updatePlayedLists();
+  updateSkipUI();
 
   // Set AI labels (matches YOUR HTML IDs). Falls back to alternative IDs if present.
   const a1Header = el("ai1ActionsHeader") || el("ai1ActionsLabel");
