@@ -217,32 +217,35 @@ function generateAI2Name() {
 // --- Player choices ---
 const CHOICE_CARD_OPTIONS = {
   33: {
-    prompt: "Which approach to AI systems do you prefer?",
+    prompt: (companyName) =>
+      `Does ${companyName} prefer general-purpose AI systems, or smaller, domain-specific AI systems?`,
     options: [
       { value: "general-purpose", label: "General-purpose AI systems" },
       { value: "domain-specific", label: "Smaller, domain-specific AI systems" },
     ],
   },
   34: {
-    prompt: "Where should most computation take place?",
+    prompt: (companyName) =>
+      `Where does most of ${companyName}'s compute take place?`,
     options: [
       { value: "machine-meshes", label: "On devices and local machine meshes" },
       { value: "cloud-computing", label: "In remotely accessible cloud computing" },
     ],
   },
   35: {
-    prompt: "Which unexpected technology is working rather well?",
+    prompt: (companyName) =>
+      `Which unexpected technology is working rather well for ${companyName}?`,
     options: [
       { value: "space-data-centres", label: "Data centres in space and on the Moon" },
       {
         value: "organic-data-centres",
         label: "Organic data centres powered partly by algae and mud batteries",
       },
-      { value: "something-else", label: "Something else" },
     ],
   },
   36: {
-    prompt: "Which environmental priority matters more?",
+    prompt: (companyName) =>
+      `Which environmental priority matters more to ${companyName}?`,
     options: [
       { value: "sustainable-ai", label: "Reducing the impacts of AI itself" },
       {
@@ -252,7 +255,8 @@ const CHOICE_CARD_OPTIONS = {
     ],
   },
   37: {
-    prompt: "How extensively should AI become part of everyday perception and action?",
+    prompt: (companyName) =>
+      `Are most workers at ${companyName} a bit cyborg, or very cyborg?`,
     options: [
       { value: "a-bit-cyborg", label: "A bit cyborg" },
       { value: "very-cyborg", label: "Very cyborg" },
@@ -274,7 +278,10 @@ function promptForCardChoice(card) {
   const imagePlaceholder = document.getElementById("choiceModalImagePlaceholder");
 
   title.textContent = card.name.replace(/^\d+:\s*/, "");
-  question.textContent = config.prompt;
+  question.textContent =
+    typeof config.prompt === "function"
+      ? config.prompt(player.name)
+      : config.prompt;
   options.innerHTML = "";
 
   if (config.imagePath) {
@@ -382,7 +389,7 @@ function getEventRule(card) {
     return { type: "crisis", actionIds };
   }
 
-  if (finalBullet.startsWith("* Impacts players who have played action")) {
+  if (finalBullet.startsWith("* Gain a progress point if you have played action")) {
     return { type: "opportunity", actionIds };
   }
 
