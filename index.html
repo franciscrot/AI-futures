@@ -385,6 +385,18 @@
         margin-bottom: 0.25rem;
       }
 
+      .music-credit {
+        position: fixed;
+        right: 8px;
+        bottom: 6px;
+        z-index: 30;
+        color: #8c8c8c;
+        font-family: "Montserrat", sans-serif;
+        font-size: 11px;
+        line-height: 1;
+        pointer-events: none;
+      }
+
       /* Choice-card modal */
       #choiceModal {
         position: fixed;
@@ -612,6 +624,8 @@
       </div>
     </div>
 
+    <audio id="backgroundMusic" preload="metadata"></audio>
+    <div class="music-credit">Music: Andy Spragg</div>
     <div id="skipCursor" aria-hidden="true">SKIP</div>
 
     <script src="deck.js"></script>

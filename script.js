@@ -6,8 +6,76 @@ window.resetDeck = function () {
   window.deck = window.__DECK_SNAPSHOT__.map((card) => ({ ...card }));
 };
 
+const MUSIC_TRACKS = [
+  "music/andy-spragg-01-chunky.mp3",
+  "music/andy-spragg-02-rain.mp3",
+  "music/andy-spragg-03-picky.mp3",
+  "music/andy-spragg-04-basshumm.mp3",
+  "music/andy-spragg-05-buzzedaldrin.mp3",
+];
+
+let currentMusicTrackIndex = -1;
+let musicRetryPending = false;
+
+function queueMusicRetry() {
+  if (musicRetryPending) return;
+  musicRetryPending = true;
+
+  const retry = () => {
+    document.removeEventListener("pointerdown", retry);
+    document.removeEventListener("keydown", retry);
+    musicRetryPending = false;
+    startBackgroundMusic();
+  };
+
+  document.addEventListener("pointerdown", retry, { once: true });
+  document.addEventListener("keydown", retry, { once: true });
+}
+
+function chooseRandomMusicTrack() {
+  if (MUSIC_TRACKS.length === 1) return 0;
+
+  let nextIndex;
+  do {
+    nextIndex = Math.floor(Math.random() * MUSIC_TRACKS.length);
+  } while (nextIndex === currentMusicTrackIndex);
+
+  return nextIndex;
+}
+
+async function playRandomMusicTrack() {
+  const audio = document.getElementById("backgroundMusic");
+  if (!audio) return;
+
+  currentMusicTrackIndex = chooseRandomMusicTrack();
+  audio.src = MUSIC_TRACKS[currentMusicTrackIndex];
+  audio.volume = 0.35;
+
+  try {
+    await audio.play();
+  } catch (error) {
+    console.warn(
+      "[DSG] Music playback is waiting for another user interaction.",
+      error,
+    );
+    queueMusicRetry();
+  }
+}
+
+function startBackgroundMusic() {
+  const audio = document.getElementById("backgroundMusic");
+  if (!audio || !audio.paused) return;
+  playRandomMusicTrack();
+}
+
+const backgroundMusic = document.getElementById("backgroundMusic");
+if (backgroundMusic) {
+  backgroundMusic.addEventListener("ended", playRandomMusicTrack);
+}
+
 // close intre screen
 document.getElementById("closeIntro").addEventListener("click", () => {
+  startBackgroundMusic();
   const intro = document.getElementById("intro");
   intro.style.opacity = 0;
   intro.style.transition = "opacity 0.4s ease";
