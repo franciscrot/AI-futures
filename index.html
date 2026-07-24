@@ -280,6 +280,147 @@
         font-family: "Montserrat", sans-serif;
       }
 
+      #scoreRail {
+        position: absolute;
+        top: 50%;
+        right: 7px;
+        z-index: 10;
+        box-sizing: border-box;
+        width: 132px;
+        padding: 9px 8px 8px;
+        transform: translateY(-50%);
+        border: 1px solid #3d3d3d;
+        border-radius: 7px;
+        background: rgba(16, 16, 16, 0.9);
+        color: #dddddd;
+        font-family: "Montserrat", sans-serif;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.24);
+      }
+
+      .score-chart-title {
+        margin: 0 0 7px;
+        color: #a9a9a9;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .score-chart-plot {
+        display: flex;
+        height: 112px;
+        margin-bottom: 34px;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 11px;
+        padding: 0 7px;
+        border-bottom: 1px solid #666666;
+      }
+
+      .score-bar-column {
+        position: relative;
+        display: flex;
+        width: 18px;
+        height: 100%;
+        align-items: flex-end;
+      }
+
+      .score-bar-stack {
+        display: flex;
+        width: 100%;
+        max-height: 100%;
+        flex-direction: column-reverse;
+        overflow: hidden;
+        border-radius: 3px 3px 0 0;
+        background: #2b2b2b;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      }
+
+      .score-segment {
+        width: 100%;
+        min-height: 0;
+        transition: height 0.28s ease;
+      }
+
+      .score-segment-rai {
+        background: #4f8fbd;
+      }
+
+      .score-segment-progress {
+        background: #e58a3a;
+      }
+
+      .score-player-label {
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 50%;
+        width: 48px;
+        min-height: 30px;
+        color: #f0f0f0;
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+        text-align: center;
+        transform: translateX(-50%);
+      }
+
+      .score-player-label::before {
+        display: block;
+        content: "↑";
+        color: #ffffff;
+        font-size: 13px;
+        line-height: 10px;
+      }
+
+      .score-chart-legend {
+        display: flex;
+        margin-top: 7px;
+        justify-content: center;
+        gap: 8px;
+        color: #a9a9a9;
+        font-size: 8px;
+        line-height: 1;
+      }
+
+      .score-chart-key {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+      }
+
+      .score-chart-swatch {
+        width: 6px;
+        height: 6px;
+        border-radius: 1px;
+      }
+
+      @media (max-width: 1100px) {
+        #scoreRail {
+          right: 3px;
+          width: 106px;
+          padding-inline: 5px;
+        }
+
+        .score-chart-plot {
+          gap: 8px;
+          padding-inline: 3px;
+        }
+      }
+
+      @media (max-width: 850px) {
+        #scoreRail {
+          top: 7px;
+          width: 100px;
+          transform: none;
+        }
+
+        .score-chart-plot {
+          height: 82px;
+        }
+      }
+
       #gameInfo {
         box-sizing: border-box;
         width: 100%;
@@ -597,6 +738,22 @@
       <div id="gameArea">
         <div id="playerHand"></div>
       </div>
+      <aside id="scoreRail" aria-label="Organisation scores">
+        <p class="score-chart-title">Scores</p>
+        <div id="scoreChartPlot" class="score-chart-plot"></div>
+        <div class="score-chart-legend" aria-hidden="true">
+          <span class="score-chart-key">
+            <span
+              class="score-chart-swatch score-segment-rai"
+            ></span>RAI
+          </span>
+          <span class="score-chart-key">
+            <span
+              class="score-chart-swatch score-segment-progress"
+            ></span>Progress
+          </span>
+        </div>
+      </aside>
       <div id="infoArea">
         <h2>Cards Played</h2>
         <div id="aiLog"></div>
