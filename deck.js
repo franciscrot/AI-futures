@@ -476,7 +476,7 @@ window.deck = [
     id: 49,
     name: "49: No Wasted Heat",
     type: "event",
-    description: "* Districts are increasingly capturing datacentre waste heat for housing, agriculture, and even (weirdly) cooling in the summer\n* Governments are beginning to support this with targeted policy, and our organisation is a beneficiary\n* Impacts players who have played action cards 5 or 8.",
+    description: "* Districts are increasingly capturing datacentre waste heat for housing, agriculture, and even (weirdly) cooling in the summer\n* Governments are beginning to support this with targeted policy, and our organisation is a beneficiary\n* All players convert all Progress into RAI Points.",
     tooltip: "No Wasted Heat",
     imagePath: "images/49.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -588,7 +588,7 @@ window.deck = [
     id: 57,
     name: "57: Right to Exit",
     type: "event",
-    description: "* Strong ‘right to exit’ legislation reshapes many digital platforms, including AI platforms\n* Users of platforms no longer feel trapped – it’s always easy to unsubscribe, and you can take your data with you\n* Impacts players who have played action card 21.",
+    description: "* Strong ‘right to exit’ legislation reshapes many digital platforms, including AI platforms\n* Users of platforms no longer feel trapped – it’s always easy to unsubscribe, and you can take your data with you\n* All players convert all Progress into RAI Points.",
     tooltip: "Progress Points for Actions 10, 14, 16, 18.",
     imagePath: "images/57.jpg",
     effect: function (player, AI1, AI2) {
@@ -845,7 +845,7 @@ window.deck = [
     id: 74,
     name: "74: AI does something wonderful",
     type: "event",
-    description: "* It was very unexpected\n* An AI did something wonderful\n* What was it?\n* Was it a big thing or a small thing?\n* Impacts players who have played action cards 4 or 20.",
+    description: "* It was very unexpected\n* An AI did something wonderful\n* What was it?\n* Was it a big thing or a small thing?\n* All players convert all Progress into RAI Points.",
     tooltip: "Progress Points for Actions 11, 13, 18, 25, 3, 11, 22, 23.",
     imagePath: "images/74.jpg",
     effect: function (player, AI1, AI2) {
@@ -948,7 +948,7 @@ window.deck = [
     id: 81,
     name: "81: One planet",
     type: "event",
-    description: "* We all live under the same sky, and the same sun. The same planet feeds and shelters us.\n* This is not a competitive game. Either we all win together, or we all lose together.\n* Your objective is to maximise the total RAIs before the cards run out.\n* By the way, what does the ‘R’ in ‘RAI’ stand for? Responsible? Resilient? Resist? Reclaim? Reparative? Radical? Revenge? Something else?\n* Impacts all players.",
+    description: "* We all live under the same sky, and the same sun. The same planet feeds and shelters us.\n* This is not a competitive game. Either we all win together, or we all lose together.\n* Your objective is to maximise the total RAIs before the cards run out.\n* By the way, what does the ‘R’ in ‘RAI’ stand for? Responsible? Resilient? Resist? Reclaim? Reparative? Radical? Revenge? Something else?\n* All players convert all Progress into RAI Points.",
     tooltip: "One planet",
     imagePath: "images/81.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
