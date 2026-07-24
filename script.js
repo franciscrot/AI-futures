@@ -158,7 +158,7 @@ function updateSkipUI() {
     token.disabled = !skipAvailable;
     token.classList.toggle("is-armed", skipArmed);
     token.setAttribute("aria-pressed", String(skipArmed));
-    token.textContent = skipAvailable ? "SKIP" : "USED";
+    token.textContent = "SKIP";
     token.title = !skipAvailable
       ? "The one-use skip has been used"
       : skipArmed
