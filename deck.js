@@ -345,7 +345,7 @@ window.deck = [
     id: 38,
     name: "38: Water Shortages",
     type: "event",
-    description: "* Droughts and heatwaves drive up the water costs of cooling data centres.\n* Communities begin to fight for priority.\n* Data centres cluster even more where there is natural cooling.\n* Impacts players who have played action cards 1 or 24.",
+    description: "* Droughts and heatwaves drive up the water costs of cooling data centres.\n* Communities begin to fight for priority.\n* Data centres cluster even more where there is natural cooling.\n* All players lose all progress points, unless protected by actions 1 or 24.",
     tooltip: "Progress Points for Actions 1, 5, 24, 31.",
     imagePath: "images/38.jpg",
     effect: function (player, AI1, AI2) {
@@ -380,7 +380,7 @@ window.deck = [
     id: 41,
     name: "41: Resource Wars",
     type: "event",
-    description: "* Demand for lithium, cobalt, and Rare Earth Elements are sparking conflicts\n* Impacts players who have played action cards 8, 9, 19, or 24.",
+    description: "* Demand for lithium, cobalt, and Rare Earth Elements are sparking conflicts\n* All players lose all progress points, unless protected by actions 8, 9, 19, or 24.",
     tooltip: "Progress Points for Actions 2, 4, 19, 24.",
     imagePath: "images/41.jpg",
     effect: function (player, AI1, AI2) {
@@ -511,7 +511,7 @@ window.deck = [
     id: 52,
     name: "52: The Library of Babel",
     type: "event",
-    description: "* Our shared sense of social reality is all but gone.\n* Everywhere you look, AI models are confidently hallucinating.\n* Deepfakes are flooding the feeds.\n* When you go to verify anything, the place you go is a deepfake too.\n* Impacts players who have played action cards 14 or 30.",
+    description: "* Our shared sense of social reality is all but gone.\n* Everywhere you look, AI models are confidently hallucinating.\n* Deepfakes are flooding the feeds.\n* When you go to verify anything, the place you go is a deepfake too.\n* All players lose all progress points, unless protected by actions 14 or 30.",
     tooltip: "Progress Points for Actions 21, 28, 29, 32.",
     imagePath: "images/52.jpg",
     effect: function (player, AI1, AI2) {
@@ -674,7 +674,7 @@ window.deck = [
     id: 63,
     name: "63: Tech fails to decarbonise",
     type: "event",
-    description: "* Tech giant Giggle is failing to meet its decarbonisation pledges\n* Instead Giggle, Necrosurf, and Glamazon are putting pressure on the GHG Protocol and SBTi to rewrite the rules for how carbon emissions are measured\n* Impacts players who have played action cards 3, 7, or 18.",
+    description: "* Tech giant Giggle is failing to meet its decarbonisation pledges\n* Instead Giggle, Necrosurf, and Glamazon are putting pressure on the GHG Protocol and SBTi to rewrite the rules for how carbon emissions are measured\n* All players lose all progress points, unless protected by actions 3, 7, or 18.",
     tooltip: "Progress Points for Actions 9, 23, 26, 27, 18, 20, 25, 31.",
     imagePath: "images/63.jpg",
     effect: function (player, AI1, AI2) {
@@ -776,7 +776,7 @@ window.deck = [
     id: 69,
     name: "69: A Drop of Poison",
     type: "event",
-    description: "* Training data is being ‘poisoned’\n* AI models can be degraded, or their security is compromised\n* Who is doing it? Competitors, activists, somebody else?\n* Impacts players who have played action card 16.",
+    description: "* Training data is being ‘poisoned’\n* AI models can be degraded, or their security is compromised\n* Who is doing it? Competitors, activists, somebody else?\n* All players lose all progress points, unless protected by action 16.",
     tooltip: "A Drop of Poison",
     imagePath: "images/69.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
