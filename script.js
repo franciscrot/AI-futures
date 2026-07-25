@@ -690,7 +690,7 @@ function renderPlayerHand() {
     // Card type text
     const typeText = document.createElement("span");
     typeText.className = "card-type";
-    typeText.textContent = card.type;
+    typeText.textContent = CHOICE_CARD_OPTIONS[card.id] ? "choice" : card.type;
     headerRow.appendChild(typeText);
 
     cardDiv.appendChild(headerRow);
