@@ -725,8 +725,14 @@ function logAIPlay(aiName, card) {
   const aiLogDiv = el("aiLog");
   if (!aiLogDiv) return;
 
+  const titleWithoutNumber = String(card.name || "")
+    .replace(/^\d+:\s*/, "")
+    .trim();
+  const tooltip = String(card.tooltip || "").trim();
+  let logDetail = tooltip || "Effect applied.";
+  if (tooltip === titleWithoutNumber) logDetail = "";
   const entry = document.createElement("div");
-  entry.innerHTML = `<strong>${aiName}</strong> played <em>${card.name}</em>: ${card.tooltip || "Effect applied."}`;
+  entry.innerHTML = `<strong>${aiName}</strong> played <em>${card.name}</em>${logDetail ? `: ${logDetail}` : ""}`;
   entry.className = "ai-entry";
 
   aiLogDiv.appendChild(entry);
