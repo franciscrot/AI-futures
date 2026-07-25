@@ -746,7 +746,7 @@ function logSkippedCard(card) {
   if (!aiLogDiv) return;
 
   const entry = document.createElement("div");
-  entry.innerHTML = `<strong>${player.name}</strong> skipped <em>${card.name}</em>. No effect was applied.`;
+  entry.innerHTML = `<strong>${player.name}</strong> skipped <em>${card.name}</em>.`;
   entry.className = "ai-entry";
   aiLogDiv.appendChild(entry);
   entry.scrollIntoView({ behavior: "smooth", block: "end" });
