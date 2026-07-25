@@ -768,7 +768,7 @@ function updateScoreChart() {
     if (isPlayer) {
       const label = document.createElement("div");
       label.className = "score-player-label";
-      label.textContent = organisation.name;
+      label.textContent = "YOU";
       column.appendChild(label);
     }
 
