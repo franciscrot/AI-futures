@@ -712,6 +712,68 @@ function updateGameInfo() {
     Progress: ${AI2.progress},<br> RAI points: ${AI2.sustainability}<br>
     Actions: ${renderCards([...AI2.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br>
   `;
+
+  updateScoreChart();
+}
+
+function updateScoreChart() {
+  const plot = el("scoreChartPlot");
+  if (!plot) return;
+
+  const organisations = [
+    { organisation: player, isPlayer: true },
+    { organisation: AI1, isPlayer: false },
+    { organisation: AI2, isPlayer: false },
+  ];
+  const weightedTotals = organisations.map(
+    ({ organisation }) =>
+      organisation.sustainability + organisation.progress * 0.5,
+  );
+  const scaleMaximum = Math.max(1, ...weightedTotals);
+
+  plot.innerHTML = "";
+
+  organisations.forEach(({ organisation, isPlayer }, index) => {
+    const raiValue = organisation.sustainability;
+    const progressValue = organisation.progress * 0.5;
+    const weightedTotal = weightedTotals[index];
+    const column = document.createElement("div");
+    const stack = document.createElement("div");
+    const raiSegment = document.createElement("div");
+    const progressSegment = document.createElement("div");
+
+    column.className = "score-bar-column";
+    column.setAttribute(
+      "aria-label",
+      `${isPlayer ? organisation.name : "Rival"}: ${raiValue} RAI points and ${organisation.progress} Progress points; weighted score ${weightedTotal}.`,
+    );
+
+    stack.className = "score-bar-stack";
+    stack.style.height = `${(weightedTotal / scaleMaximum) * 100}%`;
+    stack.title = `${raiValue} RAI + ${organisation.progress} Progress × 0.5 = ${weightedTotal}`;
+
+    raiSegment.className = "score-segment score-segment-rai";
+    raiSegment.style.height =
+      weightedTotal === 0 ? "0%" : `${(raiValue / weightedTotal) * 100}%`;
+
+    progressSegment.className = "score-segment score-segment-progress";
+    progressSegment.style.height =
+      weightedTotal === 0
+        ? "0%"
+        : `${(progressValue / weightedTotal) * 100}%`;
+
+    stack.append(raiSegment, progressSegment);
+    column.appendChild(stack);
+
+    if (isPlayer) {
+      const label = document.createElement("div");
+      label.className = "score-player-label";
+      label.textContent = organisation.name;
+      column.appendChild(label);
+    }
+
+    plot.appendChild(column);
+  });
 }
 
 function renderCards(idArray, highlightIds = new Set()) {
