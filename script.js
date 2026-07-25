@@ -142,6 +142,16 @@ function playCardSfx(kind) {
 
   const scheduleSound = () => {
     const start = context.currentTime;
+    const backgroundMusic = document.getElementById("backgroundMusic");
+
+    // Briefly make room in the mix so the cue remains audible on small speakers.
+    if (backgroundMusic && !backgroundMusic.paused) {
+      const normalMusicVolume = 0.35;
+      backgroundMusic.volume = 0.22;
+      window.setTimeout(() => {
+        backgroundMusic.volume = normalMusicVolume;
+      }, 180);
+    }
 
     if (kind === "choice") {
       playSfxTone(context, {
@@ -149,13 +159,13 @@ function playCardSfx(kind) {
         frequency: 440,
         endFrequency: 523.25,
         duration: 0.075,
-        volume: 0.022,
+        volume: 0.075,
       });
       playSfxTone(context, {
         start: start + 0.045,
         frequency: 659.25,
         duration: 0.085,
-        volume: 0.018,
+        volume: 0.055,
       });
     } else if (kind === "event") {
       playSfxTone(context, {
@@ -163,7 +173,7 @@ function playCardSfx(kind) {
         frequency: 196,
         endFrequency: 146.83,
         duration: 0.12,
-        volume: 0.032,
+        volume: 0.085,
         wave: "triangle",
       });
     } else if (kind === "skip") {
@@ -173,7 +183,7 @@ function playCardSfx(kind) {
         frequency: 220,
         endFrequency: 110,
         duration: 0.065,
-        volume: 0.018,
+        volume: 0.065,
         wave: "triangle",
       });
     } else {
@@ -182,7 +192,7 @@ function playCardSfx(kind) {
         frequency: 329.63,
         endFrequency: 440,
         duration: 0.085,
-        volume: 0.026,
+        volume: 0.075,
         wave: "triangle",
       });
     }
@@ -898,10 +908,10 @@ function logAIPlay(aiName, card) {
   entry.innerHTML = `<strong>${aiName}</strong> played <em>${card.name}</em>${logDetail ? `: ${logDetail}` : ""}`;
   entry.className = "ai-entry";
 
-  aiLogDiv.appendChild(entry);
+  aiLogDiv.prepend(entry);
 
-  // scroll the new entry into view
-  entry.scrollIntoView({ behavior: "smooth", block: "end" });
+  // Keep the newest entry visible at the top of the log.
+  aiLogDiv.scrollTop = 0;
 }
 
 function logSkippedCard(card) {
@@ -911,8 +921,8 @@ function logSkippedCard(card) {
   const entry = document.createElement("div");
   entry.innerHTML = `<strong>${player.name}</strong> skipped <em>${card.name}</em>.`;
   entry.className = "ai-entry";
-  aiLogDiv.appendChild(entry);
-  entry.scrollIntoView({ behavior: "smooth", block: "end" });
+  aiLogDiv.prepend(entry);
+  aiLogDiv.scrollTop = 0;
 }
 
 function updateGameInfo() {
