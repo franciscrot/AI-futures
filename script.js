@@ -216,6 +216,7 @@ function shuffle(array) {
 
 let skipAvailable = true;
 let skipArmed = false;
+let skipReplacementInProgress = false;
 let skipPointerX = 0;
 let skipPointerY = 0;
 
@@ -707,7 +708,7 @@ function renderPlayerHand() {
     cardDiv.appendChild(desc);
 
     // Click handler
-    cardDiv.addEventListener("click", () => playPlayerCard(index));
+    cardDiv.addEventListener("click", () => handlePlayerCardClick(index));
     // Hover handlers: highlight relevant action IDs for event cards.
     if (card.type === "event") {
       cardDiv.addEventListener("mouseenter", () => {
@@ -1050,28 +1051,44 @@ function playAI2Card() {
   if (Array.isArray(window.deck) && deck.length) AI2.hand.push(deck.pop());
 }
 
+function handlePlayerCardClick(index) {
+  if (skipReplacementInProgress) return;
+
+  if (skipArmed) {
+    skipPlayerCard(index);
+    return;
+  }
+
+  playPlayerCard(index);
+}
+
+function skipPlayerCard(index) {
+  const selectedCard = player.hand[index];
+  if (!selectedCard) return;
+
+  if (!Array.isArray(window.deck) || deck.length === 0) {
+    setSkipArmed(false);
+    return;
+  }
+
+  skipReplacementInProgress = true;
+  const skippedCard = player.hand.splice(index, 1)[0];
+  player.hand.push(deck.pop());
+  consumeSkipToken();
+  logSkippedCard(skippedCard);
+  renderPlayerHand();
+  updateGameInfo();
+  updatePlayedLists();
+
+  requestAnimationFrame(() => {
+    skipReplacementInProgress = false;
+  });
+}
+
 let emptyDeckStreak = 0;
 async function playPlayerCard(index) {
   const selectedCard = player.hand[index];
   if (!selectedCard) return;
-
-  const isSkipping = skipArmed;
-
-  if (isSkipping) {
-    if (!Array.isArray(window.deck) || deck.length === 0) {
-      setSkipArmed(false);
-      return;
-    }
-
-    const skippedCard = player.hand.splice(index, 1)[0];
-    player.hand.push(deck.pop());
-    consumeSkipToken();
-    logSkippedCard(skippedCard);
-    renderPlayerHand();
-    updateGameInfo();
-    updatePlayedLists();
-    return;
-  }
 
   if (CHOICE_CARD_OPTIONS[selectedCard.id]) {
     await promptForCardChoice(selectedCard);
