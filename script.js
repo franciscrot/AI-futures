@@ -815,7 +815,7 @@ function updateScoreChart() {
   const plot = el("scoreChartPlot");
   if (!plot) return;
 
-  const scoreMaximum = 45;
+  const scoreMaximum = 40;
   const organisations = [
     { organisation: player, isPlayer: true },
     { organisation: AI1, isPlayer: false },
@@ -828,6 +828,9 @@ function updateScoreChart() {
     const raiValue = organisation.sustainability;
     const progressValue = organisation.progress * 0.5;
     const weightedTotal = raiValue + progressValue;
+    const raiHeight = Math.min(raiValue / scoreMaximum, 1) * 100;
+    const progressHeight =
+      Math.min(progressValue / scoreMaximum, 1 - raiHeight / 100) * 100;
     const column = document.createElement("div");
     const stack = document.createElement("div");
     const raiSegment = document.createElement("div");
@@ -843,10 +846,11 @@ function updateScoreChart() {
     stack.title = `${raiValue} RAI + ${organisation.progress} Progress × 0.5 = ${weightedTotal}`;
 
     raiSegment.className = "score-segment score-segment-rai";
-    raiSegment.style.height = `${(raiValue / scoreMaximum) * 100}%`;
+    raiSegment.style.height = `${raiHeight}%`;
 
     progressSegment.className = "score-segment score-segment-progress";
-    progressSegment.style.height = `${(progressValue / scoreMaximum) * 100}%`;
+    progressSegment.style.bottom = `${raiHeight}%`;
+    progressSegment.style.height = `${progressHeight}%`;
 
     stack.append(raiSegment, progressSegment);
     column.appendChild(stack);
