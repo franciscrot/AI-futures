@@ -719,7 +719,42 @@ function renderPlayerHand() {
     }
     handDiv.appendChild(cardDiv);
   });
+
+  scheduleScoreRailPosition();
 }
+
+let scoreRailPositionFrame = null;
+
+function scheduleScoreRailPosition() {
+  if (scoreRailPositionFrame !== null) {
+    cancelAnimationFrame(scoreRailPositionFrame);
+  }
+  scoreRailPositionFrame = requestAnimationFrame(() => {
+    scoreRailPositionFrame = null;
+    positionScoreRail();
+  });
+}
+
+function positionScoreRail() {
+  const rail = el("scoreRail");
+  const cards = [...document.querySelectorAll("#playerHand .card")];
+  if (!rail || cards.length === 0) return;
+
+  const rightmostCard = cards.reduce((rightmost, card) =>
+    card.getBoundingClientRect().right >
+    rightmost.getBoundingClientRect().right
+      ? card
+      : rightmost,
+  );
+  const cardBounds = rightmostCard.getBoundingClientRect();
+  const horizontalMidpoint =
+    cardBounds.right + (window.innerWidth - cardBounds.right) / 2;
+
+  rail.style.left = `${horizontalMidpoint}px`;
+  rail.style.top = `${cardBounds.top + cardBounds.height / 2}px`;
+}
+
+window.addEventListener("resize", scheduleScoreRailPosition);
 
 function logAIPlay(aiName, card) {
   const aiLogDiv = el("aiLog");
@@ -780,23 +815,19 @@ function updateScoreChart() {
   const plot = el("scoreChartPlot");
   if (!plot) return;
 
+  const scoreMaximum = 45;
   const organisations = [
     { organisation: player, isPlayer: true },
     { organisation: AI1, isPlayer: false },
     { organisation: AI2, isPlayer: false },
   ];
-  const weightedTotals = organisations.map(
-    ({ organisation }) =>
-      organisation.sustainability + organisation.progress * 0.5,
-  );
-  const scaleMaximum = Math.max(1, ...weightedTotals);
 
   plot.innerHTML = "";
 
-  organisations.forEach(({ organisation, isPlayer }, index) => {
+  organisations.forEach(({ organisation, isPlayer }) => {
     const raiValue = organisation.sustainability;
     const progressValue = organisation.progress * 0.5;
-    const weightedTotal = weightedTotals[index];
+    const weightedTotal = raiValue + progressValue;
     const column = document.createElement("div");
     const stack = document.createElement("div");
     const raiSegment = document.createElement("div");
@@ -809,18 +840,13 @@ function updateScoreChart() {
     );
 
     stack.className = "score-bar-stack";
-    stack.style.height = `${(weightedTotal / scaleMaximum) * 100}%`;
     stack.title = `${raiValue} RAI + ${organisation.progress} Progress × 0.5 = ${weightedTotal}`;
 
     raiSegment.className = "score-segment score-segment-rai";
-    raiSegment.style.height =
-      weightedTotal === 0 ? "0%" : `${(raiValue / weightedTotal) * 100}%`;
+    raiSegment.style.height = `${(raiValue / scoreMaximum) * 100}%`;
 
     progressSegment.className = "score-segment score-segment-progress";
-    progressSegment.style.height =
-      weightedTotal === 0
-        ? "0%"
-        : `${(progressValue / weightedTotal) * 100}%`;
+    progressSegment.style.height = `${(progressValue / scoreMaximum) * 100}%`;
 
     stack.append(raiSegment, progressSegment);
     column.appendChild(stack);
@@ -1027,24 +1053,35 @@ async function playPlayerCard(index) {
 
   const isSkipping = skipArmed;
 
-  if (!isSkipping && CHOICE_CARD_OPTIONS[selectedCard.id]) {
+  if (isSkipping) {
+    if (!Array.isArray(window.deck) || deck.length === 0) {
+      setSkipArmed(false);
+      return;
+    }
+
+    const skippedCard = player.hand.splice(index, 1)[0];
+    player.hand.push(deck.pop());
+    consumeSkipToken();
+    logSkippedCard(skippedCard);
+    renderPlayerHand();
+    updateGameInfo();
+    updatePlayedLists();
+    return;
+  }
+
+  if (CHOICE_CARD_OPTIONS[selectedCard.id]) {
     await promptForCardChoice(selectedCard);
   }
 
   const chosenCard = player.hand.splice(index, 1)[0];
   if (!chosenCard) return;
 
-  if (isSkipping) {
-    consumeSkipToken();
-    logSkippedCard(chosenCard);
-  } else {
-    safeEffectInvoke(chosenCard, player, AI1, AI2);
+  safeEffectInvoke(chosenCard, player, AI1, AI2);
 
-    if (chosenCard.type === "action") player.actionsPlayed.add(chosenCard.id);
-    else if (chosenCard.type === "event") player.eventsPlayed.add(chosenCard.id);
+  if (chosenCard.type === "action") player.actionsPlayed.add(chosenCard.id);
+  else if (chosenCard.type === "event") player.eventsPlayed.add(chosenCard.id);
 
-    logAIPlay(player.name, chosenCard);
-  }
+  logAIPlay(player.name, chosenCard);
 
   if (Array.isArray(window.deck) && deck.length) player.hand.push(deck.pop());
   playAI1Card();

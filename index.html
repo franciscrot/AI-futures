@@ -281,14 +281,14 @@
       }
 
       #scoreRail {
-        position: absolute;
+        position: fixed;
         top: 50%;
-        right: 7px;
+        left: calc(100% - 73px);
         z-index: 10;
         box-sizing: border-box;
         width: 132px;
         padding: 9px 8px 8px;
-        transform: translateY(-50%);
+        transform: translate(-50%, -50%);
         border: 1px solid #3d3d3d;
         border-radius: 7px;
         background: rgba(16, 16, 16, 0.9);
@@ -329,12 +329,11 @@
       .score-bar-stack {
         display: flex;
         width: 100%;
-        max-height: 100%;
+        height: 100%;
         flex-direction: column-reverse;
         overflow: hidden;
         border-radius: 3px 3px 0 0;
-        background: #2b2b2b;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+        background: transparent;
       }
 
       .score-segment {
@@ -376,7 +375,6 @@
 
       @media (max-width: 1100px) {
         #scoreRail {
-          right: 3px;
           width: 106px;
           padding-inline: 5px;
         }
@@ -389,9 +387,7 @@
 
       @media (max-width: 850px) {
         #scoreRail {
-          top: 7px;
           width: 100px;
-          transform: none;
         }
 
         .score-chart-plot {
@@ -711,7 +707,7 @@
         <div id="scoreChartPlot" class="score-chart-plot"></div>
       </aside>
       <div id="infoArea">
-        <h2>Cards Played</h2>
+        <h2>Card Log</h2>
         <div id="aiLog"></div>
       </div>
     </div>
