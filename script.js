@@ -103,7 +103,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
   player = {
     name: playerName,
     hand: [],
-    progress: 0,
+    progress: 1,
     sustainability: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
@@ -111,7 +111,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
   AI1 = {
     name: AI1Name,
     hand: [],
-    progress: 0,
+    progress: 1,
     sustainability: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
@@ -119,11 +119,12 @@ document.getElementById("resetButton").addEventListener("click", () => {
   AI2 = {
     name: AI2Name,
     hand: [],
-    progress: 0,
+    progress: 1,
     sustainability: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
   };
+  updateIntroCompanyName();
 
   // empty aiLog
   const aiLogDiv = el("aiLog");
@@ -260,6 +261,12 @@ function consumeSkipToken() {
   updateSkipUI();
 }
 
+function restoreSkipToken() {
+  skipAvailable = true;
+  skipArmed = false;
+  updateSkipUI();
+}
+
 const skipToken = el("skipToken");
 if (skipToken) {
   skipToken.addEventListener("click", () => {
@@ -354,26 +361,47 @@ const CHOICE_CARD_OPTIONS = {
     prompt: (companyName) =>
       `Does ${companyName} prefer general-purpose AI systems, or smaller, domain-specific AI systems?`,
     options: [
-      { value: "general-purpose", label: "General-purpose AI systems" },
-      { value: "domain-specific", label: "Smaller, domain-specific AI systems" },
+      {
+        value: "general-purpose",
+        label: "General-purpose AI systems",
+        correlatedActionId: 18,
+      },
+      {
+        value: "domain-specific",
+        label: "Smaller, domain-specific AI systems",
+        correlatedActionId: 6,
+      },
     ],
   },
   34: {
     prompt: (companyName) =>
       `Where does most of ${companyName}'s compute take place?`,
     options: [
-      { value: "machine-meshes", label: "On devices and local machine meshes" },
-      { value: "cloud-computing", label: "In remotely accessible cloud computing" },
+      {
+        value: "machine-meshes",
+        label: "On devices and local machine meshes",
+        correlatedActionId: 25,
+      },
+      {
+        value: "cloud-computing",
+        label: "In remotely accessible cloud computing",
+        correlatedActionId: 8,
+      },
     ],
   },
   35: {
     prompt: (companyName) =>
       `Which unexpected technology is working rather well for ${companyName}?`,
     options: [
-      { value: "space-data-centres", label: "Data centres in space and on the Moon" },
+      {
+        value: "space-data-centres",
+        label: "Data centres in space and on the Moon",
+        correlatedActionId: 9,
+      },
       {
         value: "organic-data-centres",
         label: "Organic data centres powered partly by algae and mud batteries",
+        correlatedActionId: 24,
       },
     ],
   },
@@ -381,10 +409,15 @@ const CHOICE_CARD_OPTIONS = {
     prompt: (companyName) =>
       `Which environmental priority matters more to ${companyName}?`,
     options: [
-      { value: "sustainable-ai", label: "Reducing the impacts of AI itself" },
+      {
+        value: "sustainable-ai",
+        label: "Reducing the impacts of AI itself",
+        correlatedActionId: 1,
+      },
       {
         value: "ai-for-sustainability",
         label: "Using AI to achieve wider environmental benefits",
+        correlatedActionId: 17,
       },
     ],
   },
@@ -392,8 +425,16 @@ const CHOICE_CARD_OPTIONS = {
     prompt: (companyName) =>
       `Are most workers at ${companyName} a bit cyborg, or very cyborg?`,
     options: [
-      { value: "a-bit-cyborg", label: "A bit cyborg" },
-      { value: "very-cyborg", label: "Very cyborg" },
+      {
+        value: "a-bit-cyborg",
+        label: "A bit cyborg",
+        correlatedActionId: 13,
+      },
+      {
+        value: "very-cyborg",
+        label: "Very cyborg",
+        correlatedActionId: 21,
+      },
     ],
   },
 };
@@ -445,6 +486,12 @@ function promptForCardChoice(card) {
             value: option.value,
             label: option.label,
           };
+          if (
+            !skipAvailable &&
+            player.actionsPlayed.has(option.correlatedActionId)
+          ) {
+            restoreSkipToken();
+          }
           modal.style.display = "none";
           modal.setAttribute("aria-hidden", "true");
           resolve(window.playerChoices[card.id]);
@@ -465,7 +512,7 @@ let AI2Name = generateAI2Name();
 let player = {
   name: playerName,
   hand: [],
-  progress: 0,
+  progress: 1,
   sustainability: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
@@ -473,7 +520,7 @@ let player = {
 let AI1 = {
   name: AI1Name,
   hand: [],
-  progress: 0,
+  progress: 1,
   sustainability: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
@@ -481,11 +528,18 @@ let AI1 = {
 let AI2 = {
   name: AI2Name,
   hand: [],
-  progress: 0,
+  progress: 1,
   sustainability: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
 };
+
+function updateIntroCompanyName() {
+  const companyName = el("introCompanyName");
+  if (companyName) companyName.textContent = player.name;
+}
+
+updateIntroCompanyName();
 
 // Keep card metadata even after deck mutations
 let CARD_BY_ID = {};
