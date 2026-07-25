@@ -73,6 +73,133 @@ if (backgroundMusic) {
   backgroundMusic.addEventListener("ended", playRandomMusicTrack);
 }
 
+let sfxAudioContext = null;
+
+function getSfxAudioContext() {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return null;
+  if (!sfxAudioContext) sfxAudioContext = new AudioContextClass();
+  return sfxAudioContext;
+}
+
+function playSfxTone(
+  context,
+  {
+    start = context.currentTime,
+    frequency,
+    endFrequency = frequency,
+    duration,
+    volume,
+    wave = "sine",
+  },
+) {
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+
+  oscillator.type = wave;
+  oscillator.frequency.setValueAtTime(frequency, start);
+  oscillator.frequency.exponentialRampToValueAtTime(
+    endFrequency,
+    start + duration,
+  );
+  gain.gain.setValueAtTime(0.0001, start);
+  gain.gain.exponentialRampToValueAtTime(volume, start + 0.008);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+  oscillator.connect(gain).connect(context.destination);
+  oscillator.start(start);
+  oscillator.stop(start + duration + 0.01);
+}
+
+function playSkipFlick(context, start) {
+  const duration = 0.065;
+  const buffer = context.createBuffer(
+    1,
+    Math.ceil(context.sampleRate * duration),
+    context.sampleRate,
+  );
+  const samples = buffer.getChannelData(0);
+  for (let index = 0; index < samples.length; index++) {
+    const fade = 1 - index / samples.length;
+    samples[index] = (Math.random() * 2 - 1) * fade;
+  }
+
+  const source = context.createBufferSource();
+  const filter = context.createBiquadFilter();
+  const gain = context.createGain();
+  source.buffer = buffer;
+  filter.type = "highpass";
+  filter.frequency.setValueAtTime(850, start);
+  gain.gain.setValueAtTime(0.018, start);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+  source.connect(filter).connect(gain).connect(context.destination);
+  source.start(start);
+}
+
+function playCardSfx(kind) {
+  const context = getSfxAudioContext();
+  if (!context) return;
+
+  const scheduleSound = () => {
+    const start = context.currentTime;
+
+    if (kind === "choice") {
+      playSfxTone(context, {
+        start,
+        frequency: 440,
+        endFrequency: 523.25,
+        duration: 0.075,
+        volume: 0.022,
+      });
+      playSfxTone(context, {
+        start: start + 0.045,
+        frequency: 659.25,
+        duration: 0.085,
+        volume: 0.018,
+      });
+    } else if (kind === "event") {
+      playSfxTone(context, {
+        start,
+        frequency: 196,
+        endFrequency: 146.83,
+        duration: 0.12,
+        volume: 0.032,
+        wave: "triangle",
+      });
+    } else if (kind === "skip") {
+      playSkipFlick(context, start);
+      playSfxTone(context, {
+        start,
+        frequency: 220,
+        endFrequency: 110,
+        duration: 0.065,
+        volume: 0.018,
+        wave: "triangle",
+      });
+    } else {
+      playSfxTone(context, {
+        start,
+        frequency: 329.63,
+        endFrequency: 440,
+        duration: 0.085,
+        volume: 0.026,
+        wave: "triangle",
+      });
+    }
+  };
+
+  if (context.state === "suspended") {
+    context.resume().then(scheduleSound).catch(() => {});
+  } else {
+    scheduleSound();
+  }
+}
+
+function getCardSfxType(card) {
+  if (CHOICE_CARD_OPTIONS[card.id]) return "choice";
+  return card.type === "event" ? "event" : "action";
+}
+
 // close intre screen
 document.getElementById("closeIntro").addEventListener("click", () => {
   startBackgroundMusic();
@@ -1059,6 +1186,9 @@ function handlePlayerCardClick(index) {
     return;
   }
 
+  const selectedCard = player.hand[index];
+  if (!selectedCard) return;
+  playCardSfx(getCardSfxType(selectedCard));
   playPlayerCard(index);
 }
 
@@ -1072,6 +1202,7 @@ function skipPlayerCard(index) {
   }
 
   skipReplacementInProgress = true;
+  playCardSfx("skip");
   const skippedCard = player.hand.splice(index, 1)[0];
   player.hand.push(deck.pop());
   consumeSkipToken();
