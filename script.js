@@ -588,7 +588,64 @@ const SUBPLOT_CARD_IDS_BY_ID = {
   C: [88, 89, 90],
   D: [91, 92, 93],
   E: [94, 95, 96],
+  F: [97, 98, 99],
 };
+
+const CARE_RELATIVES = [
+  {
+    relation: "mother",
+    subjectPronoun: "she",
+    objectPronoun: "her",
+    possessivePronoun: "her",
+    weight: 0.2,
+  },
+  {
+    relation: "father",
+    subjectPronoun: "he",
+    objectPronoun: "him",
+    possessivePronoun: "his",
+    weight: 0.2,
+  },
+  {
+    relation: "grandfather",
+    subjectPronoun: "he",
+    objectPronoun: "him",
+    possessivePronoun: "his",
+    weight: 0.2,
+  },
+  {
+    relation: "grandmother",
+    subjectPronoun: "she",
+    objectPronoun: "her",
+    possessivePronoun: "her",
+    weight: 0.2,
+  },
+  {
+    relation: "brother",
+    subjectPronoun: "he",
+    objectPronoun: "him",
+    possessivePronoun: "his",
+    weight: 0.1,
+  },
+  {
+    relation: "sister",
+    subjectPronoun: "she",
+    objectPronoun: "her",
+    possessivePronoun: "her",
+    weight: 0.1,
+  },
+];
+
+let activeCareRelative = null;
+
+function chooseCareRelative() {
+  let roll = Math.random();
+  for (const relative of CARE_RELATIVES) {
+    roll -= relative.weight;
+    if (roll < 0) return { ...relative };
+  }
+  return { ...CARE_RELATIVES.at(-1) };
+}
 
 function createSubplotAChoiceConfig(stage, cardIds) {
   if (stage === 1) {
@@ -700,6 +757,119 @@ function createSubplotAChoiceConfig(stage, cardIds) {
       return conclusions[previousValue].options.map((option, index) => ({
         value: `${previousValue}-${index + 1}`,
         label: option.label,
+      }));
+    },
+  };
+}
+
+function createSubplotFChoiceConfig(stage, cardIds) {
+  const relative = activeCareRelative || CARE_RELATIVES[0];
+  const relation = relative.relation;
+  const subject = relative.subjectPronoun;
+  const object = relative.objectPronoun;
+  const possessive = relative.possessivePronoun;
+
+  if (stage === 1) {
+    return {
+      prompt: () =>
+        `Your ${relation} is getting older. Small difficulties with meals, appointments and moving around are becoming regular, but ${subject} values ${possessive} independence.`,
+      options: () => [
+        {
+          value: "path-1",
+          label: "Offer to take on more of the care yourself.",
+        },
+        {
+          value: "path-2",
+          label:
+            "Build a wider circle of family, friends and local support.",
+        },
+      ],
+    };
+  }
+
+  if (stage === 2) {
+    return {
+      prompt: () => {
+        const tookOnCare =
+          window.playerChoices[cardIds[0]]?.value === "path-1";
+        if (tookOnCare) {
+          return `Since you took on more of your ${relation}’s care, ${possessive} needs have grown. Your workdays are increasingly shaped by calls, visits and worry.\n\nA care service proposes a network of sensors, reminders and robots for check-ins, meals and simple household tasks, escalating problems to people.`;
+        }
+        return `The wider circle has helped your ${relation} remain independent, but coordination is tiring and gaps keep appearing.\n\nA care service proposes a network of sensors, reminders and robots for check-ins, meals and simple household tasks, escalating problems to people.`;
+      },
+      options: () => {
+        const tookOnCare =
+          window.playerChoices[cardIds[0]]?.value === "path-1";
+        return tookOnCare
+          ? [
+              {
+                value: "path-1-1",
+                label: `Introduce the system with ${possessive} consent.`,
+              },
+              {
+                value: "path-1-2",
+                label:
+                  "Reduce your CEO responsibilities and continue providing care yourself.",
+              },
+            ]
+          : [
+              {
+                value: "path-2-1",
+                label:
+                  "Use the system to support and coordinate the care circle.",
+              },
+              {
+                value: "path-2-2",
+                label: "Arrange regular professional human care instead.",
+              },
+            ];
+      },
+    };
+  }
+
+  const conclusions = {
+    "path-1-1": {
+      prompt: `With ${possessive} consent, networked devices now handle reminders, check-ins and simple tasks for your ${relation}. You visit less often in emergencies and more often as family, although intimate routines now generate data and alerts.`,
+      options: [
+        "I hope technology can create more room for human closeness.",
+        "I worry that safety is becoming another form of surveillance.",
+      ],
+    },
+    "path-1-2": {
+      prompt: `You reduce your CEO role and take on more of your ${relation}’s care yourself. Time together deepens, but fatigue and lost work reshape both your lives.`,
+      options: [
+        "I hope care can be treated as part of life, not an interruption.",
+        "I wish devotion did not require one person to step back.",
+      ],
+    },
+    "path-2-1": {
+      prompt: `Robots and devices help your ${relation}’s care circle coordinate, and ${subject} remains at home longer. Responsibility is shared, but every alert seems to belong to everyone and no one.`,
+      options: [
+        "I hope shared responsibility can become genuine solidarity.",
+        "I worry that coordination is replacing responsibility.",
+      ],
+    },
+    "path-2-2": {
+      prompt: `Regular paid carers bring your ${relation} stability and skill. ${subject} forms bonds with some of them; staff turnover shows how much continuity depends on working conditions your family cannot control.`,
+      options: [
+        "I hope dependable care can become part of a wider circle of trust.",
+        "I wish care work were valued enough to offer real continuity.",
+      ],
+    },
+  };
+
+  return {
+    prompt: () => {
+      const previousValue =
+        window.playerChoices[cardIds[1]]?.value || "path-1-1";
+      return conclusions[previousValue].prompt;
+    },
+    options: () => {
+      const previousValue =
+        window.playerChoices[cardIds[1]]?.value || "path-1-1";
+      return conclusions[previousValue].options.map((label, index) => ({
+        value: `${previousValue}-${index + 1}`,
+        label,
       }));
     },
   };
@@ -993,6 +1163,7 @@ function createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds) {
 
 function createSubplotChoiceConfig(subplotId, stage, cardIds) {
   if (subplotId === "A") return createSubplotAChoiceConfig(stage, cardIds);
+  if (subplotId === "F") return createSubplotFChoiceConfig(stage, cardIds);
   if (AUTHORED_SUBPLOTS[subplotId]) {
     return createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds);
   }
@@ -1235,7 +1406,13 @@ let mainDeckSize = 0;
 function chooseActiveSubplot() {
   activeSubplotId = pickRandom(Object.keys(SUBPLOT_CARD_IDS_BY_ID));
   activeSubplotCardIds = SUBPLOT_CARD_IDS_BY_ID[activeSubplotId];
-  console.log(`[DSG] Selected subplot ${activeSubplotId}`);
+  activeCareRelative =
+    activeSubplotId === "F" ? chooseCareRelative() : null;
+  window.activeCareRelative = activeCareRelative;
+  console.log(
+    `[DSG] Selected subplot ${activeSubplotId}`,
+    activeCareRelative || "",
+  );
 }
 
 function regularCardsDealt() {

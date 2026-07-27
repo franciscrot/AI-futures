@@ -1133,6 +1133,42 @@ window.deck = [
     tooltip: "Subplot E — The Measure of Fairness",
     effect: function () {}
   },
+  {
+    id: 97,
+    name: "97: Subplot F — A Wider Circle",
+    type: "action",
+    isSubplot: true,
+    subplotId: "F",
+    subplotStage: 1,
+    subplotPosition: 15,
+    description: "Someone close to you is getting older and beginning to need more support.",
+    tooltip: "Subplot F — A Wider Circle",
+    effect: function () {}
+  },
+  {
+    id: 98,
+    name: "98: Subplot F — The Care Network",
+    type: "action",
+    isSubplot: true,
+    subplotId: "F",
+    subplotStage: 2,
+    subplotPosition: 39,
+    description: "Their care needs grow, testing the arrangements you previously made.",
+    tooltip: "Subplot F — The Care Network",
+    effect: function () {}
+  },
+  {
+    id: 99,
+    name: "99: Subplot F — Staying Close",
+    type: "action",
+    isSubplot: true,
+    subplotId: "F",
+    subplotStage: 3,
+    subplotPosition: 63,
+    description: "Your earlier choices reshape care, independence and your relationship.",
+    tooltip: "Subplot F — Staying Close",
+    effect: function () {}
+  },
 ];
 
 // Snapshot used by restartGame() to restore the original card objects.
