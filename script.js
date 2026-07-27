@@ -587,6 +587,7 @@ const SUBPLOT_CARD_IDS_BY_ID = {
   B: [85, 86, 87],
   C: [88, 89, 90],
   D: [91, 92, 93],
+  E: [94, 95, 96],
 };
 
 function createSubplotAChoiceConfig(stage, cardIds) {
@@ -704,8 +705,297 @@ function createSubplotAChoiceConfig(stage, cardIds) {
   };
 }
 
+const AUTHORED_SUBPLOTS = {
+  B: {
+    first: {
+      prompt:
+        "Your best-performing employee admits that an unofficial AI system does nearly all their work. Nobody else knew it existed.",
+      options: [
+        "Reward the results and let them continue.",
+        "Require a return to approved processes.",
+      ],
+    },
+    second: {
+      "path-1": {
+        prompt:
+          "After you let the employee continue, other teams adopt their shadow system. Productivity rises, but nobody can fully explain the work.",
+        options: [
+          "Formalise the system across the organisation.",
+          "Let each team control how it uses the system.",
+        ],
+      },
+      "path-2": {
+        prompt:
+          "After you banned the shadow system, performance collapses. Many colleagues had quietly come to depend on it.",
+        options: [
+          "Quietly reinstate the system.",
+          "Rebuild the organisation’s human expertise.",
+        ],
+      },
+    },
+    third: {
+      "path-1-1": {
+        prompt:
+          "You formalised the shadow system. The organisation is extraordinarily productive, but when it fails, nobody knows how to continue without it.",
+        options: [
+          "I hope automation can become a form of institutional knowledge.",
+          "I fear the organisation no longer knows what it is doing.",
+        ],
+      },
+      "path-1-2": {
+        prompt:
+          "Teams retained control of their own AI workflows. Local knowledge flourishes, but the organisation now contains dozens of incompatible systems.",
+        options: [
+          "I hope useful diversity matters more than tidiness.",
+          "I hope we can still become one organisation again.",
+        ],
+      },
+      "path-2-1": {
+        prompt:
+          "You quietly restored the system. Official procedures continue, but everybody knows the real organisation runs through an unacknowledged AI.",
+        options: [
+          "It is time to acknowledge how the work is really done.",
+          "Some useful arrangements survive by remaining unofficial.",
+        ],
+      },
+      "path-2-2": {
+        prompt:
+          "Rebuilding human expertise is slow and expensive. The organisation becomes less efficient, but people once again understand its work.",
+        options: [
+          "I hope resilience proves worth the cost.",
+          "I fear we abandoned an extraordinary advantage.",
+        ],
+      },
+    },
+  },
+  C: {
+    first: {
+      prompt:
+        "An AI recruitment system identifies an exceptionally qualified candidate whom every human interviewer dislikes.",
+      options: [
+        "Hire the candidate.",
+        "Trust the interviewers and reject them.",
+      ],
+    },
+    second: {
+      "path-1": {
+        prompt:
+          "The candidate excels by organising their whole working life around algorithmic assessment. Other employees begin imitating them.",
+        options: [
+          "Encourage the new measurable standard.",
+          "Protect less measurable ways of working.",
+        ],
+      },
+      "path-2": {
+        prompt:
+          "The rejected candidate joins a competitor and helps automate much of the profession you excluded them from.",
+        options: [
+          "Adopt similar automation.",
+          "Defend the profession as a human practice.",
+        ],
+      },
+    },
+    third: {
+      "path-1-1": {
+        prompt:
+          "The organisation fills with model employees. Performance scores soar, while personalities, working styles and disagreements steadily converge.",
+        options: [
+          "I hope common standards can make excellence fairer.",
+          "I miss the useful friction of eccentric people.",
+        ],
+      },
+      "path-1-2": {
+        prompt:
+          "You protected less measurable work. The candidate remains brilliant but unusual, and the recruitment system loses much of its authority.",
+        options: [
+          "I hope excellence can remain plural.",
+          "I still wonder what the system saw before we did.",
+        ],
+      },
+      "path-2-1": {
+        prompt:
+          "You adopted the rival’s automation. The profession shrinks rapidly; the remaining work is efficient, accessible and increasingly unlike a craft.",
+        options: [
+          "I hope new forms of skilled work will emerge.",
+          "I fear we destroyed knowledge we could not measure.",
+        ],
+      },
+      "path-2-2": {
+        prompt:
+          "You defended the profession as human work. Customers value it, but automated rivals are faster and much cheaper.",
+        options: [
+          "I hope human attention remains worth paying for.",
+          "I fear we have mistaken nostalgia for principle.",
+        ],
+      },
+    },
+  },
+  D: {
+    first: {
+      prompt:
+        "After a respected colleague dies, their AI assistant continues answering customers convincingly.",
+      options: [
+        "Keep the inbox operating.",
+        "Close it and announce their death.",
+      ],
+    },
+    second: {
+      "path-1": {
+        prompt:
+          "After you kept the inbox operating, its messages are copied to create a convincing counterfeit version of your organisation.",
+        options: [
+          "Recognise the imitation as an authorised partner.",
+          "Expose it publicly as a counterfeit.",
+        ],
+      },
+      "path-2": {
+        prompt:
+          "After you closed the inbox, customers protest. Some had long relationships with the colleague’s automated voice and want access restored.",
+        options: [
+          "Reopen it as a clearly labelled archive.",
+          "Insist that the correspondence has ended.",
+        ],
+      },
+    },
+    third: {
+      "path-1-1": {
+        prompt:
+          "The authorised imitation prospers. Customers move easily between two versions of the organisation, and few remember which was original.",
+        options: [
+          "I hope an organisation’s identity can be shared.",
+          "I regret surrendering the boundary around what we were.",
+        ],
+      },
+      "path-1-2": {
+        prompt:
+          "You destroy the counterfeit, but the investigation reveals that the original inbox was also largely automated. Customer trust collapses.",
+        options: [
+          "I hope the truth proves more durable than trust.",
+          "I wonder how long the useful illusion might have lasted.",
+        ],
+      },
+      "path-2-1": {
+        prompt:
+          "The reopened archive becomes a memorial. Customers contribute their own messages until the colleague’s correspondence belongs partly to everyone.",
+        options: [
+          "I hope shared memory can outgrow its institution.",
+          "I am uneasy that the company has become a host for grief.",
+        ],
+      },
+      "path-2-2": {
+        prompt:
+          "You maintain the clean break. Customers drift away, staff grieve, and the unanswered inbox becomes an absence everyone understands.",
+        options: [
+          "I hope endings can be a form of respect.",
+          "I regret deleting a continuity people still valued.",
+        ],
+      },
+    },
+  },
+  E: {
+    first: {
+      prompt:
+        "Management introduces AI performance scoring. Employees rapidly change their behaviour to maximise their scores.",
+      options: [
+        "Reward those who adapt.",
+        "Limit the scores’ influence over promotion and pay.",
+      ],
+    },
+    second: {
+      "path-1": {
+        prompt:
+          "After you rewarded high scores, workers follow the system’s instructions with absolute precision. Their quiet strike paralyses the organisation.",
+        options: [
+          "Negotiate with the workers.",
+          "Tighten automated supervision.",
+        ],
+      },
+      "path-2": {
+        prompt:
+          "After you limited the scores, managers keep using them secretly. Workers build a shadow system to detect unfair decisions.",
+        options: [
+          "Recognise the workers’ auditing system.",
+          "Prohibit both systems.",
+        ],
+      },
+    },
+    third: {
+      "path-1-1": {
+        prompt:
+          "Workers help rewrite the scoring rules. Decisions become slower and more contested, but employees can challenge how they are measured.",
+        options: [
+          "I hope fair rules remain open to argument.",
+          "I fear negotiation will become another endless metric.",
+        ],
+      },
+      "path-1-2": {
+        prompt:
+          "Stricter supervision produces perfect compliance and absurd outcomes. Customers revolt against an organisation incapable of making exceptions.",
+        options: [
+          "I accept that efficiency sometimes requires disobedience.",
+          "I hope a better system can make exceptions consistently.",
+        ],
+      },
+      "path-2-1": {
+        prompt:
+          "The workers’ audit exposes patterns management denied. Decisions improve, although every judgement now arrives with a counter-score and an argument.",
+        options: [
+          "I hope visible conflict is better than hidden unfairness.",
+          "I long for a standard everyone can trust.",
+        ],
+      },
+      "path-2-2": {
+        prompt:
+          "Both systems are prohibited, then quietly rebuilt. Decisions look human again, while hidden measurements continue shaping them.",
+        options: [
+          "I accept that judgement can never be fully transparent.",
+          "I suspect the forbidden scores still govern us.",
+        ],
+      },
+    },
+  },
+};
+
+function createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds) {
+  const narrative = AUTHORED_SUBPLOTS[subplotId];
+
+  if (stage === 1) {
+    return {
+      prompt: () => narrative.first.prompt,
+      options: () =>
+        narrative.first.options.map((label, index) => ({
+          value: `path-${index + 1}`,
+          label,
+        })),
+    };
+  }
+
+  const previousCardId = cardIds[stage - 2];
+  const fallback = stage === 2 ? "path-1" : "path-1-1";
+  const section = stage === 2 ? narrative.second : narrative.third;
+
+  return {
+    prompt: () => {
+      const previousValue =
+        window.playerChoices[previousCardId]?.value || fallback;
+      return section[previousValue].prompt;
+    },
+    options: () => {
+      const previousValue =
+        window.playerChoices[previousCardId]?.value || fallback;
+      return section[previousValue].options.map((label, index) => ({
+        value: `${previousValue}-${index + 1}`,
+        label,
+      }));
+    },
+  };
+}
+
 function createSubplotChoiceConfig(subplotId, stage, cardIds) {
   if (subplotId === "A") return createSubplotAChoiceConfig(stage, cardIds);
+  if (AUTHORED_SUBPLOTS[subplotId]) {
+    return createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds);
+  }
 
   const previousCardId = stage > 1 ? cardIds[stage - 2] : null;
 
