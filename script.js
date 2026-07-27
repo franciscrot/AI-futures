@@ -575,9 +575,48 @@ const CHOICE_CARD_OPTIONS = {
       },
     ],
   },
+  82: {
+    prompt:
+      "First special narrative event (this feature hasn't been added yet).\n\nWhat do you want to do?",
+    options: [
+      { value: "path-1", label: "Path 1" },
+      { value: "path-2", label: "Path 2" },
+    ],
+  },
+  83: {
+    prompt: () => {
+      const previous = window.playerChoices[82];
+      return `Second special narrative event (this feature hasn't been added yet).\n\nLast time you chose ${previous?.label || "a path"}.\n\nWhat do you want to do?`;
+    },
+    options: () => {
+      const prefix =
+        window.playerChoices[82]?.value === "path-2" ? "path-2" : "path-1";
+      return [
+        { value: `${prefix}-1`, label: `${formatPath(prefix)}-1` },
+        { value: `${prefix}-2`, label: `${formatPath(prefix)}-2` },
+      ];
+    },
+  },
+  84: {
+    prompt: () => {
+      const previous = window.playerChoices[83];
+      return `Third special narrative event (this feature hasn't been added yet).\n\nLast time you chose ${previous?.label || "a path"}.\n\nWhat do you want to do?`;
+    },
+    options: () => {
+      const prefix = window.playerChoices[83]?.value || "path-1-1";
+      return [
+        { value: `${prefix}-1`, label: `${formatPath(prefix)}-1` },
+        { value: `${prefix}-2`, label: `${formatPath(prefix)}-2` },
+      ];
+    },
+  },
 };
 
 window.playerChoices = {};
+
+function formatPath(value) {
+  return String(value).replace(/^path-/, "Path ");
+}
 
 function promptForCardChoice(card) {
   const config = CHOICE_CARD_OPTIONS[card.id];
@@ -612,7 +651,9 @@ function promptForCardChoice(card) {
   modal.setAttribute("aria-hidden", "false");
 
   return new Promise((resolve) => {
-    config.options.forEach((option, index) => {
+    const availableOptions =
+      typeof config.options === "function" ? config.options() : config.options;
+    availableOptions.forEach((option, index) => {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "choice-modal-option";
@@ -626,6 +667,7 @@ function promptForCardChoice(card) {
           };
           if (
             !skipAvailable &&
+            option.correlatedActionId &&
             player.actionsPlayed.has(option.correlatedActionId)
           ) {
             restoreSkipToken();
@@ -761,13 +803,50 @@ function clearHighlightedActions() {
   setHighlightedActions([]);
 }
 
+const SUBPLOT_CARD_IDS = [82, 83, 84];
+let subplotCardsById = {};
+let mainDeckSize = 0;
+
+function regularCardsDealt() {
+  return mainDeckSize - window.deck.length;
+}
+
+function isSubplotCardUnlocked(cardId) {
+  if (cardId === SUBPLOT_CARD_IDS[0]) return true;
+  const previousId =
+    SUBPLOT_CARD_IDS[SUBPLOT_CARD_IDS.indexOf(cardId) - 1];
+  return Boolean(window.playerChoices[previousId]);
+}
+
+function getDueSubplotCard() {
+  return SUBPLOT_CARD_IDS.map((id) => subplotCardsById[id]).find(
+    (card) =>
+      card &&
+      isSubplotCardUnlocked(card.id) &&
+      regularCardsDealt() >= card.subplotPosition &&
+      !window.playerChoices[card.id] &&
+      !player.hand.some((heldCard) => heldCard.id === card.id),
+  );
+}
+
+function drawPlayerCard() {
+  const subplotCard = getDueSubplotCard();
+  if (subplotCard) return subplotCard;
+  return Array.isArray(window.deck) && deck.length ? deck.pop() : null;
+}
+
 function prepareSubdecks() {
   if (!Array.isArray(window.deck)) return;
 
   const subdeckA = [];
   const subdeckB = [];
 
+  subplotCardsById = {};
   deck.forEach((card) => {
+    if (card.isSubplot) {
+      subplotCardsById[card.id] = card;
+      return;
+    }
     const belongsToSubdeckA =
       (card.id >= 1 && card.id <= 12) ||
       (card.id >= 38 && card.id <= 50);
@@ -781,6 +860,7 @@ function prepareSubdecks() {
 
   // Cards are drawn with deck.pop(), so Subdeck A must be at the end.
   window.deck = [...subdeckB, ...subdeckA];
+  mainDeckSize = window.deck.length;
 
   console.log(
     "[DSG] Prepared subdecks — A:",
@@ -1206,7 +1286,7 @@ function skipPlayerCard(index) {
   const selectedCard = player.hand[index];
   if (!selectedCard) return;
 
-  if (!Array.isArray(window.deck) || deck.length === 0) {
+  if ((!Array.isArray(window.deck) || deck.length === 0) && !getDueSubplotCard()) {
     setSkipArmed(false);
     return;
   }
@@ -1214,7 +1294,8 @@ function skipPlayerCard(index) {
   skipReplacementInProgress = true;
   playCardSfx("skip");
   const skippedCard = player.hand.splice(index, 1)[0];
-  player.hand.push(deck.pop());
+  const replacementCard = drawPlayerCard();
+  if (replacementCard) player.hand.push(replacementCard);
   consumeSkipToken();
   logSkippedCard(skippedCard);
   renderPlayerHand();
@@ -1238,14 +1319,20 @@ async function playPlayerCard(index) {
   const chosenCard = player.hand.splice(index, 1)[0];
   if (!chosenCard) return;
 
-  safeEffectInvoke(chosenCard, player, AI1, AI2);
+  if (!chosenCard.isSubplot) {
+    safeEffectInvoke(chosenCard, player, AI1, AI2);
+  }
 
-  if (chosenCard.type === "action") player.actionsPlayed.add(chosenCard.id);
-  else if (chosenCard.type === "event") player.eventsPlayed.add(chosenCard.id);
+  if (chosenCard.type === "action" && !chosenCard.isSubplot) {
+    player.actionsPlayed.add(chosenCard.id);
+  } else if (chosenCard.type === "event") {
+    player.eventsPlayed.add(chosenCard.id);
+  }
 
   logAIPlay(player.name, chosenCard);
 
-  if (Array.isArray(window.deck) && deck.length) player.hand.push(deck.pop());
+  const replacementCard = drawPlayerCard();
+  if (replacementCard) player.hand.push(replacementCard);
   playAI1Card();
   playAI2Card();
 
@@ -1255,7 +1342,10 @@ async function playPlayerCard(index) {
 
   // check for empty deck and show game results
   function checkDeck() {
-    if (window.deck.length === 0) {
+    const subplotComplete = SUBPLOT_CARD_IDS.every(
+      (id) => window.playerChoices[id],
+    );
+    if (window.deck.length === 0 && subplotComplete) {
       emptyDeckStreak++;
 
       if (emptyDeckStreak === 4) {
