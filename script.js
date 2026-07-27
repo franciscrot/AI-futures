@@ -496,6 +496,7 @@ function generateAI2Name() {
 // --- Player choices ---
 const CHOICE_CARD_OPTIONS = {
   33: {
+    imagePath: "images/choice-33-earth-stars.jpg",
     prompt: (companyName) =>
       `Does ${companyName} prefer general-purpose AI systems, or smaller, domain-specific AI systems?`,
     options: [
@@ -512,6 +513,7 @@ const CHOICE_CARD_OPTIONS = {
     ],
   },
   34: {
+    imagePath: "images/choice-34-connected-device.jpg",
     prompt: (companyName) =>
       `Where does most of ${companyName}'s compute take place?`,
     options: [
@@ -528,6 +530,7 @@ const CHOICE_CARD_OPTIONS = {
     ],
   },
   35: {
+    imagePath: "images/choice-35-organic-mushroom.jpg",
     prompt: (companyName) =>
       `Which unexpected technology is working rather well for ${companyName}?`,
     options: [
@@ -544,6 +547,7 @@ const CHOICE_CARD_OPTIONS = {
     ],
   },
   36: {
+    imagePath: "images/choice-36-leaf-cable.jpg",
     prompt: (companyName) =>
       `Which environmental priority matters more to ${companyName}?`,
     options: [
@@ -560,6 +564,7 @@ const CHOICE_CARD_OPTIONS = {
     ],
   },
   37: {
+    imagePath: "images/choice-37-wifi-heart.jpg",
     prompt: (companyName) =>
       `Are most workers at ${companyName} a bit cyborg, or very cyborg?`,
     options: [
