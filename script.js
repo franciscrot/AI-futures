@@ -575,42 +575,54 @@ const CHOICE_CARD_OPTIONS = {
       },
     ],
   },
-  82: {
-    prompt:
-      "First special narrative event (this feature hasn't been added yet).\n\nWhat do you want to do?",
-    options: [
-      { value: "path-1", label: "Path 1" },
-      { value: "path-2", label: "Path 2" },
-    ],
-  },
-  83: {
-    prompt: () => {
-      const previous = window.playerChoices[82];
-      return `Second special narrative event (this feature hasn't been added yet).\n\nLast time you chose ${previous?.label || "a path"}.\n\nWhat do you want to do?`;
-    },
-    options: () => {
-      const prefix =
-        window.playerChoices[82]?.value === "path-2" ? "path-2" : "path-1";
-      return [
-        { value: `${prefix}-1`, label: `${formatPath(prefix)}-1` },
-        { value: `${prefix}-2`, label: `${formatPath(prefix)}-2` },
-      ];
-    },
-  },
-  84: {
-    prompt: () => {
-      const previous = window.playerChoices[83];
-      return `Third special narrative event (this feature hasn't been added yet).\n\nLast time you chose ${previous?.label || "a path"}.\n\nWhat do you want to do?`;
-    },
-    options: () => {
-      const prefix = window.playerChoices[83]?.value || "path-1-1";
-      return [
-        { value: `${prefix}-1`, label: `${formatPath(prefix)}-1` },
-        { value: `${prefix}-2`, label: `${formatPath(prefix)}-2` },
-      ];
-    },
-  },
 };
+
+const SUBPLOT_CARD_IDS_BY_ID = {
+  A: [82, 83, 84],
+  B: [85, 86, 87],
+  C: [88, 89, 90],
+  D: [91, 92, 93],
+};
+
+function createSubplotChoiceConfig(subplotId, stage, cardIds) {
+  const previousCardId = stage > 1 ? cardIds[stage - 2] : null;
+
+  return {
+    prompt: () => {
+      const ordinal = ["First", "Second", "Third"][stage - 1];
+      const opening = `Subplot ${subplotId}: ${ordinal} special narrative event (this feature hasn't been added yet).`;
+      if (stage === 1) return `${opening}\n\nWhat do you want to do?`;
+
+      const previous = window.playerChoices[previousCardId];
+      return `${opening}\n\nLast time you chose ${previous?.label || "a path"}.\n\nWhat do you want to do?`;
+    },
+    options: () => {
+      if (stage === 1) {
+        return [
+          { value: "path-1", label: "Path 1" },
+          { value: "path-2", label: "Path 2" },
+        ];
+      }
+
+      const fallback = stage === 2 ? "path-1" : "path-1-1";
+      const prefix = window.playerChoices[previousCardId]?.value || fallback;
+      return [
+        { value: `${prefix}-1`, label: `${formatPath(prefix)}-1` },
+        { value: `${prefix}-2`, label: `${formatPath(prefix)}-2` },
+      ];
+    },
+  };
+}
+
+Object.entries(SUBPLOT_CARD_IDS_BY_ID).forEach(([subplotId, cardIds]) => {
+  cardIds.forEach((cardId, index) => {
+    CHOICE_CARD_OPTIONS[cardId] = createSubplotChoiceConfig(
+      subplotId,
+      index + 1,
+      cardIds,
+    );
+  });
+});
 
 window.playerChoices = {};
 
@@ -803,23 +815,30 @@ function clearHighlightedActions() {
   setHighlightedActions([]);
 }
 
-const SUBPLOT_CARD_IDS = [82, 83, 84];
+let activeSubplotId = null;
+let activeSubplotCardIds = [];
 let subplotCardsById = {};
 let mainDeckSize = 0;
+
+function chooseActiveSubplot() {
+  activeSubplotId = pickRandom(Object.keys(SUBPLOT_CARD_IDS_BY_ID));
+  activeSubplotCardIds = SUBPLOT_CARD_IDS_BY_ID[activeSubplotId];
+  console.log(`[DSG] Selected subplot ${activeSubplotId}`);
+}
 
 function regularCardsDealt() {
   return mainDeckSize - window.deck.length;
 }
 
 function isSubplotCardUnlocked(cardId) {
-  if (cardId === SUBPLOT_CARD_IDS[0]) return true;
-  const previousId =
-    SUBPLOT_CARD_IDS[SUBPLOT_CARD_IDS.indexOf(cardId) - 1];
-  return Boolean(window.playerChoices[previousId]);
+  const index = activeSubplotCardIds.indexOf(cardId);
+  if (index === 0) return true;
+  if (index < 0) return false;
+  return Boolean(window.playerChoices[activeSubplotCardIds[index - 1]]);
 }
 
 function getDueSubplotCard() {
-  return SUBPLOT_CARD_IDS.map((id) => subplotCardsById[id]).find(
+  return activeSubplotCardIds.map((id) => subplotCardsById[id]).find(
     (card) =>
       card &&
       isSubplotCardUnlocked(card.id) &&
@@ -861,6 +880,7 @@ function prepareSubdecks() {
   // Cards are drawn with deck.pop(), so Subdeck A must be at the end.
   window.deck = [...subdeckB, ...subdeckA];
   mainDeckSize = window.deck.length;
+  chooseActiveSubplot();
 
   console.log(
     "[DSG] Prepared subdecks — A:",
@@ -1342,7 +1362,7 @@ async function playPlayerCard(index) {
 
   // check for empty deck and show game results
   function checkDeck() {
-    const subplotComplete = SUBPLOT_CARD_IDS.every(
+    const subplotComplete = activeSubplotCardIds.every(
       (id) => window.playerChoices[id],
     );
     if (window.deck.length === 0 && subplotComplete) {
