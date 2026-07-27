@@ -772,16 +772,16 @@ function createSubplotFChoiceConfig(stage, cardIds) {
   if (stage === 1) {
     return {
       prompt: () =>
-        `Your ${relation} is getting older. Small difficulties with meals, appointments and moving around are becoming regular, but ${subject} values ${possessive} independence.`,
+        `Your ${relation} is getting older, and finding everyday life more challenging, but ${subject} really values ${possessive} independence.`,
       options: () => [
         {
           value: "path-1",
-          label: "Offer to take on more of the care yourself.",
+          label: "Try to improve your work-life balance so you can be there more for them.",
         },
         {
           value: "path-2",
           label:
-            "Build a wider circle of family, friends and local support.",
+            "Try to strengthen their local network of care.",
         },
       ],
     };
@@ -1065,9 +1065,9 @@ const AUTHORED_SUBPLOTS = {
   E: {
     first: {
       prompt:
-        "Management introduces AI performance scoring. Employees rapidly change their behaviour to maximise their scores.",
+        "AI performance scoring has been creeping into your organisation. Some employees are concerned about reward-hacking.",
       options: [
-        "Reward those who adapt.",
+        "Support the AI performance scoring, but monitor it closely.",
         "Limit the scores’ influence over promotion and pay.",
       ],
     },
