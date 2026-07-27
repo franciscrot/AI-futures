@@ -953,6 +953,36 @@ window.deck = [
     imagePath: "images/81.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
+  {
+    id: 82,
+    name: "82: Special Narrative I",
+    type: "action",
+    isSubplot: true,
+    subplotPosition: 15,
+    description: "First special narrative event (this feature hasn't been added yet).\n\nWhat do you want to do?",
+    tooltip: "Special Narrative I",
+    effect: function () {}
+  },
+  {
+    id: 83,
+    name: "83: Special Narrative II",
+    type: "action",
+    isSubplot: true,
+    subplotPosition: 39,
+    description: "Second special narrative event (this feature hasn't been added yet).\n\nYour options will depend on your previous choice.",
+    tooltip: "Special Narrative II",
+    effect: function () {}
+  },
+  {
+    id: 84,
+    name: "84: Special Narrative III",
+    type: "action",
+    isSubplot: true,
+    subplotPosition: 63,
+    description: "Third special narrative event (this feature hasn't been added yet).\n\nYour options will depend on your previous choices.",
+    tooltip: "Special Narrative III",
+    effect: function () {}
+  },
 ];
 
 // Snapshot used by restartGame() to restore the original card objects.
