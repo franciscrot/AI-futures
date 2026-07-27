@@ -584,7 +584,124 @@ const SUBPLOT_CARD_IDS_BY_ID = {
   D: [91, 92, 93],
 };
 
+function createSubplotAChoiceConfig(stage, cardIds) {
+  if (stage === 1) {
+    return {
+      prompt: () =>
+        "You have become unusually forgetful. Names, meetings and familiar words keep slipping away.",
+      options: () => [
+        { value: "path-1", label: "Rely more heavily on AI agents." },
+        { value: "path-2", label: "Make the CEO position a shared role." },
+      ],
+    };
+  }
+
+  if (stage === 2) {
+    return {
+      prompt: () => {
+        const reliedOnAgents =
+          window.playerChoices[cardIds[0]]?.value === "path-1";
+        if (reliedOnAgents) {
+          return "Since you began using AI agents to compensate for your forgetfulness, they have concealed it remarkably well. You are diagnosed with a progressive cognitive disorder.\n\nDoctors offer an experimental neural interface, trained partly on your agents’ records. It would route parts of your memory, language and judgement through AI.";
+        }
+        return "Since you made the CEO position a shared role, decisions have become slower but less dependent on your memory. You are diagnosed with a progressive cognitive disorder.\n\nDoctors offer an experimental neural interface. By routing parts of your memory, language and judgement through AI, it might let you lead independently again.";
+      },
+      options: () => {
+        const reliedOnAgents =
+          window.playerChoices[cardIds[0]]?.value === "path-1";
+        return reliedOnAgents
+          ? [
+              { value: "path-1-1", label: "Accept the interface." },
+              {
+                value: "path-1-2",
+                label: "Refuse it and continue relying on external agents.",
+              },
+            ]
+          : [
+              {
+                value: "path-2-1",
+                label: "Accept the interface and resume sole leadership.",
+              },
+              {
+                value: "path-2-2",
+                label: "Refuse it and deepen the shared-leadership model.",
+              },
+            ];
+      },
+    };
+  }
+
+  const conclusions = {
+    "path-1-1": {
+      prompt:
+        "You accepted an interface trained on your agents’ records. It now supports your memory, language and judgement.\n\nThe provider announces that the service will be deprecated. Soon, the AI integrated with your thinking will no longer be supported.",
+      options: [
+        {
+          label: "Try to migrate yourself to an open-source alternative.",
+        },
+        {
+          label: "Learn to think with less dependence on the AI.",
+        },
+      ],
+    },
+    "path-1-2": {
+      prompt:
+        "You refused the neural interface and kept relying on AI agents. As your condition progresses, they increasingly remember, decide and speak for you.",
+      options: [
+        {
+          label: "I am relieved that something recognisably mine continues.",
+        },
+        {
+          label: "I fear I am becoming the least reliable version of myself.",
+        },
+      ],
+    },
+    "path-2-1": {
+      prompt:
+        "After sharing the CEO role, you accepted the interface and resumed sole leadership. It slows the decline but cannot restore everything; your former co-CEO helps it fill the gaps.",
+      options: [
+        {
+          label: "I hope dependence can be another kind of continuity.",
+        },
+        {
+          label: "I hope those around me will accept how I change.",
+        },
+      ],
+    },
+    "path-2-2": {
+      prompt:
+        "You refused the interface and deepened shared leadership. As your condition progresses, the organisation grows more collective and less dependent on you.",
+      options: [
+        {
+          label: "I hope I can still belong as my role changes.",
+        },
+        {
+          label: "I hope what we built becomes strong enough not to need me.",
+        },
+      ],
+    },
+  };
+
+  return {
+    prompt: () => {
+      const previousValue =
+        window.playerChoices[cardIds[1]]?.value || "path-1-1";
+      return conclusions[previousValue].prompt;
+    },
+    options: () => {
+      const previousValue =
+        window.playerChoices[cardIds[1]]?.value || "path-1-1";
+      return conclusions[previousValue].options.map((option, index) => ({
+        value: `${previousValue}-${index + 1}`,
+        label: option.label,
+      }));
+    },
+  };
+}
+
 function createSubplotChoiceConfig(subplotId, stage, cardIds) {
+  if (subplotId === "A") return createSubplotAChoiceConfig(stage, cardIds);
+
   const previousCardId = stage > 1 ? cardIds[stage - 2] : null;
 
   return {
