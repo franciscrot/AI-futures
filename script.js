@@ -1251,7 +1251,7 @@ const AUTHORED_SUBPLOTS = {
       },
       "path-2": {
         prompt:
-          "The rejected candidate joins a competitor and helps automate much of the profession you excluded them from.",
+          "The rejected candidate, Dennis, has joined a competitor and helps automate much of the profession you excluded them from.",
         options: [
           "Adopt similar automation.",
           "Defend the profession as a human practice.",
@@ -1287,8 +1287,8 @@ const AUTHORED_SUBPLOTS = {
         prompt:
           "You defended the profession as human work. Customers, suppliers, and even some rivals value it. Competitors who use more AI are volatile and sometimes go bust, but new competitors pop up quickly. You're being squeezed out of the market.",
         options: [
-          "I hope human attention remains worth paying for.",
-          "I fear we have mistaken nostalgia for principle.",
+          "The markets will always see value in the human.",
+          "We really need better industrial policy from the government.",
         ],
       },
     },
