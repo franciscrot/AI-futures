@@ -295,7 +295,7 @@ window.deck = [
     id: 33,
     name: "33: Generality or Domain Specificity?",
     type: "action",
-    description: "* Play this card to make a choice.\n* Do you prefer general purpose AI systems, that do lots of things?\n* Or do you prefer a range of smaller, specialist AI systems, each of which is good at one domain?\n* Of course, the line is blurry. A specialist model can pass on queries to other specialist models. A general purpose AI can have a federated architecture that switches between different models.",
+    description: "• Choose between general-purpose AI and smaller, domain-specific systems.\n• The boundary is blurry: specialist models can cooperate, while general systems can switch between federated models.",
     tooltip: "Generality or Domain Specificity?",
     imagePath: "images/33.jpg",
     effect(player, AI1, AI2) { /* optional */ }
@@ -304,7 +304,7 @@ window.deck = [
     id: 34,
     name: "34: Machine Meshes or Cloud Computing?",
     type: "action",
-    description: "* Play this card to make a choice.\n* Do you prefer most compute to run on devices, with some devices sharing compute with other local devices (mesh networks)?\n* Or do you prefer cloud computing, considerable computational power that can be accessed remotely?\n* The cloud doesn’t necessarily have to run on the kind of hyperscaler data centers built by big tech in the 2020s. It could be a different model.",
+    description: "• Choose between local device meshes and remotely accessed cloud computing.\n• Cloud infrastructure need not mean the big-tech hyperscale data centres of the 2020s.",
     tooltip: "Machine Meshes or Cloud Computing?",
     imagePath: "images/34.jpg",
     effect(player, AI1, AI2) { /* optional */ }
@@ -313,7 +313,7 @@ window.deck = [
     id: 35,
     name: "35: What weirdly works?",
     type: "action",
-    description: "* Play this card to make a choice.\n* A technology few people expected to work is working rather well. What is it?\n* Data centers in space and on the Moon?\n* Data centers built out of organic materials, partly powered by algae and mud batteries?\n* Something else? (You decide).",
+    description: "• An unlikely technology is working surprisingly well.\n• Choose between off-world data centres and organic data centres powered partly by algae and mud batteries.",
     tooltip: "What weirdly works?",
     imagePath: "images/35.jpg",
     effect(player, AI1, AI2) { /* optional */ }
@@ -322,7 +322,7 @@ window.deck = [
     id: 36,
     name: "36: Sustainable AI or AI for Sustainability?",
     type: "action",
-    description: "* Play this card to make a choice.\n* Do you focus on the environmental impacts of the AI systems you use, and try to reduce them? If so, how do you decide your boundary?\n* Or do you focus more on the efficiencies that AI might be able to provide, and find environmental benefits that way?\n* Sure, you can do both. But which is more important?",
+    description: "• Choose whether to prioritise reducing AI’s own environmental impacts or using AI to pursue wider environmental benefits.\n• You can do both; the question is which comes first.",
     tooltip: "Sustainable AI or AI for Sustainability?",
     imagePath: "images/36.jpg",
     effect(player, AI1, AI2) { /* optional */ }
@@ -331,7 +331,7 @@ window.deck = [
     id: 37,
     name: "37: A bit cyborg, or very cyborg?",
     type: "action",
-    description: "* Play this card to make a choice.\n* Does the encroachment of AI systems on the hum\n* Or do AI systems become an everyday technology that we rely on to perceive, reflect, and act?",
+    description: "• Decide whether your workers become a bit cyborg, or very cyborg.\n• Does AI remain a limited tool, or become everyday infrastructure for perceiving, reflecting and acting?",
     tooltip: "A bit cyborg, or very cyborg?",
     imagePath: "images/37.jpg",
     effect(player, AI1, AI2) { /* optional */ }
@@ -1063,14 +1063,14 @@ window.deck = [
   },
   {
     id: 91,
-    name: "91: The Open Inbox",
+    name: "91: Alas.",
     type: "action",
     isSubplot: true,
     subplotId: "D",
     subplotStage: 1,
     subplotPosition: 15,
-    description: "A dead colleague’s AI assistant continues answering customers.",
-    tooltip: "The Open Inbox",
+    description: "A colleague dies in an improbable workplace accident. You must break the news.",
+    tooltip: "Alas.",
     effect: function () {}
   },
   {
@@ -1081,7 +1081,7 @@ window.deck = [
     subplotId: "D",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "The decision about the inbox creates an unexpected conflict over memory and identity.",
+    description: "Your choice about the announcement changes what the living remember—and what the dead keep doing.",
     tooltip: "Who Owns the Voice?",
     effect: function () {}
   },
@@ -1093,7 +1093,7 @@ window.deck = [
     subplotId: "D",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation and its customers live with what was preserved—or ended.",
+    description: "The consequences spread into work, grief, identity and synthetic life.",
     tooltip: "After the Reply",
     effect: function () {}
   },
@@ -1105,7 +1105,7 @@ window.deck = [
     subplotId: "E",
     subplotStage: 1,
     subplotPosition: 15,
-    description: "AI performance scoring changes how employees behave.",
+    description: "• AI performance scoring has been creeping into your organisation.\n• Some employees are concerned about reward-hacking — focusing so much on making the number go up that you forget about the underlying reality.",
     tooltip: "The Score",
     effect: function () {}
   },
@@ -1117,7 +1117,7 @@ window.deck = [
     subplotId: "E",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "Workers and managers adapt to the scoring system in unexpected ways.",
+    description: "• Workers and managers adapt to being graded by AI.\n• Compliance, resistance and reward-hacking are becoming difficult to tell apart.",
     tooltip: "Exact Compliance",
     effect: function () {}
   },
