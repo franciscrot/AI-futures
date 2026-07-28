@@ -637,6 +637,52 @@ const CHOICE_CARD_OPTIONS = {
       },
     ],
   },
+  100: {
+    imagePath: "images/tarot-23.jpg",
+    prompt:
+      "One of your employees has become a celebrity merely through the quality of their react emojis on social media. Their reacts have caught the public imagination.",
+    options: [
+      {
+        value: "own-the-association",
+        label: "Proudly own the association.",
+      },
+      {
+        value: "keep-your-distance",
+        label: "Keep your distance.",
+      },
+    ],
+  },
+  101: {
+    imagePath: "images/tarot-8.jpg",
+    prompt:
+      "Tech giant Pineapple Inc. is collapsing after building too many data centres. Where do you take your organisation’s compute next?",
+    options: [
+      {
+        value: "another-hyperscaler",
+        label: "Pivot to Glamazon Inc. or Giggle Inc.",
+      },
+      {
+        value: "open-and-on-site",
+        label: "Pivot to open-source and on-site alternatives.",
+      },
+    ],
+  },
+  102: {
+    imagePath: "images/tarot-24.jpg",
+    prompt:
+      "Solarpunk data gardens with on-site renewable energy are proliferating. They sound hopeful, but they are not really competing with the hyperscalers’ business model.",
+    options: [
+      {
+        value: "affiliate",
+        label: "Affiliate — it sounds promising.",
+      },
+      {
+        value: "steer-clear",
+        label:
+          "Steer clear — it isn’t really competing with the hyperscalers’ business model.",
+      },
+    ],
+  },
 };
 
 const SUBPLOT_CARD_IDS_BY_ID = {
@@ -1849,6 +1895,7 @@ function updateScoreChart() {
   if (!plot) return;
 
   const scoreMaximum = 40;
+  const onePlanetPlayedByPlayer = player.eventsPlayed.has(81);
   const organisations = [
     { organisation: player, isPlayer: true },
     { organisation: AI1, isPlayer: false },
@@ -1888,7 +1935,7 @@ function updateScoreChart() {
     stack.append(raiSegment, progressSegment);
     column.appendChild(stack);
 
-    if (isPlayer) {
+    if (isPlayer || onePlanetPlayedByPlayer) {
       const label = document.createElement("div");
       label.className = "score-player-label";
       label.textContent = "YOU";
