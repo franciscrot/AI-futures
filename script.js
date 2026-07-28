@@ -16,20 +16,29 @@ const MUSIC_TRACKS = [
 
 let currentMusicTrackIndex = -1;
 let musicRetryPending = false;
+let musicRetryHandler = null;
+let musicEnabled = true;
+
+function clearMusicRetry() {
+  if (musicRetryHandler) {
+    document.removeEventListener("pointerdown", musicRetryHandler);
+    document.removeEventListener("keydown", musicRetryHandler);
+  }
+  musicRetryHandler = null;
+  musicRetryPending = false;
+}
 
 function queueMusicRetry() {
-  if (musicRetryPending) return;
+  if (!musicEnabled || musicRetryPending) return;
   musicRetryPending = true;
 
-  const retry = () => {
-    document.removeEventListener("pointerdown", retry);
-    document.removeEventListener("keydown", retry);
-    musicRetryPending = false;
-    startBackgroundMusic();
+  musicRetryHandler = () => {
+    clearMusicRetry();
+    if (musicEnabled) startBackgroundMusic();
   };
 
-  document.addEventListener("pointerdown", retry, { once: true });
-  document.addEventListener("keydown", retry, { once: true });
+  document.addEventListener("pointerdown", musicRetryHandler, { once: true });
+  document.addEventListener("keydown", musicRetryHandler, { once: true });
 }
 
 function chooseRandomMusicTrack() {
@@ -45,7 +54,7 @@ function chooseRandomMusicTrack() {
 
 async function playRandomMusicTrack() {
   const audio = document.getElementById("backgroundMusic");
-  if (!audio) return;
+  if (!audio || !musicEnabled) return;
 
   currentMusicTrackIndex = chooseRandomMusicTrack();
   audio.src = MUSIC_TRACKS[currentMusicTrackIndex];
@@ -62,16 +71,64 @@ async function playRandomMusicTrack() {
   }
 }
 
-function startBackgroundMusic() {
+async function startBackgroundMusic() {
   const audio = document.getElementById("backgroundMusic");
-  if (!audio || !audio.paused) return;
-  playRandomMusicTrack();
+  if (!audio || !musicEnabled || !audio.paused) return;
+
+  if (!audio.getAttribute("src")) {
+    playRandomMusicTrack();
+    return;
+  }
+
+  try {
+    await audio.play();
+  } catch (error) {
+    console.warn(
+      "[DSG] Music playback is waiting for another user interaction.",
+      error,
+    );
+    queueMusicRetry();
+  }
+}
+
+function updateMusicToggleUI() {
+  const toggle = document.getElementById("musicToggle");
+  if (!toggle) return;
+
+  toggle.classList.toggle("is-off", !musicEnabled);
+  toggle.setAttribute("aria-pressed", String(musicEnabled));
+  toggle.textContent = musicEnabled ? "MUSIC: ON" : "MUSIC: OFF";
+  toggle.title = musicEnabled ? "Turn music off" : "Turn music on";
+}
+
+function setMusicEnabled(enabled) {
+  musicEnabled = enabled;
+  const audio = document.getElementById("backgroundMusic");
+
+  if (musicEnabled) {
+    startBackgroundMusic();
+  } else {
+    clearMusicRetry();
+    if (audio) audio.pause();
+  }
+
+  updateMusicToggleUI();
 }
 
 const backgroundMusic = document.getElementById("backgroundMusic");
 if (backgroundMusic) {
-  backgroundMusic.addEventListener("ended", playRandomMusicTrack);
+  backgroundMusic.addEventListener("ended", () => {
+    if (musicEnabled) playRandomMusicTrack();
+  });
 }
+
+const musicToggle = document.getElementById("musicToggle");
+if (musicToggle) {
+  musicToggle.addEventListener("click", () => {
+    setMusicEnabled(!musicEnabled);
+  });
+}
+updateMusicToggleUI();
 
 let sfxAudioContext = null;
 
@@ -1228,10 +1285,10 @@ const AUTHORED_SUBPLOTS = {
       },
       "path-1-2": {
         prompt:
-          "Stricter supervision produces perfect compliance and absurd outcomes. Customers revolt against an organisation incapable of making exceptions.",
+          "A grassroots movement against AI surveillance and control is spreading. When screenshots leak from your anti-industrial-action dashboard, your organisation becomes a test case. Outside solidarity strengthens the strike.",
         options: [
-          "I accept that efficiency sometimes requires disobedience.",
-          "I hope a better system can make exceptions consistently.",
+          "Ask AI how to beat your addiction to AI.",
+          "Ask AI to recommend an AI to help you to beat your AI addiction.",
         ],
       },
       "path-2-1": {

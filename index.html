@@ -445,6 +445,31 @@
         box-shadow: none;
       }
 
+      #musicToggle {
+        display: block;
+        width: 112px;
+        margin: 10px auto 0;
+        padding: 8px 10px;
+        border: 2px solid #ffffff;
+        border-radius: 999px;
+        background: #000000;
+        color: #ffffff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+      }
+
+      #musicToggle:hover {
+        background: #181818;
+      }
+
+      #musicToggle.is-off {
+        border-color: #777777;
+        background: #555555;
+        color: #d7d7d7;
+      }
+
       #skipCursor {
         position: fixed;
         top: 0;
@@ -701,6 +726,14 @@
           title="Discard one card without playing it"
         >
           SKIP
+        </button>
+        <button
+          id="musicToggle"
+          type="button"
+          aria-pressed="true"
+          title="Turn music off"
+        >
+          MUSIC: ON
         </button>
       </div>
       <div id="gameArea">
