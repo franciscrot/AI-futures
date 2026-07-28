@@ -166,7 +166,10 @@
         margin: auto;
         font-family: "Montserrat";
         font-size: 14px;
-        width: 600px;
+        box-sizing: border-box;
+        width: calc(
+          var(--card-width) + var(--card-width) + var(--card-width) + 40px
+        );
         padding: 20px;
         white-space: pre-line;
         overflow: auto;
