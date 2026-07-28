@@ -973,7 +973,7 @@ window.deck = [
     subplotId: "A",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "Your forgetfulness has continued. There is now a diagnosis—and another decision.",
+    description: "The doctor has some news for you.",
     tooltip: "Let Them In?",
     effect: function () {}
   },
@@ -1039,13 +1039,13 @@ window.deck = [
   },
   {
     id: 89,
-    name: "89: Metrics or Human Judgement?",
+    name: "89: Humanish Resources?",
     type: "action",
     isSubplot: true,
     subplotId: "C",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "Your recruitment decision begins reshaping an entire profession.",
+    description: "Time for Dennis's Performance Review.",
     tooltip: "Metrics or Human Judgement?",
     effect: function () {}
   },
