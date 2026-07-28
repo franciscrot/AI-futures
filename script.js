@@ -595,7 +595,7 @@ const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
   83: "images/tarot-20.jpg",
   85: "images/tarot-19.jpg",
   86: "images/tarot-15.jpg",
-  87: "images/tarot-8.jpg",
+  87: "images/tarot-27.jpg",
   88: "images/tarot-21.jpg",
   91: "images/tarot-4.jpg",
   92: "images/tarot-26.jpg",
@@ -651,6 +651,7 @@ const CARE_RELATIVES = [
 ];
 
 let activeCareRelative = null;
+let activeAlasStory = null;
 
 function chooseCareRelative() {
   let roll = Math.random();
@@ -659,6 +660,43 @@ function chooseCareRelative() {
     if (roll < 0) return { ...relative };
   }
   return { ...CARE_RELATIVES.at(-1) };
+}
+
+const ALAS_NAMES = ["Sandra", "Erik", "Mohammed", "Priya", "Craig"];
+const ALAS_DEPARTMENTS = ["Sales", "HR", "Accounts", "IT", "Operations"];
+const ALAS_DEATHS = [
+  "was crushed under a falling vending machine while trying to get a can of pop",
+  "was struck by a runaway promotional robot at a trade fair",
+  "fell through a sinkhole during a team-building treasure hunt",
+  "was carried out to sea on an inflatable swan at the company picnic",
+  "was hit by a frozen wheel of cheese dropped by a delivery drone",
+  "was trampled by rented alpacas during a workplace wellbeing day",
+  "was electrocuted by a smart kettle during the office tea round",
+  "was killed by a falling inflatable logo at a product launch",
+];
+
+function createAlasIdentity(name) {
+  const department = pickRandom(ALAS_DEPARTMENTS);
+  return {
+    name,
+    department,
+    fullReference: `${name} from ${department}`,
+  };
+}
+
+function createAlasStory() {
+  const deceasedName = pickRandom(ALAS_NAMES);
+  const remainingNames = ALAS_NAMES.filter((name) => name !== deceasedName);
+  return {
+    deceased: createAlasIdentity(deceasedName),
+    musician: createAlasIdentity(pickRandom(remainingNames)),
+    death: pickRandom(ALAS_DEATHS),
+  };
+}
+
+function getActiveAlasStory() {
+  if (!activeAlasStory) activeAlasStory = createAlasStory();
+  return activeAlasStory;
 }
 
 function createSubplotAChoiceConfig(stage, cardIds) {
@@ -769,6 +807,144 @@ function createSubplotAChoiceConfig(stage, cardIds) {
       const previousValue =
         window.playerChoices[cardIds[1]]?.value || "path-1-1";
       return conclusions[previousValue].options.map((option, index) => ({
+        value: `${previousValue}-${index + 1}`,
+        label: option.label,
+      }));
+    },
+  };
+}
+
+function createSubplotDChoiceConfig(stage, cardIds) {
+  if (stage === 1) {
+    return {
+      prompt: () => {
+        const { deceased, death } = getActiveAlasStory();
+        return `Tragically, ${deceased.fullReference} ${death}.`;
+      },
+      options: () => [
+        {
+          value: "path-1",
+          label: "Use AI to help you draft the difficult news.",
+        },
+        {
+          value: "path-2",
+          label:
+            "Stay clear of AI. This one needs to be from the fully human heart.",
+        },
+      ],
+    };
+  }
+
+  if (stage === 2) {
+    return {
+      prompt: () => {
+        const { deceased } = getActiveAlasStory();
+        const usedAI =
+          window.playerChoices[cardIds[0]]?.value === "path-1";
+        if (usedAI) {
+          return `At a staff event, a few people are talking about how they haven’t seen ${deceased.fullReference} recently. You remember some of those same people posting heartfelt online eulogies about ${deceased.name}, but you guess those were written by their AI agents.`;
+        }
+        return `${deceased.fullReference} is still answering emails from beyond the grave, via an AI system they set up.`;
+      },
+      options: () => {
+        const usedAI =
+          window.playerChoices[cardIds[0]]?.value === "path-1";
+        return usedAI
+          ? [
+              {
+                value: "path-1-1",
+                label: "You feel a bit sad about all this.",
+              },
+              {
+                value: "path-1-2",
+                label: "You just feel curious about how society is evolving.",
+              },
+            ]
+          : [
+              {
+                value: "path-2-1",
+                label: "Shut down the inbox.",
+              },
+              {
+                value: "path-2-2",
+                label:
+                  "Add a short legal disclaimer to clarify that this employee is dead.",
+              },
+            ];
+      },
+    };
+  }
+
+  const conclusions = {
+    "path-1-1": {
+      prompt: () =>
+        "After LLMs are used by pro-life activists to create live, interactive extrapolations of foetuses that “advocate for themselves” from ultrasound images, cardiotocography traces and maternal health records, a wider backlash against chatbots gathers force.",
+      options: () => [
+        {
+          label:
+            "Some simulations should not be allowed to speak in another being’s name.",
+        },
+        {
+          label:
+            "The activists are grotesque, but banning chatbots will not resolve what made this persuasive.",
+        },
+      ],
+    },
+    "path-1-2": {
+      prompt: () =>
+        "A client runs into you at an event and is startled that you are real. They assumed from your messages and video calls that you were an AI.\n\n“I mean, I thought maybe you used to be real, just maybe that you weren’t any more.”",
+      options: () => [
+        {
+          label: "Ask what the AI version of you was like.",
+        },
+        {
+          label:
+            "Insist on a device-free lunch and see if either of you can still pass as human.",
+        },
+      ],
+    },
+    "path-2-1": {
+      prompt: () =>
+        "Customers complain that your company is too slow and unresponsive. Others accuse you of using traditional chatbots instead of getting AI agents to pretend to be living employees.",
+      options: () => [
+        {
+          label:
+            "Take these complaints seriously — get an AI agent to sift through them and produce actionable recommendations.",
+        },
+        {
+          label: "Looks like AI slopaganda. Ignore it.",
+        },
+      ],
+    },
+    "path-2-2": {
+      prompt: () => {
+        const { musician } = getActiveAlasStory();
+        return `${musician.fullReference} has been using company time to build an incredibly successful career as a musician. The company lawyers advise that you may own the IP in some of ${musician.name}’s music and should negotiate, rather than take the straight disciplinary route.`;
+      },
+      options: () => {
+        const { musician, death } = getActiveAlasStory();
+        return [
+          {
+            label: `You’re actually a massive fan of ${musician.name}’s music. Get a selfie and an autograph.`,
+          },
+          {
+            label: `Wait, wasn’t ${musician.fullReference} the one who ${death}, about a year ago?`,
+          },
+        ];
+      },
+    },
+  };
+
+  return {
+    prompt: () => {
+      const previousValue =
+        window.playerChoices[cardIds[1]]?.value || "path-1-1";
+      return conclusions[previousValue].prompt();
+    },
+    options: () => {
+      const previousValue =
+        window.playerChoices[cardIds[1]]?.value || "path-1-1";
+      return conclusions[previousValue].options().map((option, index) => ({
         value: `${previousValue}-${index + 1}`,
         label: option.label,
       }));
@@ -1014,72 +1190,10 @@ const AUTHORED_SUBPLOTS = {
       },
     },
   },
-  D: {
-    first: {
-      prompt:
-        "After a respected colleague dies, their AI assistant continues answering customers convincingly.",
-      options: [
-        "Keep the inbox operating.",
-        "Close it and announce their death.",
-      ],
-    },
-    second: {
-      "path-1": {
-        prompt:
-          "After you kept the inbox operating, its messages are copied to create a convincing counterfeit version of your organisation.",
-        options: [
-          "Recognise the imitation as an authorised partner.",
-          "Expose it publicly as a counterfeit.",
-        ],
-      },
-      "path-2": {
-        prompt:
-          "After you closed the inbox, customers protest. Some had long relationships with the colleague’s automated voice and want access restored.",
-        options: [
-          "Reopen it as a clearly labelled archive.",
-          "Insist that the correspondence has ended.",
-        ],
-      },
-    },
-    third: {
-      "path-1-1": {
-        prompt:
-          "The authorised imitation prospers. Customers move easily between two versions of the organisation, and few remember which was original.",
-        options: [
-          "I hope an organisation’s identity can be shared.",
-          "I regret surrendering the boundary around what we were.",
-        ],
-      },
-      "path-1-2": {
-        prompt:
-          "You destroy the counterfeit, but the investigation reveals that the original inbox was also largely automated. Customer trust collapses.",
-        options: [
-          "I hope the truth proves more durable than trust.",
-          "I wonder how long the useful illusion might have lasted.",
-        ],
-      },
-      "path-2-1": {
-        prompt:
-          "The reopened archive becomes a memorial. Customers contribute their own messages until the colleague’s correspondence belongs partly to everyone.",
-        options: [
-          "I hope shared memory can outgrow its institution.",
-          "I am uneasy that the company has become a host for grief.",
-        ],
-      },
-      "path-2-2": {
-        prompt:
-          "You maintain the clean break. Customers drift away, staff grieve, and the unanswered inbox becomes an absence everyone understands.",
-        options: [
-          "I hope endings can be a form of respect.",
-          "I regret deleting a continuity people still valued.",
-        ],
-      },
-    },
-  },
   E: {
     first: {
       prompt:
-        "AI performance scoring has been creeping into your organisation. Some employees are concerned about reward-hacking.",
+        "AI performance scoring has been creeping into your organisation. Some employees are concerned about reward-hacking — focusing so much on making the number go up that you forget about the underlying reality.",
       options: [
         "Support the AI performance scoring, but monitor it closely.",
         "Limit the scores’ influence over promotion and pay.",
@@ -1088,7 +1202,7 @@ const AUTHORED_SUBPLOTS = {
     second: {
       "path-1": {
         prompt:
-          "After you leaned into algorithmic performance management, some workers have reinvented working-to-rule. Their quiet strike is paralysing your organisation.",
+          "Your workers were concerned about being graded by AI. Now they’re practising a new form of industrial action: a mish-mash of reward-hacking, quiet quitting and working-to-rule. They’re doing exactly what the AI wants, and it has paralysed your organisation.",
         options: [
           "Pay the early-exit fee and stop using the software.",
           "Upgrade your subscription to unlock the anti-industrial-action dashboard.",
@@ -1177,6 +1291,7 @@ function createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds) {
 
 function createSubplotChoiceConfig(subplotId, stage, cardIds) {
   if (subplotId === "A") return createSubplotAChoiceConfig(stage, cardIds);
+  if (subplotId === "D") return createSubplotDChoiceConfig(stage, cardIds);
   if (subplotId === "F") return createSubplotFChoiceConfig(stage, cardIds);
   if (AUTHORED_SUBPLOTS[subplotId]) {
     return createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds);
@@ -1419,6 +1534,9 @@ let mainDeckSize = 0;
 function chooseActiveSubplot() {
   activeSubplotId = pickRandom(Object.keys(SUBPLOT_CARD_IDS_BY_ID));
   activeSubplotCardIds = SUBPLOT_CARD_IDS_BY_ID[activeSubplotId];
+  activeAlasStory =
+    activeSubplotId === "D" ? createAlasStory() : null;
+  window.activeAlasStory = activeAlasStory;
   activeCareRelative =
     activeSubplotId === "F" ? chooseCareRelative() : null;
   window.activeCareRelative = activeCareRelative;
@@ -1502,6 +1620,24 @@ function dealOpeningHands() {
 }
 
 // --- Rendering ---
+function formatCardDescription(card) {
+  const usesChoiceLayout = Boolean(CHOICE_CARD_OPTIONS[card.id]);
+  return String(card.description || "")
+    .replace(/^\s*\*\s?/gm, "• ")
+    .split("\n")
+    .map((line) => {
+      if (
+        !usesChoiceLayout ||
+        !line.trim() ||
+        line.trimStart().startsWith("•")
+      ) {
+        return line;
+      }
+      return `• ${line.trimStart()}`;
+    })
+    .join("\n");
+}
+
 function renderPlayerHand() {
   const handDiv = el("playerHand");
   if (!handDiv) return;
@@ -1543,7 +1679,7 @@ function renderPlayerHand() {
     // --- Card description ---
     const desc = document.createElement("div");
     desc.className = "card-desc";
-    desc.textContent = card.description;
+    desc.textContent = formatCardDescription(card);
     cardDiv.appendChild(desc);
 
     // Click handler
