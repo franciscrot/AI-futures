@@ -312,9 +312,9 @@ document.getElementById("resetButton").addEventListener("click", () => {
 
 // --- Random name pools ---
 const playerNames = [
-  "The Von Spigot Gallery",
+  "The Von Spigot Studio",
   "LEAF Consulting",
-  "Haunted History Tours Inc.",
+  "Haunted Hill Inc.",
   "First City Bank",
   "Baker Baker & McKenzie LLP",
   "The Museum of Lost Socks",
@@ -662,17 +662,17 @@ function chooseCareRelative() {
   return { ...CARE_RELATIVES.at(-1) };
 }
 
-const ALAS_NAMES = ["Sandra", "Erik", "Mohammed", "Priya", "Craig"];
+const ALAS_NAMES = ["Sandra", "Erik", "Mohammed", "Priya", "Craig", "Ellen", "Sven"];
 const ALAS_DEPARTMENTS = ["Sales", "HR", "Accounts", "IT", "Operations"];
 const ALAS_DEATHS = [
   "was crushed under a falling vending machine while trying to get a can of pop",
-  "was struck by a runaway promotional robot at a trade fair",
+  "was struck by a runaway food delivery robot",
   "fell through a sinkhole during a team-building treasure hunt",
   "was carried out to sea on an inflatable swan at the company picnic",
-  "was hit by a frozen wheel of cheese dropped by a delivery drone",
-  "was trampled by rented alpacas during a workplace wellbeing day",
+  "was crushed under a giant wheel of cheese dropped by a delivery drone",
+  "was trampled by a stampede of petting alpacas during a workplace wellbeing day",
   "was electrocuted by a smart kettle during the office tea round",
-  "was killed by a falling inflatable logo at a product launch",
+  "was killed by a falling logo at a product launch",
 ];
 
 function createAlasIdentity(name) {
@@ -749,43 +749,43 @@ function createSubplotAChoiceConfig(stage, cardIds) {
   const conclusions = {
     "path-1-1": {
       prompt:
-        "You accepted an interface trained on your agents’ records. It now supports your memory, language and judgement.\n\nThe provider announces that the service will be deprecated. Soon, the AI integrated with your thinking will no longer be supported.",
+        "You accepted an interface trained on your agents’ records. It now supports your memory, language, and judgement.\n\nThe provider announces that the service will be deprecated. Soon, the AI integrated with your thinking will no longer be supported.",
       options: [
         {
           label: "Try to migrate yourself to an open-source alternative.",
         },
         {
-          label: "Learn to think with less dependence on the AI.",
+          label: "See if you can cope without any AI integration.",
         },
       ],
     },
     "path-1-2": {
       prompt:
-        "You refused the neural interface and kept relying on AI agents. As your condition progresses, they increasingly remember, decide and speak for you.",
+        "You refused the neural interface, though you kept relying on AI agents. As your condition progresses, they increasingly remember, decide, and speak for you.",
       options: [
         {
-          label: "I am relieved that something recognisably mine continues.",
+          label: "I feel like I made the right choice earlier. They're ultimately just tools.",
         },
         {
-          label: "I fear I am becoming the least reliable version of myself.",
+          label: "I feel myself being replaced.",
         },
       ],
     },
     "path-2-1": {
       prompt:
-        "After sharing the CEO role, you accepted the interface and resumed sole leadership. It slows the decline but cannot restore everything; your former co-CEO helps it fill the gaps.",
+        "You accepted an experimental treatment and resumed sole leadership of the organization. Your inner AI slows the decline, but your former co-director is filling in a lot of gaps.",
       options: [
         {
-          label: "I hope dependence can be another kind of continuity.",
+          label: "Announce the latest date you will step down by.",
         },
         {
-          label: "I hope those around me will accept how I change.",
+          label: "Your former co-director wields too much influence. Plot against them.",
         },
       ],
     },
     "path-2-2": {
       prompt:
-        "You refused the interface and deepened shared leadership. As your condition progresses, the organisation grows more collective and less dependent on you.",
+        "You refused the AI interface and deepened shared leadership. As your condition progresses, the organisation grows more collective and democratic.",
       options: [
         {
           label: "I hope I can still belong as my role changes.",
@@ -895,7 +895,7 @@ function createSubplotDChoiceConfig(stage, cardIds) {
         "A client runs into you at an event and is startled that you are real. They assumed from your messages and video calls that you were an AI.\n\n“I mean, I thought maybe you used to be real, just maybe that you weren’t any more.”",
       options: () => [
         {
-          label: "Ask what the AI version of you was like.",
+          label: "Ask if it matters.",
         },
         {
           label:
@@ -962,11 +962,11 @@ function createSubplotFChoiceConfig(stage, cardIds) {
   if (stage === 1) {
     return {
       prompt: () =>
-        `Your ${relation} is getting older, and finding everyday life more challenging, but ${subject} really values ${possessive} independence.`,
+        `Your ${relation} is getting older, and finding everyday life more challenging.`,
       options: () => [
         {
           value: "path-1",
-          label: "Try to improve your work-life balance so you can be there more for them.",
+          label: "Try to improve your work-life balance so you can spend more time together.",
         },
         {
           value: "path-2",
@@ -999,7 +999,7 @@ function createSubplotFChoiceConfig(stage, cardIds) {
               {
                 value: "path-1-2",
                 label:
-                  "Reduce your CEO responsibilities and continue providing care yourself.",
+                  "Reduce your CEO responsibilities and provide more care yourself.",
               },
             ]
           : [
@@ -1029,7 +1029,7 @@ function createSubplotFChoiceConfig(stage, cardIds) {
       prompt: `You reduce your CEO role and take on more of your ${relation}’s care yourself. Time together deepens, but fatigue and lost work reshape both your lives.`,
       options: [
         "I hope care can be treated as part of life, not an interruption.",
-        "I wish devotion did not require one person to step back.",
+        "My devotion to one person has helped me to see a much bigger, shared problem.",
       ],
     },
     "path-2-1": {
@@ -1096,7 +1096,7 @@ const AUTHORED_SUBPLOTS = {
     third: {
       "path-1-1": {
         prompt:
-          "You formalised the shadow system. The organisation is extraordinarily productive, but when it fails, nobody knows how to continue without it.",
+          "You formalised the shadow system. The organisation is productive, but when the system does fail, nobody knows how to continue without it.",
         options: [
           "I hope automation can become a form of institutional knowledge.",
           "I fear the organisation no longer knows what it is doing.",
@@ -1112,7 +1112,7 @@ const AUTHORED_SUBPLOTS = {
       },
       "path-2-1": {
         prompt:
-          "You quietly restored the system. Official procedures continue, but everybody knows the real organisation runs through an unacknowledged AI.",
+          "You restored the system. Official procedures continue, but everybody knows the real organisation runs through an unacknowledged AI.",
         options: [
           "It is time to acknowledge how the work is really done.",
           "Some useful arrangements survive by remaining unofficial.",
@@ -1160,29 +1160,29 @@ const AUTHORED_SUBPLOTS = {
         prompt:
           "The organisation fills with model employees. Performance scores soar, while personalities, working styles and disagreements steadily converge.",
         options: [
-          "I hope common standards can make excellence fairer.",
-          "I miss the useful friction of eccentric people.",
+          "I hope common standards can make excellence fairer",
+          "I miss the useful friction of eccentric people",
         ],
       },
       "path-1-2": {
         prompt:
           "You protected less measurable work. The candidate remains brilliant but unusual, and the recruitment system loses much of its authority.",
         options: [
-          "I hope excellence can remain plural.",
-          "I still wonder what the system saw before we did.",
+          "I hope excellence can remain plural",
+          "I still wonder what the system saw before we did",
         ],
       },
       "path-2-1": {
         prompt:
-          "You adopted the rival’s automation. The profession shrinks rapidly; the remaining work is efficient, accessible and increasingly unlike a craft.",
+          "You adopted the rival’s automation. The profession shrinks rapidly. The remaining human work is efficient, accessible, and increasingly tedious and hollow.",
         options: [
-          "I hope new forms of skilled work will emerge.",
-          "I fear we destroyed knowledge we could not measure.",
+          "I hope new forms of skilled work will emerge",
+          "I fear we have already destroyed something precious we couldn't measure",
         ],
       },
       "path-2-2": {
         prompt:
-          "You defended the profession as human work. Customers value it, but automated rivals are faster and much cheaper.",
+          "You defended the profession as human work. Customers, suppliers, and even some rivals value it. Competitors who use more AI are volatile and sometimes go bust, but new competitors pop up quickly. You're being squeezed out of the market.",
         options: [
           "I hope human attention remains worth paying for.",
           "I fear we have mistaken nostalgia for principle.",
@@ -1244,7 +1244,7 @@ const AUTHORED_SUBPLOTS = {
       },
       "path-2-2": {
         prompt:
-          "Both systems are prohibited, then quietly rebuilt. Decisions look human again, while hidden measurements continue shaping them.",
+          "Both systems are prohibited, then discreetly rebuilt. Decisions look human again, while hidden measurements continue shaping them.",
         options: [
           "I accept that judgement can never be fully transparent.",
           "I suspect the forbidden scores still govern us.",
