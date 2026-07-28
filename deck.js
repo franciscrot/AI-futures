@@ -1057,7 +1057,7 @@ window.deck = [
     subplotId: "C",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation discovers what its chosen form of excellence costs.",
+    description: "The organisation fills with model employees. Performance scores soar, while personalities, working styles and disagreements steadily converge.",
     tooltip: "Standardisation or Difference?",
     effect: function () {}
   },
@@ -1069,7 +1069,7 @@ window.deck = [
     subplotId: "D",
     subplotStage: 1,
     subplotPosition: 15,
-    description: "A colleague dies in an improbable workplace accident. You must break the news.",
+    description: "A tragedy occurs.",
     tooltip: "Have You Heard?",
     effect: function () {}
   },
@@ -1081,7 +1081,7 @@ window.deck = [
     subplotId: "D",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "Your choice about the announcement changes what the living remember—and what the dead keep doing.",
+    description: "[dummy text].",
     tooltip: "Closure or Continuation?",
     effect: function () {}
   },
@@ -1093,7 +1093,7 @@ window.deck = [
     subplotId: "D",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The consequences spread into work, grief, identity and synthetic life.",
+    description: "[dummy text]",
     tooltip: "Believe It or Not?",
     effect: function () {}
   },
