@@ -807,9 +807,9 @@ function createSubplotFChoiceConfig(stage, cardIds) {
         const tookOnCare =
           window.playerChoices[cardIds[0]]?.value === "path-1";
         if (tookOnCare) {
-          return `Since you took on more of your ${relation}’s care, ${possessive} needs have grown. Your workdays are increasingly shaped by calls, visits and worry.\n\nA care service proposes a network of sensors, reminders and robots for check-ins, meals and simple household tasks, escalating problems to people.`;
+          return `Since you took on more of your ${relation}’s care, ${possessive} needs have grown.\n\nA caretech service proposes sensors, AI systems, and robots to help with check-ins and everyday tasks. Problems would get escalated to people.`;
         }
-        return `The wider circle has helped your ${relation} remain independent, but coordination is tiring and gaps keep appearing.\n\nA care service proposes a network of sensors, reminders and robots for check-ins, meals and simple household tasks, escalating problems to people.`;
+        return `The wider circle has helped your ${relation} remain independent, but coordination is tiring and gaps keep appearing.\n\nA caretech service proposes sensors, AI systems, and robots to help with check-ins and everyday tasks. Problems would get escalated to people.`;
       },
       options: () => {
         const tookOnCare =
@@ -818,7 +818,7 @@ function createSubplotFChoiceConfig(stage, cardIds) {
           ? [
               {
                 value: "path-1-1",
-                label: `Introduce the system with ${possessive} consent.`,
+                label: `Suggest that ${subject} try out the system.`,
               },
               {
                 value: "path-1-2",
@@ -843,7 +843,7 @@ function createSubplotFChoiceConfig(stage, cardIds) {
 
   const conclusions = {
     "path-1-1": {
-      prompt: `With ${possessive} consent, networked devices now handle reminders, check-ins and simple tasks for your ${relation}. You visit less often in emergencies and more often as family, although intimate routines now generate data and alerts.`,
+      prompt: `You’re not sure how well ${subject} really understood the proposal, but your ${relation} seems fine with the networked devices. There are fewer crises. You feel weird that so much data is generated and for some reason shared with you.`,
       options: [
         "I hope technology can create more room for human closeness.",
         "I worry that safety is becoming another form of surveillance.",
@@ -1088,10 +1088,10 @@ const AUTHORED_SUBPLOTS = {
     second: {
       "path-1": {
         prompt:
-          "After you rewarded high scores, workers follow the system’s instructions with absolute precision. Their quiet strike paralyses the organisation.",
+          "After you leaned into algorithmic performance management, some workers have reinvented working-to-rule. Their quiet strike is paralysing your organisation.",
         options: [
-          "Negotiate with the workers.",
-          "Tighten automated supervision.",
+          "Pay the early-exit fee and stop using the software.",
+          "Upgrade your subscription to unlock the anti-industrial-action dashboard.",
         ],
       },
       "path-2": {
