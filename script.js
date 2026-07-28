@@ -591,6 +591,20 @@ const SUBPLOT_CARD_IDS_BY_ID = {
   F: [97, 98, 99],
 };
 
+const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
+  83: "images/tarot-20.jpg",
+  85: "images/tarot-19.jpg",
+  86: "images/tarot-15.jpg",
+  87: "images/tarot-8.jpg",
+  88: "images/tarot-21.jpg",
+  91: "images/tarot-4.jpg",
+  92: "images/tarot-26.jpg",
+  95: "images/tarot-17.jpg",
+  97: "images/jo-card-back.jpg",
+  98: "images/tarot-9.jpg",
+  99: "images/tarot-23.jpg",
+};
+
 const CARE_RELATIVES = [
   {
     relation: "mother",
@@ -1173,7 +1187,7 @@ function createSubplotChoiceConfig(subplotId, stage, cardIds) {
   return {
     prompt: () => {
       const ordinal = ["First", "Second", "Third"][stage - 1];
-      const opening = `Subplot ${subplotId}: ${ordinal} special narrative event (this feature hasn't been added yet).`;
+      const opening = `${ordinal} special narrative event (this feature hasn't been added yet).`;
       if (stage === 1) return `${opening}\n\nWhat do you want to do?`;
 
       const previous = window.playerChoices[previousCardId];
@@ -1199,11 +1213,10 @@ function createSubplotChoiceConfig(subplotId, stage, cardIds) {
 
 Object.entries(SUBPLOT_CARD_IDS_BY_ID).forEach(([subplotId, cardIds]) => {
   cardIds.forEach((cardId, index) => {
-    CHOICE_CARD_OPTIONS[cardId] = createSubplotChoiceConfig(
-      subplotId,
-      index + 1,
-      cardIds,
-    );
+    CHOICE_CARD_OPTIONS[cardId] = {
+      ...createSubplotChoiceConfig(subplotId, index + 1, cardIds),
+      imagePath: SUBPLOT_IMAGE_PATHS_BY_CARD_ID[cardId],
+    };
   });
 });
 

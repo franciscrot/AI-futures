@@ -693,7 +693,7 @@ window.deck = [
     type: "event",
     description: "* AI fails to deliver the exponential productivity gains predicted.\n* Organisations that capped their AI footprint and set compute budgets emerge stronger and more resilient.\n* Governments are under pressure to find more public sector AI use cases.\n* Gain a progress point if you have played action cards 6, 10, or 32.",
     tooltip: "Progress Points for Actions 6, 9, 10, 23.",
-    imagePath: "images/64.jpg",
+    imagePath: "images/tarot-25.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
@@ -710,7 +710,7 @@ window.deck = [
     type: "event",
     description: "* True public cloud options emerge.\n* Structural separations split data, model, and compute ownership.\n* Interoperability becomes mandatory.\n* Procurement rules favour open, smaller systems.\n* Gain a progress point if you have played action cards 8, 25, or 31.",
     tooltip: "Progress Points for Actions 10, 14, 20, 29.",
-    imagePath: "images/65.jpg",
+    imagePath: "images/tarot-18.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
@@ -761,7 +761,7 @@ window.deck = [
     type: "event",
     description: "* Grassroots resistance is delaying new data centre projects, and even forcing existing data centres to shut down\n* The downturn affects the big “hyperscale” data centres, but small and medium data centres continue to flourish\n* Gain a progress point if you have played action cards 25, 26, or 28.",
     tooltip: "Progress Points for Actions 1, 5, 8, 16.",
-    imagePath: "images/68.jpg",
+    imagePath: "images/tarot-7.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
@@ -778,7 +778,7 @@ window.deck = [
     type: "event",
     description: "* Training data is being ‘poisoned’\n* AI models can be degraded, or their security is compromised\n* Who is doing it? Competitors, activists, somebody else?\n* All players lose all progress points, unless protected by action 16.",
     tooltip: "A Drop of Poison",
-    imagePath: "images/69.jpg",
+    imagePath: "images/tarot-2.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
@@ -821,7 +821,7 @@ window.deck = [
     type: "event",
     description: "* We’re not sure why, but AI agents appear to be ‘organising’ and ‘forming unions’\n* What’s going on? There has to be a better way of describing this!\n* Gain a progress point if you have played action cards 15 or 23.",
     tooltip: "Progress Points for Actions 19, 21, 27, 28.",
-    imagePath: "images/72.jpg",
+    imagePath: "images/tarot-11.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
@@ -864,7 +864,7 @@ window.deck = [
     type: "event",
     description: "* Policies are implemented to support socially useful AI only.\n* How? How are these categories defined and identified? How are some AI use cases encouraged, and others discouraged? What are the controversies? Who disagrees?\n* Gain a progress point if you have played action cards 2 or 11.",
     tooltip: "Progress Points for Actions 14, 15, 22, 24.",
-    imagePath: "images/75.jpg",
+    imagePath: "images/tarot-6.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
@@ -881,7 +881,7 @@ window.deck = [
     type: "event",
     description: "* Conflict and sanctions disrupt semiconductor supply chains, delaying every major tech rollout.\n* Scramble for substitutes leads to a wave of counterfeit or repurposed hardware.\n* Gain a progress point if you have played action cards 6, 9, 19, or 24.",
     tooltip: "Progress Points for Actions 3, 8, 23, 32.",
-    imagePath: "images/76.jpg",
+    imagePath: "images/tarot-12.jpg",
     effect: function (player, AI1, AI2) {
       [player, AI1, AI2].forEach(p => {
         let bonus = 0;
@@ -955,218 +955,218 @@ window.deck = [
   },
   {
     id: 82,
-    name: "82: Subplot A — Forgetting",
+    name: "82: Forgetting",
     type: "action",
     isSubplot: true,
     subplotId: "A",
     subplotStage: 1,
     subplotPosition: 15,
     description: "You have become unusually forgetful. Names, meetings and familiar words keep slipping away.",
-    tooltip: "Subplot A — Forgetting",
+    tooltip: "Forgetting",
     effect: function () {}
   },
   {
     id: 83,
-    name: "83: Subplot A — The Diagnosis",
+    name: "83: The Diagnosis",
     type: "action",
     isSubplot: true,
     subplotId: "A",
     subplotStage: 2,
     subplotPosition: 39,
     description: "Your forgetfulness has continued. There is now a diagnosis—and another decision.",
-    tooltip: "Subplot A — The Diagnosis",
+    tooltip: "The Diagnosis",
     effect: function () {}
   },
   {
     id: 84,
-    name: "84: Subplot A — What Remains",
+    name: "84: What Remains",
     type: "action",
     isSubplot: true,
     subplotId: "A",
     subplotStage: 3,
     subplotPosition: 63,
     description: "The medium-term consequences of your earlier decisions have become clear.",
-    tooltip: "Subplot A — What Remains",
+    tooltip: "What Remains",
     effect: function () {}
   },
   {
     id: 85,
-    name: "85: Subplot B — The Invisible Employee",
+    name: "85: The Invisible Employee",
     type: "action",
     isSubplot: true,
     subplotId: "B",
     subplotStage: 1,
     subplotPosition: 15,
     description: "Your best-performing employee has an undisclosed source of assistance.",
-    tooltip: "Subplot B — The Invisible Employee",
+    tooltip: "The Invisible Employee",
     effect: function () {}
   },
   {
     id: 86,
-    name: "86: Subplot B — The Shadow System",
+    name: "86: The Shadow System",
     type: "action",
     isSubplot: true,
     subplotId: "B",
     subplotStage: 2,
     subplotPosition: 39,
     description: "The hidden workflow spreads—or its absence exposes a deeper dependency.",
-    tooltip: "Subplot B — The Shadow System",
+    tooltip: "The Shadow System",
     effect: function () {}
   },
   {
     id: 87,
-    name: "87: Subplot B — The Hollow Organisation",
+    name: "87: The Hollow Organisation",
     type: "action",
     isSubplot: true,
     subplotId: "B",
     subplotStage: 3,
     subplotPosition: 63,
     description: "The organisation lives with the consequences of how it handled the shadow system.",
-    tooltip: "Subplot B — The Hollow Organisation",
+    tooltip: "The Hollow Organisation",
     effect: function () {}
   },
   {
     id: 88,
-    name: "88: Subplot C — The Perfect Candidate",
+    name: "88: The Perfect Candidate",
     type: "action",
     isSubplot: true,
     subplotId: "C",
     subplotStage: 1,
     subplotPosition: 15,
     description: "An AI recruitment system finds an exceptional candidate whom every interviewer dislikes.",
-    tooltip: "Subplot C — The Perfect Candidate",
+    tooltip: "The Perfect Candidate",
     effect: function () {}
   },
   {
     id: 89,
-    name: "89: Subplot C — The Model Employee",
+    name: "89: The Model Employee",
     type: "action",
     isSubplot: true,
     subplotId: "C",
     subplotStage: 2,
     subplotPosition: 39,
     description: "Your recruitment decision begins reshaping an entire profession.",
-    tooltip: "Subplot C — The Model Employee",
+    tooltip: "The Model Employee",
     effect: function () {}
   },
   {
     id: 90,
-    name: "90: Subplot C — What Excellence Survives",
+    name: "90: What Excellence Survives",
     type: "action",
     isSubplot: true,
     subplotId: "C",
     subplotStage: 3,
     subplotPosition: 63,
     description: "The organisation discovers what its chosen form of excellence costs.",
-    tooltip: "Subplot C — What Excellence Survives",
+    tooltip: "What Excellence Survives",
     effect: function () {}
   },
   {
     id: 91,
-    name: "91: Subplot D — The Open Inbox",
+    name: "91: The Open Inbox",
     type: "action",
     isSubplot: true,
     subplotId: "D",
     subplotStage: 1,
     subplotPosition: 15,
     description: "A dead colleague’s AI assistant continues answering customers.",
-    tooltip: "Subplot D — The Open Inbox",
+    tooltip: "The Open Inbox",
     effect: function () {}
   },
   {
     id: 92,
-    name: "92: Subplot D — Who Owns the Voice?",
+    name: "92: Who Owns the Voice?",
     type: "action",
     isSubplot: true,
     subplotId: "D",
     subplotStage: 2,
     subplotPosition: 39,
     description: "The decision about the inbox creates an unexpected conflict over memory and identity.",
-    tooltip: "Subplot D — Who Owns the Voice?",
+    tooltip: "Who Owns the Voice?",
     effect: function () {}
   },
   {
     id: 93,
-    name: "93: Subplot D — After the Reply",
+    name: "93: After the Reply",
     type: "action",
     isSubplot: true,
     subplotId: "D",
     subplotStage: 3,
     subplotPosition: 63,
     description: "The organisation and its customers live with what was preserved—or ended.",
-    tooltip: "Subplot D — After the Reply",
+    tooltip: "After the Reply",
     effect: function () {}
   },
   {
     id: 94,
-    name: "94: Subplot E — The Score",
+    name: "94: The Score",
     type: "action",
     isSubplot: true,
     subplotId: "E",
     subplotStage: 1,
     subplotPosition: 15,
     description: "AI performance scoring changes how employees behave.",
-    tooltip: "Subplot E — The Score",
+    tooltip: "The Score",
     effect: function () {}
   },
   {
     id: 95,
-    name: "95: Subplot E — Exact Compliance",
+    name: "95: Exact Compliance",
     type: "action",
     isSubplot: true,
     subplotId: "E",
     subplotStage: 2,
     subplotPosition: 39,
     description: "Workers and managers adapt to the scoring system in unexpected ways.",
-    tooltip: "Subplot E — Exact Compliance",
+    tooltip: "Exact Compliance",
     effect: function () {}
   },
   {
     id: 96,
-    name: "96: Subplot E — The Measure of Fairness",
+    name: "96: The Measure of Fairness",
     type: "action",
     isSubplot: true,
     subplotId: "E",
     subplotStage: 3,
     subplotPosition: 63,
     description: "The organisation lives with the rules, counter-rules and evasions it created.",
-    tooltip: "Subplot E — The Measure of Fairness",
+    tooltip: "The Measure of Fairness",
     effect: function () {}
   },
   {
     id: 97,
-    name: "97: Subplot F — A Wider Circle",
+    name: "97: A Wider Circle",
     type: "action",
     isSubplot: true,
     subplotId: "F",
     subplotStage: 1,
     subplotPosition: 15,
     description: "Someone close to you is getting older and beginning to need more support.",
-    tooltip: "Subplot F — A Wider Circle",
+    tooltip: "A Wider Circle",
     effect: function () {}
   },
   {
     id: 98,
-    name: "98: Subplot F — The Care Network",
+    name: "98: The Care Network",
     type: "action",
     isSubplot: true,
     subplotId: "F",
     subplotStage: 2,
     subplotPosition: 39,
     description: "Their care needs grow, testing the arrangements you previously made.",
-    tooltip: "Subplot F — The Care Network",
+    tooltip: "The Care Network",
     effect: function () {}
   },
   {
     id: 99,
-    name: "99: Subplot F — Staying Close",
+    name: "99: Staying Close",
     type: "action",
     isSubplot: true,
     subplotId: "F",
     subplotStage: 3,
     subplotPosition: 63,
     description: "Your earlier choices reshape care, independence and your relationship.",
-    tooltip: "Subplot F — Staying Close",
+    tooltip: "Staying Close",
     effect: function () {}
   },
 ];
