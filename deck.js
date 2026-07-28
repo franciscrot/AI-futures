@@ -1,7 +1,7 @@
 // deck.js
 window.deck = [
   // ================================
-  // 37 ACTION AND CHOICE CARDS
+  // 40 ACTION AND CHOICE CARDS
   // ================================
   {
     id: 1,
@@ -1167,6 +1167,30 @@ window.deck = [
     subplotPosition: 63,
     description: "Your earlier choices reshape care, independence and your relationship.",
     tooltip: "Who Should Carry Care?",
+    effect: function () {}
+  },
+  {
+    id: 100,
+    name: "100: Claim the Fame?",
+    type: "action",
+    description: "• One of your employees has become a celebrity for the quality of their react emojis.\n• Their reacts have caught the public imagination.",
+    tooltip: "Claim the Fame?",
+    effect: function () {}
+  },
+  {
+    id: 101,
+    name: "101: Pineapple Falls. What Next?",
+    type: "action",
+    description: "• Pineapple Inc. is collapsing after building too many data centres.\n• Move to another tech giant, or find a way out of the hyperscaler model.",
+    tooltip: "Pineapple Falls. What Next?",
+    effect: function () {}
+  },
+  {
+    id: 102,
+    name: "102: Hope or Hopewashing?",
+    type: "action",
+    description: "• Solarpunk data gardens are proliferating, powered by renewable energy on site.\n• They sound hopeful—but they do not really compete with the hyperscalers’ business model.",
+    tooltip: "Hope or Hopewashing?",
     effect: function () {}
   },
 ];
