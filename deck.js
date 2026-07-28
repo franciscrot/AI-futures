@@ -1057,7 +1057,7 @@ window.deck = [
     subplotId: "C",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation fills with model employees. Performance scores soar, while personalities, working styles and disagreements steadily converge.",
+    description: "The organisation fills with model employees. Performance scores soar. Working styles and work personae steadily converge.",
     tooltip: "Standardisation or Difference?",
     effect: function () {}
   },
@@ -1129,7 +1129,7 @@ window.deck = [
     subplotId: "E",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation lives with the rules, counter-rules and evasions it created.",
+    description: "A grassroots movement against AI surveillance and control is spreading. When screenshots leak from your anti-industrial-action dashboard, your organisation becomes a test case. Outside solidarity strengthens the strike.",
     tooltip: "Higher Power or Higher Power?",
     effect: function () {}
   },
