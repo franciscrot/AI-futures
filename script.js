@@ -1555,8 +1555,9 @@ function initCardLookup() {
   CARD_BY_ID = Object.fromEntries(snapshot.map((c) => [c.id, c]));
 }
 
-// Track which action IDs should be highlighted while hovering an event card.
+// Track which action IDs and scores should be highlighted while hovering an event card.
 let highlightedActionIds = new Set();
+let highlightAllScoreValues = false;
 
 // The final bullet on each event card is the single source of truth for
 // both its mechanics and its mouseover highlighting.
@@ -1618,15 +1619,21 @@ function applyEventEffect(card, players) {
   });
 }
 
-// Update UI to bold action IDs that are relevant to the hovered event card.
-function setHighlightedActions(actionIds) {
+function eventAffectsAllPlayers(card) {
+  const rule = getEventRule(card);
+  return rule?.type === "milestone" || rule?.type === "crisis";
+}
+
+// Update UI to bold action IDs and scores relevant to the hovered event card.
+function setHighlightedActions(actionIds, shouldHighlightScores = false) {
   highlightedActionIds = new Set(actionIds);
+  highlightAllScoreValues = shouldHighlightScores;
   updateGameInfo();
   updatePlayedLists();
 }
 
 function clearHighlightedActions() {
-  setHighlightedActions([]);
+  setHighlightedActions([], false);
 }
 
 let activeSubplotId = null;
@@ -1790,7 +1797,10 @@ function renderPlayerHand() {
     // Hover handlers: highlight relevant action IDs for event cards.
     if (card.type === "event") {
       cardDiv.addEventListener("mouseenter", () => {
-        setHighlightedActions(getActionIdsFromEvent(card));
+        setHighlightedActions(
+          getActionIdsFromEvent(card),
+          eventAffectsAllPlayers(card),
+        );
       });
       cardDiv.addEventListener("mouseleave", () => {
         clearHighlightedActions();
@@ -1871,19 +1881,22 @@ function updateGameInfo() {
 
   if (!infoDiv) return;
 
+  const renderScoreValue = (value) =>
+    `<span class="score-value${highlightAllScoreValues ? " is-highlighted" : ""}">${value}</span>`;
+
   infoDiv.innerHTML = `
     <div class="company-summary player-company">
       <strong>${player.name}</strong><br>
-      Progress: ${player.progress},<br> RAI points: ${player.sustainability}<br>
+      Progress: ${renderScoreValue(player.progress)},<br> RAI points: ${renderScoreValue(player.sustainability)}<br>
       Actions: ${renderCards([...player.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}
     </div>
 
     <strong>${AI1.name}</strong><br>
-    Progress: ${AI1.progress},<br> RAI points: ${AI1.sustainability}<br>
+    Progress: ${renderScoreValue(AI1.progress)},<br> RAI points: ${renderScoreValue(AI1.sustainability)}<br>
     Actions: ${renderCards([...AI1.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br><br>
 
     <strong>${AI2.name}</strong><br>
-    Progress: ${AI2.progress},<br> RAI points: ${AI2.sustainability}<br>
+    Progress: ${renderScoreValue(AI2.progress)},<br> RAI points: ${renderScoreValue(AI2.sustainability)}<br>
     Actions: ${renderCards([...AI2.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br>
   `;
 
