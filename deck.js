@@ -1027,14 +1027,14 @@ window.deck = [
   },
   {
     id: 88,
-    name: "88: Algorithm or Interviewers?",
+    name: "88: Shall We Hire Dennis?",
     type: "action",
     isSubplot: true,
     subplotId: "C",
     subplotStage: 1,
     subplotPosition: 15,
     description: "An AI recruitment system finds an exceptional candidate whom every interviewer dislikes.",
-    tooltip: "Algorithm or Interviewers?",
+    tooltip: "Shall We Hire Dennis?",
     effect: function () {}
   },
   {
@@ -1045,7 +1045,7 @@ window.deck = [
     subplotId: "C",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "Time for Dennis's Performance Review.",
+    description: "Should we have hired Dennis?",
     tooltip: "Metrics or Human Judgement?",
     effect: function () {}
   },
