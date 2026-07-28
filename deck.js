@@ -414,7 +414,7 @@ window.deck = [
     id: 43,
     name: "43: The Law With Holes",
     type: "event",
-    description: "* Bold, long-awaited AI legislation is passed!\n* But it just doesn’t really work\n* [Pose some interesting questions for the players]\n* Gain a progress point if you have played action card 11.",
+    description: "* Bold, long-awaited AI legislation is passed!\n* But it just doesn’t really work.\n* Regulators can inspect paperwork, but not training data, models or live deployments. Companies divide systems among subsidiaries so that no single component qualifies as high-risk.\n* Is it a badly designed law, a law designed to fail, or a decent law being systematically defeated? Who benefits from the holes—and what would it take to close them?\n* Gain a progress point if you have played action card 11.",
     tooltip: "Progress Points for Actions 4, 22, 27, 32.",
     imagePath: "images/43.jpg",
     effect: function (player, AI1, AI2) {
@@ -431,17 +431,17 @@ window.deck = [
     id: 44,
     name: "44: Automated Storm in a Teacup",
     type: "event",
-    description: "* [Something about an unexpected social phenomenon]\n* [GenAI is magnifying everyone’s grievances, writing long, professional-sounding letters of concern about things that in the past would be brushed off]\n* [Why and what are the consequences]\n* [Add a couple memorable news stories]\n* Gain a progress point if you have played action card 30.",
+    description: "* One café receives 1.5 million complaints after moving one of its outdoor tables.\n* Institutions respond using AI agents.\n* Legal disputes can be raised and settled with almost no human involvement.\n* Gain a progress point if you have played action card 30.",
     tooltip: "Automated Storm in a Teacup",
     imagePath: "images/44.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
   {
     id: 45,
-    name: "45: AI is Talking to AI",
+    name: "45: AI Is Talking to AI",
     type: "event",
-    description: "* People are outsourcing more and more of their lives to AI.\n* AI agents are talking to AI agents, both purporting to be real people, but their users are hardly aware of what they are doing.\n* [A couple memorable news stories.]\n* Gain a progress point if you have played action cards 13 or 21.",
-    tooltip: "AI is Talking to AI",
+    description: "* AI agents flirt on dating apps for hundreds of miles of scrolling. Now it’s the humans on their first date who have to hallucinate, pretending they know what they’re talking about.\n* Some agents are designed with agent interlocutors in mind, using indirect prompt injection and memory poisoning to change what other agents do or remember.\n* Gain a progress point if you have played action cards 13 or 21.",
+    tooltip: "AI Is Talking to AI",
     imagePath: "images/45.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
   },
@@ -449,7 +449,7 @@ window.deck = [
     id: 46,
     name: "46: Shadow AI",
     type: "event",
-    description: "* People are using AI more and more at work, and are being encouraged to do so.\n* But there’s an unexpected twist. Few people use it in the ways they are supposed to, and most people dissemble and deceive around their AI use.\n* Why?\n* What are the consequences?\n* [Add a couple memorable news stories]\n* Gain a progress point if you have played action cards 11 or 18.",
+    description: "* AI use is spreading through your organisation, both through official systems and through practices nobody has approved.\n* Some people openly exchange prompts, workarounds and generated material. Others conceal their tools, their inputs or how much they rely on them—from managers, other teams and sometimes their closest colleagues.\n* Everyone is expected to work faster, but honesty may bring surveillance, disciplinary action, redundancy—or simply more work. People describe tidier workflows than the ones they actually follow.\n* Your organisation’s real workflows are becoming unknowable. Data crosses boundaries nobody can trace, hidden dependencies grow, and nobody is sure who will be accountable when something goes wrong.\n* Gain a progress point if you have played action cards 11 or 18.",
     tooltip: "Shadow AI",
     imagePath: "images/46.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
@@ -458,7 +458,7 @@ window.deck = [
     id: 47,
     name: "47: AI is Making Work",
     type: "event",
-    description: "* AI is helping with some work, but it’s also creating all kinds of new work nobody expected.\n* [Example of cleaning up after AI’s mess]\n* [Example of AI creating new work, more interesting and unexpected]\n* [Example, a different angle]\n* [Example, a different angle]\n* [And another example]\n* Gain a progress point if you have played action cards 13 or 23.",
+    description: "* AI is helping with some work, but it’s also creating all kinds of new work nobody expected.\n* Teachers spend evenings correcting fabricated citations in automatically generated lesson packs.\n* Call-centre workers inherit customers made furious by bots and must reconstruct conversations they cannot see.\n* New “model chaperone” shifts involve keeping agents on task, granting permissions and interrupting loops.\n* Towns hire people to remove synthetic businesses, events and obituaries from public directories. Artists increasingly work as witnesses, proving which parts of their work they actually made.\n* Gain a progress point if you have played action cards 13 or 23.",
     tooltip: "AI is Making Work",
     imagePath: "images/47.jpg",
     effect: function (player, AI1, AI2) { /* no linked action numbers supplied */ }
