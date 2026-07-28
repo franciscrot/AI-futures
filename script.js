@@ -1215,10 +1215,10 @@ const AUTHORED_SUBPLOTS = {
     third: {
       "path-1-1": {
         prompt:
-          "The organisation fills with model employees. Performance scores soar, while personalities, working styles and disagreements steadily converge.",
+          "The organisation fills with model employees. Performance scores soar. Working styles and work personae steadily converge.",
         options: [
-          "I hope common standards can make excellence fairer",
-          "I miss the useful friction of eccentric people",
+          "You're worried that work is relational, and the personality ecosystem is growing fragile",
+          "You feel bad about socially engineering your employees into weird human robots",
         ],
       },
       "path-1-2": {
