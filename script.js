@@ -683,6 +683,70 @@ const CHOICE_CARD_OPTIONS = {
       },
     ],
   },
+  127: {
+    imagePath: "images/tarot-22.jpg",
+    prompt:
+      "The AI systems you use run on physical hardware whose rental price swings with volatile energy markets. Your supplier uses a highly federated architecture, switching your organisation between large and small models as costs change.",
+    options: [
+      {
+        value: "predictable-assistance",
+        label:
+          "You have to switch. Workers need predictable AI assistance so they can form good working habits.",
+      },
+      {
+        value: "federated-efficiency",
+        label:
+          "Using smaller models when energy prices are high sounds sensible. Stick with the supplier.",
+      },
+    ],
+  },
+  128: {
+    imagePath: "images/tarot-6.jpg",
+    prompt:
+      "You receive an intriguing pitch from a de-AI-ification consultancy. AI has a way of creating dependencies, they argue, and can be difficult to remove. But did you know even a honeybee can remove its sting without dying, if it is given careful time and space?\n\nThe consultancy specialises in gently extracting AI systems and replacing them with human processes, more specialised software, or other tools.",
+    options: [
+      {
+        value: "free-audit",
+        label: "Try the free audit, and then maybe take it from there.",
+      },
+      {
+        value: "decline-audit",
+        label:
+          "No thanks. Besides, you noticed they had generative-AI art on their own website.",
+      },
+    ],
+  },
+  129: {
+    imagePath: "images/tarot-2.jpg",
+    prompt:
+      "Your Head of Procurement, Alon, is on the verge of a meltdown. Technology is moving so fast. Alon has all kinds of criteria to meet for responsible procurement, but lacks the tools and expertise to assess the vendors.",
+    options: [
+      {
+        value: "relax-criteria",
+        label: "Explore relaxing or removing some procurement criteria.",
+      },
+      {
+        value: "resource-evaluation",
+        label: "Devote more resources to supporting vendor evaluation.",
+      },
+    ],
+  },
+  130: {
+    imagePath: "images/tarot-28.jpg",
+    prompt:
+      "Your Recruitment department is getting swamped with applications for every post. The problem is partly AI-generated applications. But there are also simply more applicants, especially as people lose their jobs in adjacent sectors.",
+    options: [
+      {
+        value: "ai-recruitment",
+        label: "Lean heavily into AI tools for recruitment.",
+      },
+      {
+        value: "employment-policy",
+        label:
+          "Lobby policymakers to investigate automation-driven unemployment.",
+      },
+    ],
+  },
 };
 
 // Each subplot is a fixed seven-card tree: one root, two middle cards, and
@@ -1115,9 +1179,9 @@ function createSubplotDChoiceConfig(stage, path) {
     },
     "path-2-1": {
       prompt: () =>
-        "Customers complain that your company is too slow and unresponsive. Others accuse you of using traditional chatbots instead of getting AI agents to pretend to be living employees.",
+        "Customers complain that your company is too slow and unresponsive. Others complain that you use old-fashioned chatbots instead of getting AI agents to pretend to be living employees.",
       cardDescription: () =>
-        "• Customers complain that your company is too slow and unresponsive.\n• Others accuse you of using traditional chatbots instead of getting AI agents to pretend to be living employees.",
+        "• Customers complain that your company is too slow and unresponsive.\n• Others complain that you use old-fashioned chatbots instead of getting AI agents to pretend to be living employees.",
       options: () => [
         {
           label:
