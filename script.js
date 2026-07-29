@@ -1323,7 +1323,7 @@ const AUTHORED_SUBPLOTS = {
     second: {
       "path-1": {
         prompt:
-          "The candidate excels by organising their whole working life around algorithmic assessment. Other employees begin imitating them.",
+          "The new employee Dennis is a real whizz, though they do seem to organize their whole working life around algorithmic assessment. Other employees begin imitating them.",
         options: [
           "Encourage the new measurable standard.",
           "Protect less measurable ways of working.",
@@ -1331,10 +1331,10 @@ const AUTHORED_SUBPLOTS = {
       },
       "path-2": {
         prompt:
-          "The rejected candidate joins a competitor and helps automate much of the profession you excluded them from.",
+          "The rejected candidate, Dennis, joins a competitor. One day you notice on SinkingIn that the competitor has let go most of their staff, though Dennis is still there as Chief Automation Officer.",
         options: [
-          "Adopt similar automation.",
-          "Defend the profession as a human practice.",
+          "Start learning some tricks from this competitor.",
+          "Defend human roles, and try to create new ones where you can.",
         ],
       },
     },
