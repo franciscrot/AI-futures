@@ -1745,6 +1745,57 @@ function getActionIdsFromEvent(card) {
   return rule ? rule.actionIds : [];
 }
 
+function getEventActionTooltip(card) {
+  return getActionIdsFromEvent(card)
+    .map((id) => CARD_BY_ID[id]?.name)
+    .filter(Boolean)
+    .join(" | ");
+}
+
+let eventActionTooltip = null;
+
+function getEventActionTooltipElement() {
+  if (eventActionTooltip) return eventActionTooltip;
+  eventActionTooltip = document.createElement("div");
+  eventActionTooltip.id = "eventActionTooltip";
+  eventActionTooltip.setAttribute("role", "tooltip");
+  document.body.appendChild(eventActionTooltip);
+  return eventActionTooltip;
+}
+
+function positionEventActionTooltip(event) {
+  if (!eventActionTooltip || eventActionTooltip.style.display === "none") return;
+
+  const gap = 14;
+  const rect = eventActionTooltip.getBoundingClientRect();
+  let left = event.clientX + gap;
+  let top = event.clientY + gap;
+
+  if (left + rect.width > window.innerWidth - gap) {
+    left = event.clientX - rect.width - gap;
+  }
+  if (top + rect.height > window.innerHeight - gap) {
+    top = event.clientY - rect.height - gap;
+  }
+
+  eventActionTooltip.style.left = `${Math.max(gap, left)}px`;
+  eventActionTooltip.style.top = `${Math.max(gap, top)}px`;
+}
+
+function showEventActionTooltip(card, event) {
+  const text = getEventActionTooltip(card);
+  if (!text) return;
+
+  const tooltip = getEventActionTooltipElement();
+  tooltip.textContent = text;
+  tooltip.style.display = "block";
+  positionEventActionTooltip(event);
+}
+
+function hideEventActionTooltip() {
+  if (eventActionTooltip) eventActionTooltip.style.display = "none";
+}
+
 function getEventScoreHighlights(card, players) {
   const rule = getEventRule(card);
   const highlights = new Map();
@@ -1937,6 +1988,7 @@ function renderPlayerHand() {
   if (!handDiv) return;
   handDiv.innerHTML = "";
   clearEventHighlights();
+  hideEventActionTooltip();
 
   const descriptionDiv = el("descriptionBox");
   const cardTitle = el("cardTitle");
@@ -1980,11 +2032,16 @@ function renderPlayerHand() {
     cardDiv.addEventListener("click", () => handlePlayerCardClick(index));
     // Hover handlers: highlight relevant action IDs for event cards.
     if (card.type === "event") {
-      cardDiv.addEventListener("mouseenter", () => {
+      cardDiv.addEventListener("mouseenter", (event) => {
         setEventHighlights(card);
+        showEventActionTooltip(card, event);
+      });
+      cardDiv.addEventListener("mousemove", (event) => {
+        positionEventActionTooltip(event);
       });
       cardDiv.addEventListener("mouseleave", () => {
         clearEventHighlights();
+        hideEventActionTooltip();
       });
     }
     handDiv.appendChild(cardDiv);
