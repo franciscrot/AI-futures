@@ -316,6 +316,7 @@ document.getElementById("resetButton").addEventListener("click", () => {
   emptyDeckStreak = 0;
   window.playerChoices = {};
   resetSkipToken();
+  clearEventImpactNotices();
   // reset players
   playerName = pickRandom(playerNames);
   AI1Name = pickRandom(ai1Names);
@@ -1844,7 +1845,11 @@ function getEventRule(card) {
     return { type: "crisis", actionIds };
   }
 
-  if (finalBullet.startsWith("* Gain a progress point if you have played action")) {
+  if (
+    finalBullet.startsWith(
+      "* Players gain a progress point if they have played action",
+    )
+  ) {
     return { type: "opportunity", actionIds };
   }
 
@@ -2516,6 +2521,61 @@ function applyEventCardEffect(card, players) {
   return effectSummary;
 }
 
+const eventImpactNoticeQueue = [];
+let eventImpactNoticeTimer = null;
+
+function showNextEventImpactNotice() {
+  const notice = document.getElementById("eventImpactNotice");
+  if (!notice || notice.style.display === "block") return;
+
+  const message = eventImpactNoticeQueue.shift();
+  if (!message) return;
+
+  notice.textContent = message;
+  notice.style.display = "block";
+  eventImpactNoticeTimer = setTimeout(() => {
+    notice.style.display = "none";
+    eventImpactNoticeTimer = null;
+    showNextEventImpactNotice();
+  }, 3200);
+}
+
+function queueEventImpactNotice(message) {
+  if (!message) return;
+  eventImpactNoticeQueue.push(message);
+  showNextEventImpactNotice();
+}
+
+function clearEventImpactNotices() {
+  eventImpactNoticeQueue.length = 0;
+  if (eventImpactNoticeTimer !== null) {
+    clearTimeout(eventImpactNoticeTimer);
+    eventImpactNoticeTimer = null;
+  }
+  const notice = document.getElementById("eventImpactNotice");
+  if (notice) notice.style.display = "none";
+}
+
+function getPlayerImpactNotice(card, opponentName) {
+  const rule = getEventRule(card);
+  if (!rule || player.progress <= 0) return "";
+
+  if (rule.type === "milestone") {
+    return `${opponentName} played an event card that turned your Progress Points into RAI Points!`;
+  }
+
+  if (rule.type === "crisis") {
+    const isProtected = rule.actionIds.some((id) =>
+      player.actionsPlayed.has(id),
+    );
+    if (!isProtected) {
+      return `${opponentName} played an event card that erased your Progress Points!`;
+    }
+  }
+
+  return "";
+}
+
 function playAI1Card() {
   let card = null;
   let index = AI1.hand.findIndex((c) => c.type === "action");
@@ -2532,7 +2592,9 @@ function playAI1Card() {
   if (card) {
     let effectSummary = "";
     if (card.type === "event") {
+      const playerImpactNotice = getPlayerImpactNotice(card, AI1.name);
       effectSummary = applyEventCardEffect(card, [player, AI1, AI2]);
+      queueEventImpactNotice(playerImpactNotice);
     }
     logCardPlay(AI1.name, card, effectSummary);
   }
@@ -2555,7 +2617,9 @@ function playAI2Card() {
   if (card) {
     let effectSummary = "";
     if (card.type === "event") {
+      const playerImpactNotice = getPlayerImpactNotice(card, AI2.name);
       effectSummary = applyEventCardEffect(card, [player, AI1, AI2]);
+      queueEventImpactNotice(playerImpactNotice);
     }
     logCardPlay(AI2.name, card, effectSummary);
   }
