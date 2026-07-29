@@ -665,7 +665,12 @@
         font-weight: 700;
         line-height: 1.45;
         text-align: center;
+        cursor: pointer;
         box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+      }
+
+      #eventImpactNotice:hover {
+        background: #202020;
       }
 
 
@@ -821,7 +826,9 @@
 
     <div
       id="eventImpactNotice"
-      role="alert"
+      role="button"
+      tabindex="0"
+      aria-label="Dismiss event notice"
       aria-live="assertive"
       aria-atomic="true"
     ></div>
