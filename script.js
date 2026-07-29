@@ -2075,18 +2075,11 @@ function generateOutroMessage(P, A1, A2) {
 }
 
 // --- Turn logic with error guards ---
-function safeEffectInvoke(card, P, A1, A2) {
+function applyEventCardEffect(card, players) {
   try {
-    if (card.type === "event") {
-      applyEventEffect(card, [P, A1, A2]);
-      return;
-    }
-
-    if (typeof card.effect === "function") {
-      card.effect(P, A1, A2);
-    }
+    applyEventEffect(card, players);
   } catch (e) {
-    console.error("[DSG] Error applying effect for", card, e);
+    console.error("[DSG] Error applying event effect for", card, e);
   }
 }
 
@@ -2104,7 +2097,9 @@ function playAI1Card() {
     }
   }
   if (card) {
-    safeEffectInvoke(card, player, AI1, AI2);
+    if (card.type === "event") {
+      applyEventCardEffect(card, [player, AI1, AI2]);
+    }
     logAIPlay(AI1.name, card);
   }
   if (Array.isArray(window.deck) && deck.length) AI1.hand.push(deck.pop());
@@ -2124,7 +2119,9 @@ function playAI2Card() {
     }
   }
   if (card) {
-    safeEffectInvoke(card, player, AI1, AI2);
+    if (card.type === "event") {
+      applyEventCardEffect(card, [player, AI1, AI2]);
+    }
     logAIPlay(AI2.name, card);
   }
   if (Array.isArray(window.deck) && deck.length) AI2.hand.push(deck.pop());
@@ -2181,8 +2178,8 @@ async function playPlayerCard(index) {
   const chosenCard = player.hand.splice(index, 1)[0];
   if (!chosenCard) return;
 
-  if (!chosenCard.isSubplot) {
-    safeEffectInvoke(chosenCard, player, AI1, AI2);
+  if (chosenCard.type === "event") {
+    applyEventCardEffect(chosenCard, [player, AI1, AI2]);
   }
 
   if (chosenCard.type === "action" && !chosenCard.isSubplot) {
