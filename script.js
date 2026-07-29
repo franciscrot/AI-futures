@@ -18,6 +18,7 @@ let currentMusicTrackIndex = -1;
 let musicRetryPending = false;
 let musicRetryHandler = null;
 let musicEnabled = true;
+let tooltipsEnabled = true;
 
 function clearMusicRetry() {
   if (musicRetryHandler) {
@@ -129,6 +130,32 @@ if (musicToggle) {
   });
 }
 updateMusicToggleUI();
+
+function updateTooltipsToggleUI() {
+  const toggle = document.getElementById("tooltipsToggle");
+  if (!toggle) return;
+
+  toggle.classList.toggle("is-off", !tooltipsEnabled);
+  toggle.setAttribute("aria-pressed", String(tooltipsEnabled));
+  toggle.textContent = tooltipsEnabled ? "TOOLTIPS: ON" : "TOOLTIPS: OFF";
+  toggle.title = tooltipsEnabled
+    ? "Turn tooltips off"
+    : "Turn tooltips on";
+}
+
+function setTooltipsEnabled(enabled) {
+  tooltipsEnabled = enabled;
+  if (!tooltipsEnabled) hideEventActionTooltip();
+  updateTooltipsToggleUI();
+}
+
+const tooltipsToggle = document.getElementById("tooltipsToggle");
+if (tooltipsToggle) {
+  tooltipsToggle.addEventListener("click", () => {
+    setTooltipsEnabled(!tooltipsEnabled);
+  });
+}
+updateTooltipsToggleUI();
 
 let sfxAudioContext = null;
 
@@ -1783,6 +1810,8 @@ function positionEventActionTooltip(event) {
 }
 
 function showEventActionTooltip(card, event) {
+  if (!tooltipsEnabled) return;
+
   const text = getEventActionTooltip(card);
   if (!text) return;
 
