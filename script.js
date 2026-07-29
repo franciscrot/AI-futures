@@ -326,6 +326,8 @@ document.getElementById("resetButton").addEventListener("click", () => {
     hand: [],
     progress: 1,
     sustainability: 0,
+    technophilia: 0,
+    choicesMade: 0,
     actionsPlayed: new Set(),
     eventsPlayed: new Set(),
   };
@@ -775,6 +777,82 @@ const CHOICE_CARD_OPTIONS = {
     ],
   },
 };
+
+// Each pair is classified relative to the other answer on that card:
+// 1 = pro-AI or techno-optimistic, 0 = neutral, -1 = cautious, guarded,
+// human-centric, or resistant.
+const CHOICE_TECHNOPHILIA_SCORES = {
+  33: [1, -1],
+  34: [-1, 1],
+  35: [1, -1],
+  36: [-1, 1],
+  37: [-1, 1],
+  82: [1, -1],
+  83: [1, 0],
+  84: [1, -1],
+  85: [1, -1],
+  86: [1, 0],
+  87: [1, -1],
+  88: [1, -1],
+  89: [1, -1],
+  90: [0, -1],
+  91: [1, -1],
+  92: [-1, 1],
+  93: [-1, 0],
+  94: [1, -1],
+  95: [-1, 1],
+  96: [0, -1],
+  97: [-1, 0],
+  98: [1, -1],
+  99: [1, -1],
+  100: [1, 0],
+  101: [1, -1],
+  102: [1, -1],
+  103: [1, -1],
+  104: [1, -1],
+  105: [-1, 1],
+  106: [-1, 0],
+  107: [1, -1],
+  108: [1, 0],
+  109: [1, 0],
+  110: [-1, 1],
+  111: [1, -1],
+  112: [-1, 1],
+  113: [1, -1],
+  114: [-1, 1],
+  115: [-1, 1],
+  116: [1, -1],
+  117: [1, -1],
+  118: [0, -1],
+  119: [0, -1],
+  120: [0, 1],
+  121: [-1, 1],
+  122: [0, -1],
+  123: [1, -1],
+  124: [0, -1],
+  125: [1, -1],
+  126: [0, -1],
+  127: [0, 1],
+  128: [-1, 1],
+  129: [1, -1],
+  130: [1, -1],
+};
+
+const TECHNOPHILIA_CLASSIFICATIONS = {
+  1: "pro-ai",
+  0: "neutral",
+  [-1]: "cautious",
+};
+
+function getChoiceTechnophilia(cardId, optionIndex) {
+  const scores = CHOICE_TECHNOPHILIA_SCORES[cardId];
+  if (!scores || scores.length !== 2 || scores[0] === scores[1]) {
+    throw new Error(
+      `Choice card ${cardId} needs two different technophilia classifications.`,
+    );
+  }
+  return scores[optionIndex];
+}
 
 // Each subplot is a fixed seven-card tree: one root, two middle cards, and
 // four endings. The path labels are stable routing keys, not choice history.
@@ -1658,10 +1736,15 @@ function promptForCardChoice(card) {
       button.addEventListener(
         "click",
         () => {
+          const technophilia = getChoiceTechnophilia(card.id, index);
           window.playerChoices[card.id] = {
             value: option.value,
             label: option.label,
+            technophilia,
+            classification: TECHNOPHILIA_CLASSIFICATIONS[technophilia],
           };
+          player.technophilia += technophilia;
+          player.choicesMade += 1;
           if (card.isSubplot) {
             advanceActiveSubplot(config.nextCardIds?.[option.value] || null);
           }
@@ -1694,6 +1777,8 @@ let player = {
   hand: [],
   progress: 1,
   sustainability: 0,
+  technophilia: 0,
+  choicesMade: 0,
   actionsPlayed: new Set(),
   eventsPlayed: new Set(),
 };
@@ -2284,6 +2369,22 @@ function updatePlayedLists() {
 }
 
 // --- Outro message generation ---
+function getTechnophiliaMessage(P) {
+  const technophiliaAverage =
+    P.choicesMade > 0 ? P.technophilia / P.choicesMade : 0;
+
+  if (technophiliaAverage >= 0.5) {
+    return "Based on your choices, you are something of an <em>AI sloptimist.</em> For you, RAIs mean Revolutionary AI points. You just wish there weren't so many AI doomers out there spreading bad vibes!";
+  }
+  if (technophiliaAverage >= 0) {
+    return "Based on your choices, you are something of a <em>techno-optimist</em>. For you, RAIs mean Responsible AI points. AI is a tool that can deliver great things, if it is governed responsibly.";
+  }
+  if (technophiliaAverage >= -0.5) {
+    return "Based on your choices, you are something of a <em>critical technologist</em>. For you, RAIs mean Reconsider AI points. You recognise that technologies often have social, economic, and cultural effects that go beyond their most obvious promises, and sometimes should be resisted.";
+  }
+  return "Based on your choices, you are something of an <em>AI abolitionist</em>. You have been in a very contradictory position, forced to use technologies you feel are fundamentally anathema to long-term prosperity and justice. For you, RAI points really mean Reject AI points.";
+}
+
 function generateOutroMessage(P, A1, A2) {
   const scores = [
     { who: "player", value: P.sustainability },
@@ -2357,7 +2458,8 @@ function generateOutroMessage(P, A1, A2) {
     globalMsg = "Incredible! Radical, deep change has been achieved. Tech is much more green, democratic, and convivial. You must have been smart AND lucky!";
   }
 
-  const personalSection = `<p><strong>Your result (${placeText}):</strong> ${personalMsg}</p>`;
+  const technophiliaMsg = getTechnophiliaMessage(P);
+  const personalSection = `<p><strong>Your result (${placeText}):</strong> ${personalMsg} ${technophiliaMsg}</p>`;
   const globalSection = `<p><strong>Global picture:</strong> ${globalMsg} Total RAIs: ${total}.</p>`;
   return `${personalSection}${globalSection}`;
 }
