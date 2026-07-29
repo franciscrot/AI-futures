@@ -2522,7 +2522,6 @@ function applyEventCardEffect(card, players) {
 }
 
 const eventImpactNoticeQueue = [];
-let eventImpactNoticeTimer = null;
 
 function showNextEventImpactNotice() {
   const notice = document.getElementById("eventImpactNotice");
@@ -2533,11 +2532,6 @@ function showNextEventImpactNotice() {
 
   notice.textContent = message;
   notice.style.display = "block";
-  eventImpactNoticeTimer = setTimeout(() => {
-    notice.style.display = "none";
-    eventImpactNoticeTimer = null;
-    showNextEventImpactNotice();
-  }, 3200);
 }
 
 function queueEventImpactNotice(message) {
@@ -2548,12 +2542,30 @@ function queueEventImpactNotice(message) {
 
 function clearEventImpactNotices() {
   eventImpactNoticeQueue.length = 0;
-  if (eventImpactNoticeTimer !== null) {
-    clearTimeout(eventImpactNoticeTimer);
-    eventImpactNoticeTimer = null;
-  }
   const notice = document.getElementById("eventImpactNotice");
-  if (notice) notice.style.display = "none";
+  if (notice) {
+    notice.style.display = "none";
+    notice.textContent = "";
+  }
+}
+
+function dismissEventImpactNotice() {
+  const notice = document.getElementById("eventImpactNotice");
+  if (!notice || notice.style.display !== "block") return;
+  notice.style.display = "none";
+  notice.textContent = "";
+  showNextEventImpactNotice();
+}
+
+const eventImpactNotice = document.getElementById("eventImpactNotice");
+if (eventImpactNotice) {
+  eventImpactNotice.addEventListener("click", dismissEventImpactNotice);
+  eventImpactNotice.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      dismissEventImpactNotice();
+    }
+  });
 }
 
 function getPlayerImpactNotice(card, opponentName) {
