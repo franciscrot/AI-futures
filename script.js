@@ -1555,8 +1555,10 @@ function initCardLookup() {
   CARD_BY_ID = Object.fromEntries(snapshot.map((c) => [c.id, c]));
 }
 
-// Track which action IDs should be highlighted while hovering an event card.
+// Track which action IDs and score values should be highlighted while
+// hovering an event card.
 let highlightedActionIds = new Set();
+let highlightedScoreValues = new Map();
 
 // The final bullet on each event card is the single source of truth for
 // both its mechanics and its mouseover highlighting.
@@ -1596,6 +1598,35 @@ function getActionIdsFromEvent(card) {
   return rule ? rule.actionIds : [];
 }
 
+function getEventScoreHighlights(card, players) {
+  const rule = getEventRule(card);
+  const highlights = new Map();
+  if (!rule) return highlights;
+
+  players.forEach((currentPlayer) => {
+    const fields = new Set();
+
+    if (rule.type === "opportunity") {
+      const gainsProgress = rule.actionIds.some((id) =>
+        currentPlayer.actionsPlayed.has(id),
+      );
+      if (gainsProgress) fields.add("progress");
+    } else if (rule.type === "milestone" && currentPlayer.progress > 0) {
+      fields.add("progress");
+      fields.add("sustainability");
+    } else if (rule.type === "crisis" && currentPlayer.progress > 0) {
+      const isProtected = rule.actionIds.some((id) =>
+        currentPlayer.actionsPlayed.has(id),
+      );
+      if (!isProtected) fields.add("progress");
+    }
+
+    if (fields.size > 0) highlights.set(currentPlayer, fields);
+  });
+
+  return highlights;
+}
+
 function applyEventEffect(card, players) {
   const rule = getEventRule(card);
   if (!rule) return;
@@ -1618,15 +1649,20 @@ function applyEventEffect(card, players) {
   });
 }
 
-// Update UI to bold action IDs that are relevant to the hovered event card.
-function setHighlightedActions(actionIds) {
-  highlightedActionIds = new Set(actionIds);
+// Update UI to bold the action IDs and score values affected by the hovered
+// event card.
+function setEventHighlights(card) {
+  highlightedActionIds = new Set(getActionIdsFromEvent(card));
+  highlightedScoreValues = getEventScoreHighlights(card, [player, AI1, AI2]);
   updateGameInfo();
   updatePlayedLists();
 }
 
-function clearHighlightedActions() {
-  setHighlightedActions([]);
+function clearEventHighlights() {
+  highlightedActionIds = new Set();
+  highlightedScoreValues = new Map();
+  updateGameInfo();
+  updatePlayedLists();
 }
 
 let activeSubplotId = null;
@@ -1745,7 +1781,7 @@ function renderPlayerHand() {
   const handDiv = el("playerHand");
   if (!handDiv) return;
   handDiv.innerHTML = "";
-  clearHighlightedActions();
+  clearEventHighlights();
 
   const descriptionDiv = el("descriptionBox");
   const cardTitle = el("cardTitle");
@@ -1790,10 +1826,10 @@ function renderPlayerHand() {
     // Hover handlers: highlight relevant action IDs for event cards.
     if (card.type === "event") {
       cardDiv.addEventListener("mouseenter", () => {
-        setHighlightedActions(getActionIdsFromEvent(card));
+        setEventHighlights(card);
       });
       cardDiv.addEventListener("mouseleave", () => {
-        clearHighlightedActions();
+        clearEventHighlights();
       });
     }
     handDiv.appendChild(cardDiv);
@@ -1835,18 +1871,12 @@ function positionScoreRail() {
 
 window.addEventListener("resize", scheduleScoreRailPosition);
 
-function logAIPlay(aiName, card) {
+function logCardPlay(aiName, card, effectSummary = "") {
   const aiLogDiv = el("aiLog");
   if (!aiLogDiv) return;
 
-  const titleWithoutNumber = String(card.name || "")
-    .replace(/^\d+:\s*/, "")
-    .trim();
-  const tooltip = String(card.tooltip || "").trim();
-  let logDetail = tooltip || "Effect applied.";
-  if (tooltip === titleWithoutNumber) logDetail = "";
   const entry = document.createElement("div");
-  entry.innerHTML = `<strong>${aiName}</strong> played <em>${card.name}</em>${logDetail ? `: ${logDetail}` : ""}`;
+  entry.innerHTML = `<strong>${aiName}</strong> played <em>${card.name}</em>.${effectSummary ? ` ${effectSummary}` : ""}`;
   entry.className = "ai-entry";
 
   aiLogDiv.prepend(entry);
@@ -1866,6 +1896,16 @@ function logSkippedCard(card) {
   aiLogDiv.scrollTop = 0;
 }
 
+function renderScoreValue(currentPlayer, field) {
+  const value = currentPlayer[field];
+  const highlighted = highlightedScoreValues
+    .get(currentPlayer)
+    ?.has(field);
+  return highlighted
+    ? `<span class="highlighted-score">${value}</span>`
+    : `${value}`;
+}
+
 function updateGameInfo() {
   const infoDiv = el("gameInfo");
 
@@ -1874,16 +1914,16 @@ function updateGameInfo() {
   infoDiv.innerHTML = `
     <div class="company-summary player-company">
       <strong>${player.name}</strong><br>
-      Progress: ${player.progress},<br> RAI points: ${player.sustainability}<br>
+      Progress: ${renderScoreValue(player, "progress")},<br> RAI points: ${renderScoreValue(player, "sustainability")}<br>
       Actions: ${renderCards([...player.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}
     </div>
 
     <strong>${AI1.name}</strong><br>
-    Progress: ${AI1.progress},<br> RAI points: ${AI1.sustainability}<br>
+    Progress: ${renderScoreValue(AI1, "progress")},<br> RAI points: ${renderScoreValue(AI1, "sustainability")}<br>
     Actions: ${renderCards([...AI1.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br><br>
 
     <strong>${AI2.name}</strong><br>
-    Progress: ${AI2.progress},<br> RAI points: ${AI2.sustainability}<br>
+    Progress: ${renderScoreValue(AI2, "progress")},<br> RAI points: ${renderScoreValue(AI2, "sustainability")}<br>
     Actions: ${renderCards([...AI2.actionsPlayed].sort((a, b) => a - b), highlightedActionIds)}<br>
   `;
 
@@ -2075,12 +2115,55 @@ function generateOutroMessage(P, A1, A2) {
 }
 
 // --- Turn logic with error guards ---
+function getOrganisationLogName(currentPlayer) {
+  return currentPlayer === player ? "You" : currentPlayer.name;
+}
+
+function getEventEffectSummary(card, players) {
+  const rule = getEventRule(card);
+  if (!rule) return "";
+
+  if (rule.type === "milestone") {
+    return "All progress points turn to RAIs.";
+  }
+
+  const sentences = [];
+  players.forEach((currentPlayer) => {
+    const organisationName = getOrganisationLogName(currentPlayer);
+
+    if (rule.type === "opportunity") {
+      const bonus = rule.actionIds.filter((id) =>
+        currentPlayer.actionsPlayed.has(id),
+      ).length;
+      if (bonus > 0) {
+        const pointLabel = bonus === 1 ? "point" : "points";
+        sentences.push(
+          `${organisationName} gained ${bonus} progress ${pointLabel}.`,
+        );
+      }
+    } else if (rule.type === "crisis" && currentPlayer.progress > 0) {
+      const isProtected = rule.actionIds.some((id) =>
+        currentPlayer.actionsPlayed.has(id),
+      );
+      sentences.push(
+        isProtected
+          ? `${organisationName} ${currentPlayer === player ? "were" : "was"} shielded.`
+          : `${organisationName} lost all progress.`,
+      );
+    }
+  });
+
+  return sentences.join(" ");
+}
+
 function applyEventCardEffect(card, players) {
+  const effectSummary = getEventEffectSummary(card, players);
   try {
     applyEventEffect(card, players);
   } catch (e) {
     console.error("[DSG] Error applying event effect for", card, e);
   }
+  return effectSummary;
 }
 
 function playAI1Card() {
@@ -2097,10 +2180,11 @@ function playAI1Card() {
     }
   }
   if (card) {
+    let effectSummary = "";
     if (card.type === "event") {
-      applyEventCardEffect(card, [player, AI1, AI2]);
+      effectSummary = applyEventCardEffect(card, [player, AI1, AI2]);
     }
-    logAIPlay(AI1.name, card);
+    logCardPlay(AI1.name, card, effectSummary);
   }
   if (Array.isArray(window.deck) && deck.length) AI1.hand.push(deck.pop());
 }
@@ -2119,10 +2203,11 @@ function playAI2Card() {
     }
   }
   if (card) {
+    let effectSummary = "";
     if (card.type === "event") {
-      applyEventCardEffect(card, [player, AI1, AI2]);
+      effectSummary = applyEventCardEffect(card, [player, AI1, AI2]);
     }
-    logAIPlay(AI2.name, card);
+    logCardPlay(AI2.name, card, effectSummary);
   }
   if (Array.isArray(window.deck) && deck.length) AI2.hand.push(deck.pop());
 }
@@ -2178,9 +2263,10 @@ async function playPlayerCard(index) {
   const chosenCard = player.hand.splice(index, 1)[0];
   if (!chosenCard) return;
 
-  if (chosenCard.type === "event") {
-    applyEventCardEffect(chosenCard, [player, AI1, AI2]);
-  }
+  const effectSummary =
+    chosenCard.type === "event"
+      ? applyEventCardEffect(chosenCard, [player, AI1, AI2])
+      : "";
 
   if (chosenCard.type === "action" && !chosenCard.isSubplot) {
     player.actionsPlayed.add(chosenCard.id);
@@ -2188,7 +2274,7 @@ async function playPlayerCard(index) {
     player.eventsPlayed.add(chosenCard.id);
   }
 
-  logAIPlay(player.name, chosenCard);
+  logCardPlay(player.name, chosenCard, effectSummary);
 
   const replacementCard = drawPlayerCard();
   if (replacementCard) player.hand.push(replacementCard);
