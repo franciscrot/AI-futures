@@ -685,13 +685,81 @@ const CHOICE_CARD_OPTIONS = {
   },
 };
 
-const SUBPLOT_CARD_IDS_BY_ID = {
-  A: [82, 83, 84],
-  B: [85, 86, 87],
-  C: [88, 89, 90],
-  D: [91, 92, 93],
-  E: [94, 95, 96],
-  F: [97, 98, 99],
+// Each subplot is a fixed seven-card tree: one root, two middle cards, and
+// four endings. The path labels are stable routing keys, not choice history.
+const SUBPLOT_TREES = {
+  A: {
+    root: 82,
+    nodes: {
+      root: 82,
+      "path-1": 83,
+      "path-2": 103,
+      "path-1-1": 84,
+      "path-1-2": 104,
+      "path-2-1": 105,
+      "path-2-2": 106,
+    },
+  },
+  B: {
+    root: 85,
+    nodes: {
+      root: 85,
+      "path-1": 86,
+      "path-2": 107,
+      "path-1-1": 87,
+      "path-1-2": 108,
+      "path-2-1": 109,
+      "path-2-2": 110,
+    },
+  },
+  C: {
+    root: 88,
+    nodes: {
+      root: 88,
+      "path-1": 89,
+      "path-2": 111,
+      "path-1-1": 90,
+      "path-1-2": 112,
+      "path-2-1": 113,
+      "path-2-2": 114,
+    },
+  },
+  D: {
+    root: 91,
+    nodes: {
+      root: 91,
+      "path-1": 92,
+      "path-2": 115,
+      "path-1-1": 93,
+      "path-1-2": 116,
+      "path-2-1": 117,
+      "path-2-2": 118,
+    },
+  },
+  E: {
+    root: 94,
+    nodes: {
+      root: 94,
+      "path-1": 95,
+      "path-2": 119,
+      "path-1-1": 96,
+      "path-1-2": 120,
+      "path-2-1": 121,
+      "path-2-2": 122,
+    },
+  },
+  F: {
+    root: 97,
+    nodes: {
+      root: 97,
+      "path-1": 98,
+      "path-2": 123,
+      "path-1-1": 99,
+      "path-1-2": 124,
+      "path-2-1": 125,
+      "path-2-2": 126,
+    },
+  },
 };
 
 const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
@@ -713,6 +781,30 @@ const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
   97: "images/jo-card-back.jpg",
   98: "images/tarot-9.jpg",
   99: "images/tarot-23.jpg",
+  103: "images/tarot-20.jpg",
+  104: "images/art-wolf.jpg",
+  105: "images/art-wolf.jpg",
+  106: "images/art-wolf.jpg",
+  107: "images/tarot-10.jpg",
+  108: "images/tarot-27.jpg",
+  109: "images/tarot-27.jpg",
+  110: "images/tarot-27.jpg",
+  111: "images/tarot-11.jpg",
+  112: "images/art-beets.jpg",
+  113: "images/art-beets.jpg",
+  114: "images/art-beets.jpg",
+  115: "images/tarot-26.jpg",
+  116: "images/tarot-25.jpg",
+  117: "images/tarot-25.jpg",
+  118: "images/tarot-25.jpg",
+  119: "images/tarot-17.jpg",
+  120: "images/art-storm.jpg",
+  121: "images/art-storm.jpg",
+  122: "images/art-storm.jpg",
+  123: "images/tarot-9.jpg",
+  124: "images/tarot-23.jpg",
+  125: "images/tarot-23.jpg",
+  126: "images/tarot-23.jpg",
 };
 
 const CARE_RELATIVES = [
@@ -809,7 +901,7 @@ function getActiveAlasStory() {
   return activeAlasStory;
 }
 
-function createSubplotAChoiceConfig(stage, cardIds) {
+function createSubplotAChoiceConfig(stage, path) {
   if (stage === 1) {
     return {
       prompt: () =>
@@ -818,22 +910,21 @@ function createSubplotAChoiceConfig(stage, cardIds) {
         { value: "path-1", label: "Rely more heavily on AI agents." },
         { value: "path-2", label: "Make the CEO position a shared role." },
       ],
+      nextCardIds: SUBPLOT_TREES.A.nodes,
     };
   }
 
   if (stage === 2) {
     return {
       prompt: () => {
-        const reliedOnAgents =
-          window.playerChoices[cardIds[0]]?.value === "path-1";
+        const reliedOnAgents = path === "path-1";
         if (reliedOnAgents) {
           return "Since you began using AI agents to compensate for your forgetfulness, they have concealed it remarkably well. You are diagnosed with a progressive cognitive disorder.\n\nDoctors offer an experimental neural interface, trained partly on your agents’ records. It would route parts of your memory, language and judgement through AI.";
         }
         return "Since you made the CEO position a shared role, decisions have become slower but less dependent on your memory. You are diagnosed with a progressive cognitive disorder.\n\nDoctors offer an experimental neural interface. By routing parts of your memory, language and judgement through AI, it might let you lead independently again.";
       },
       options: () => {
-        const reliedOnAgents =
-          window.playerChoices[cardIds[0]]?.value === "path-1";
+        const reliedOnAgents = path === "path-1";
         return reliedOnAgents
           ? [
               { value: "path-1-1", label: "Accept the interface." },
@@ -853,6 +944,7 @@ function createSubplotAChoiceConfig(stage, cardIds) {
               },
             ];
       },
+      nextCardIds: SUBPLOT_TREES.A.nodes,
     };
   }
 
@@ -908,23 +1000,17 @@ function createSubplotAChoiceConfig(stage, cardIds) {
   };
 
   return {
-    prompt: () => {
-      const previousValue =
-        window.playerChoices[cardIds[1]]?.value || "path-1-1";
-      return conclusions[previousValue].prompt;
-    },
+    prompt: () => conclusions[path].prompt,
     options: () => {
-      const previousValue =
-        window.playerChoices[cardIds[1]]?.value || "path-1-1";
-      return conclusions[previousValue].options.map((option, index) => ({
-        value: `${previousValue}-${index + 1}`,
+      return conclusions[path].options.map((option, index) => ({
+        value: `${path}-${index + 1}`,
         label: option.label,
       }));
     },
   };
 }
 
-function createSubplotDChoiceConfig(stage, cardIds) {
+function createSubplotDChoiceConfig(stage, path) {
   if (stage === 1) {
     return {
       prompt: () => {
@@ -942,6 +1028,7 @@ function createSubplotDChoiceConfig(stage, cardIds) {
             "Stay clear of AI. This one needs to be from the fully human heart.",
         },
       ],
+      nextCardIds: SUBPLOT_TREES.D.nodes,
     };
   }
 
@@ -949,16 +1036,14 @@ function createSubplotDChoiceConfig(stage, cardIds) {
     return {
       prompt: () => {
         const { deceased } = getActiveAlasStory();
-        const usedAI =
-          window.playerChoices[cardIds[0]]?.value === "path-1";
+        const usedAI = path === "path-1";
         if (usedAI) {
           return `At a staff event, a few people are talking about how they haven’t seen ${deceased.fullReference} recently. You remember some of those same people posting heartfelt online eulogies about ${deceased.name}, but you guess those were written by their AI agents.`;
         }
         return `${deceased.fullReference} is still answering emails from beyond the grave, via an AI system they set up.`;
       },
       options: () => {
-        const usedAI =
-          window.playerChoices[cardIds[0]]?.value === "path-1";
+        const usedAI = path === "path-1";
         return usedAI
           ? [
               {
@@ -982,6 +1067,7 @@ function createSubplotDChoiceConfig(stage, cardIds) {
               },
             ];
       },
+      nextCardIds: SUBPLOT_TREES.D.nodes,
     };
   }
 
@@ -1046,33 +1132,25 @@ function createSubplotDChoiceConfig(stage, cardIds) {
   };
 
   return {
-    prompt: () => {
-      const previousValue =
-        window.playerChoices[cardIds[1]]?.value || "path-1-1";
-      return conclusions[previousValue].prompt();
-    },
+    prompt: () => conclusions[path].prompt(),
     options: () => {
-      const previousValue =
-        window.playerChoices[cardIds[1]]?.value || "path-1-1";
-      return conclusions[previousValue].options().map((option, index) => ({
-        value: `${previousValue}-${index + 1}`,
+      return conclusions[path].options().map((option, index) => ({
+        value: `${path}-${index + 1}`,
         label: option.label,
       }));
     },
   };
 }
 
-function createSubplotFChoiceConfig(stage, cardIds) {
-  const relative = activeCareRelative || CARE_RELATIVES[0];
-  const relation = relative.relation;
-  const subject = relative.subjectPronoun;
-  const object = relative.objectPronoun;
-  const possessive = relative.possessivePronoun;
+function createSubplotFChoiceConfig(stage, path) {
+  const getRelative = () => activeCareRelative || CARE_RELATIVES[0];
 
   if (stage === 1) {
     return {
-      prompt: () =>
-        `Your ${relation} is getting older, and finding everyday life more challenging.`,
+      prompt: () => {
+        const { relation } = getRelative();
+        return `Your ${relation} is getting older, and finding everyday life more challenging.`;
+      },
       options: () => [
         {
           value: "path-1",
@@ -1084,22 +1162,23 @@ function createSubplotFChoiceConfig(stage, cardIds) {
             "Try to strengthen their local network of care.",
         },
       ],
+      nextCardIds: SUBPLOT_TREES.F.nodes,
     };
   }
 
   if (stage === 2) {
     return {
       prompt: () => {
-        const tookOnCare =
-          window.playerChoices[cardIds[0]]?.value === "path-1";
+        const { relation, possessivePronoun: possessive } = getRelative();
+        const tookOnCare = path === "path-1";
         if (tookOnCare) {
           return `Since you took on more of your ${relation}’s care, ${possessive} needs have grown.\n\nA caretech service proposes sensors, AI systems, and robots to help with check-ins and everyday tasks. Problems would get escalated to people.`;
         }
         return `The wider circle has helped your ${relation} remain independent, but coordination is tiring and gaps keep appearing.\n\nA caretech service proposes sensors, AI systems, and robots to help with check-ins and everyday tasks. Problems would get escalated to people.`;
       },
       options: () => {
-        const tookOnCare =
-          window.playerChoices[cardIds[0]]?.value === "path-1";
+        const { subjectPronoun: subject } = getRelative();
+        const tookOnCare = path === "path-1";
         return tookOnCare
           ? [
               {
@@ -1124,51 +1203,45 @@ function createSubplotFChoiceConfig(stage, cardIds) {
               },
             ];
       },
+      nextCardIds: SUBPLOT_TREES.F.nodes,
     };
   }
 
-  const conclusions = {
-    "path-1-1": {
-      prompt: `You’re not sure how well ${subject} really understood the proposal, but your ${relation} seems fine with the networked devices. There are fewer crises. You feel weird that so much data is generated and for some reason shared with you.`,
-      options: [
-        "I hope technology can create more room for human closeness.",
-        "I worry that safety is becoming another form of surveillance.",
-      ],
-    },
-    "path-1-2": {
-      prompt: `You reduce your CEO role and take on more of your ${relation}’s care yourself. Time together deepens, but fatigue and lost work reshape both your lives.`,
-      options: [
-        "I hope care can be treated as part of life, not an interruption.",
-        "My devotion to one person has helped me to see a much bigger, shared problem.",
-      ],
-    },
-    "path-2-1": {
-      prompt: `Robots and devices help your ${relation}’s care circle coordinate, and ${subject} remains at home longer. Responsibility is shared, but every alert seems to belong to everyone and no one.`,
-      options: [
-        "I hope shared responsibility can become genuine solidarity.",
-        "I worry that coordination is replacing responsibility.",
-      ],
-    },
-    "path-2-2": {
-      prompt: `Regular paid carers bring your ${relation} stability and skill. ${subject} forms bonds with some of them; staff turnover shows how much continuity depends on working conditions your family cannot control.`,
-      options: [
-        "I hope dependable care can become part of a wider circle of trust.",
-        "I wish care work were valued enough to offer real continuity.",
-      ],
-    },
-  };
-
   return {
     prompt: () => {
-      const previousValue =
-        window.playerChoices[cardIds[1]]?.value || "path-1-1";
-      return conclusions[previousValue].prompt;
+      const {
+        relation,
+        subjectPronoun: subject,
+      } = getRelative();
+      const prompts = {
+        "path-1-1": `You’re not sure how well ${subject} really understood the proposal, but your ${relation} seems fine with the networked devices. There are fewer crises. You feel weird that so much data is generated and for some reason shared with you.`,
+        "path-1-2": `You reduce your CEO role and take on more of your ${relation}’s care yourself. Time together deepens, but fatigue and lost work reshape both your lives.`,
+        "path-2-1": `Robots and devices help your ${relation}’s care circle coordinate, and ${subject} remains at home longer. Responsibility is shared, but every alert seems to belong to everyone and no one.`,
+        "path-2-2": `Regular paid carers bring your ${relation} stability and skill. ${subject} forms bonds with some of them; staff turnover shows how much continuity depends on working conditions your family cannot control.`,
+      };
+      return prompts[path];
     },
     options: () => {
-      const previousValue =
-        window.playerChoices[cardIds[1]]?.value || "path-1-1";
-      return conclusions[previousValue].options.map((label, index) => ({
-        value: `${previousValue}-${index + 1}`,
+      const optionsByPath = {
+        "path-1-1": [
+          "I hope technology can create more room for human closeness.",
+          "I worry that safety is becoming another form of surveillance.",
+        ],
+        "path-1-2": [
+          "I hope care can be treated as part of life, not an interruption.",
+          "My devotion to one person has helped me to see a much bigger, shared problem.",
+        ],
+        "path-2-1": [
+          "I hope shared responsibility can become genuine solidarity.",
+          "I worry that coordination is replacing responsibility.",
+        ],
+        "path-2-2": [
+          "I hope dependable care can become part of a wider circle of trust.",
+          "I wish care work were valued enough to offer real continuity.",
+        ],
+      };
+      return optionsByPath[path].map((label, index) => ({
+        value: `${path}-${index + 1}`,
         label,
       }));
     },
@@ -1364,7 +1437,7 @@ const AUTHORED_SUBPLOTS = {
   },
 };
 
-function createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds) {
+function createAuthoredSubplotChoiceConfig(subplotId, stage, path) {
   const narrative = AUTHORED_SUBPLOTS[subplotId];
 
   if (stage === 1) {
@@ -1375,81 +1448,46 @@ function createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds) {
           value: `path-${index + 1}`,
           label,
         })),
+      nextCardIds: SUBPLOT_TREES[subplotId].nodes,
     };
   }
 
-  const previousCardId = cardIds[stage - 2];
-  const fallback = stage === 2 ? "path-1" : "path-1-1";
   const section = stage === 2 ? narrative.second : narrative.third;
 
   return {
-    prompt: () => {
-      const previousValue =
-        window.playerChoices[previousCardId]?.value || fallback;
-      return section[previousValue].prompt;
-    },
-    options: () => {
-      const previousValue =
-        window.playerChoices[previousCardId]?.value || fallback;
-      return section[previousValue].options.map((label, index) => ({
-        value: `${previousValue}-${index + 1}`,
+    prompt: () => section[path].prompt,
+    options: () =>
+      section[path].options.map((label, index) => ({
+        value: `${path}-${index + 1}`,
         label,
-      }));
-    },
+      })),
+    ...(stage === 2
+      ? { nextCardIds: SUBPLOT_TREES[subplotId].nodes }
+      : {}),
   };
 }
 
-function createSubplotChoiceConfig(subplotId, stage, cardIds) {
-  if (subplotId === "A") return createSubplotAChoiceConfig(stage, cardIds);
-  if (subplotId === "D") return createSubplotDChoiceConfig(stage, cardIds);
-  if (subplotId === "F") return createSubplotFChoiceConfig(stage, cardIds);
+function createSubplotChoiceConfig(subplotId, stage, path) {
+  if (subplotId === "A") return createSubplotAChoiceConfig(stage, path);
+  if (subplotId === "D") return createSubplotDChoiceConfig(stage, path);
+  if (subplotId === "F") return createSubplotFChoiceConfig(stage, path);
   if (AUTHORED_SUBPLOTS[subplotId]) {
-    return createAuthoredSubplotChoiceConfig(subplotId, stage, cardIds);
+    return createAuthoredSubplotChoiceConfig(subplotId, stage, path);
   }
-
-  const previousCardId = stage > 1 ? cardIds[stage - 2] : null;
-
-  return {
-    prompt: () => {
-      const ordinal = ["First", "Second", "Third"][stage - 1];
-      const opening = `${ordinal} special narrative event (this feature hasn't been added yet).`;
-      if (stage === 1) return `${opening}\n\nWhat do you want to do?`;
-
-      const previous = window.playerChoices[previousCardId];
-      return `${opening}\n\nLast time you chose ${previous?.label || "a path"}.\n\nWhat do you want to do?`;
-    },
-    options: () => {
-      if (stage === 1) {
-        return [
-          { value: "path-1", label: "Path 1" },
-          { value: "path-2", label: "Path 2" },
-        ];
-      }
-
-      const fallback = stage === 2 ? "path-1" : "path-1-1";
-      const prefix = window.playerChoices[previousCardId]?.value || fallback;
-      return [
-        { value: `${prefix}-1`, label: `${formatPath(prefix)}-1` },
-        { value: `${prefix}-2`, label: `${formatPath(prefix)}-2` },
-      ];
-    },
-  };
+  throw new Error(`Unknown subplot ${subplotId}`);
 }
 
-Object.entries(SUBPLOT_CARD_IDS_BY_ID).forEach(([subplotId, cardIds]) => {
-  cardIds.forEach((cardId, index) => {
+Object.entries(SUBPLOT_TREES).forEach(([subplotId, tree]) => {
+  Object.entries(tree.nodes).forEach(([path, cardId]) => {
+    const stage = path === "root" ? 1 : path.split("-").length;
     CHOICE_CARD_OPTIONS[cardId] = {
-      ...createSubplotChoiceConfig(subplotId, index + 1, cardIds),
+      ...createSubplotChoiceConfig(subplotId, stage, path),
       imagePath: SUBPLOT_IMAGE_PATHS_BY_CARD_ID[cardId],
     };
   });
 });
 
 window.playerChoices = {};
-
-function formatPath(value) {
-  return String(value).replace(/^path-/, "Path ");
-}
 
 function promptForCardChoice(card) {
   const config = CHOICE_CARD_OPTIONS[card.id];
@@ -1498,6 +1536,9 @@ function promptForCardChoice(card) {
             value: option.value,
             label: option.label,
           };
+          if (card.isSubplot) {
+            advanceActiveSubplot(config.nextCardIds?.[option.value] || null);
+          }
           if (
             !skipAvailable &&
             option.correlatedActionId &&
@@ -1673,13 +1714,15 @@ function clearEventHighlights() {
 }
 
 let activeSubplotId = null;
-let activeSubplotCardIds = [];
+let activeSubplotNextCardId = null;
+let activeSubplotComplete = false;
 let subplotCardsById = {};
 let mainDeckSize = 0;
 
 function chooseActiveSubplot() {
-  activeSubplotId = pickRandom(Object.keys(SUBPLOT_CARD_IDS_BY_ID));
-  activeSubplotCardIds = SUBPLOT_CARD_IDS_BY_ID[activeSubplotId];
+  activeSubplotId = pickRandom(Object.keys(SUBPLOT_TREES));
+  activeSubplotNextCardId = SUBPLOT_TREES[activeSubplotId].root;
+  activeSubplotComplete = false;
   activeAlasStory =
     activeSubplotId === "D" ? createAlasStory() : null;
   window.activeAlasStory = activeAlasStory;
@@ -1692,26 +1735,27 @@ function chooseActiveSubplot() {
   );
 }
 
+function advanceActiveSubplot(nextCardId) {
+  activeSubplotNextCardId = nextCardId;
+  activeSubplotComplete = nextCardId === null;
+}
+
 function regularCardsDealt() {
   return mainDeckSize - window.deck.length;
 }
 
-function isSubplotCardUnlocked(cardId) {
-  const index = activeSubplotCardIds.indexOf(cardId);
-  if (index === 0) return true;
-  if (index < 0) return false;
-  return Boolean(window.playerChoices[activeSubplotCardIds[index - 1]]);
-}
-
 function getDueSubplotCard() {
-  return activeSubplotCardIds.map((id) => subplotCardsById[id]).find(
-    (card) =>
-      card &&
-      isSubplotCardUnlocked(card.id) &&
-      regularCardsDealt() >= card.subplotPosition &&
-      !window.playerChoices[card.id] &&
-      !player.hand.some((heldCard) => heldCard.id === card.id),
-  );
+  if (activeSubplotComplete || activeSubplotNextCardId === null) return null;
+  const card = subplotCardsById[activeSubplotNextCardId];
+  if (
+    !card ||
+    regularCardsDealt() < card.subplotPosition ||
+    window.playerChoices[card.id] ||
+    player.hand.some((heldCard) => heldCard.id === card.id)
+  ) {
+    return null;
+  }
+  return card;
 }
 
 function drawPlayerCard() {
@@ -1805,7 +1849,7 @@ function renderPlayerHand() {
     // Badge
     const idBadge = document.createElement("div");
     idBadge.className = "card-id";
-    idBadge.textContent = card.id;
+    idBadge.textContent = card.displayId ?? card.id;
     headerRow.appendChild(idBadge);
 
     // Card type text
@@ -2294,10 +2338,7 @@ async function playPlayerCard(index) {
 
   // check for empty deck and show game results
   function checkDeck() {
-    const subplotComplete = activeSubplotCardIds.every(
-      (id) => window.playerChoices[id],
-    );
-    if (window.deck.length === 0 && subplotComplete) {
+    if (window.deck.length === 0 && activeSubplotComplete) {
       emptyDeckStreak++;
 
       if (emptyDeckStreak === 4) {
