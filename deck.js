@@ -11,7 +11,7 @@ window.deck = [
   },
   {
     id: 2,
-    name: "2: We know ‘AI’ isn't just one thing especially environmentally",
+    name: "2: We know ‘AI’ isn't just one thing",
     type: "action",
     description: "* We understand that different AI types—e.g. generative vs. discriminative, large vs. small models—can have vastly different environmental costs.\n* We avoid misleading comparisons, avoid AI greenwashing, and make informed decisions about when and what kind of AI is appropriate—or whether it’s needed at all.",
   },
