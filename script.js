@@ -695,14 +695,21 @@ const SUBPLOT_CARD_IDS_BY_ID = {
 };
 
 const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
+  82: "images/tarot-18.jpg",
   83: "images/tarot-20.jpg",
-  85: "images/tarot-19.jpg",
-  86: "images/tarot-15.jpg",
+  84: "images/art-wolf.jpg",
+  85: "images/tarot-3.jpg",
+  86: "images/tarot-10.jpg",
   87: "images/tarot-27.jpg",
   88: "images/tarot-21.jpg",
+  89: "images/tarot-11.jpg",
+  90: "images/art-beets.jpg",
   91: "images/tarot-4.jpg",
   92: "images/tarot-26.jpg",
+  93: "images/tarot-25.jpg",
+  94: "images/art-farm-robot.jpg",
   95: "images/tarot-17.jpg",
+  96: "images/art-storm.jpg",
   97: "images/jo-card-back.jpg",
   98: "images/tarot-9.jpg",
   99: "images/tarot-23.jpg",
