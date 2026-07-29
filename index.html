@@ -646,6 +646,28 @@
         background: #244f70;
       }
 
+      #eventImpactNotice {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 55;
+        display: none;
+        box-sizing: border-box;
+        width: min(460px, calc(100vw - 32px));
+        padding: 1.25rem 1.4rem;
+        transform: translate(-50%, -50%);
+        border: 3px solid #ffffff;
+        border-radius: 10px;
+        background: #111111;
+        color: #ffffff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.45;
+        text-align: center;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+      }
+
 
       .company-summary {
         margin-bottom: 1rem;
@@ -680,40 +702,22 @@
           <h2 style="text-align: center">How to Play</h2>
           <ul>
             <li>
-              Earn Progress Points and convert them into
-              <strong>RAI Points</strong>.
+              Earn <em>Progress Points</em> and convert them into
+              <em>RAI Points</em>.
             </li>
             <li>
-              You can play <strong>Action</strong> cards to prepare your
-              organisation for future challenges. <strong>Choice</strong>
-              cards are similar to <strong>Action</strong> cards.
+              You can play <em>Action</em> cards to prepare your organisation
+              for future challenges.
             </li>
             <li>
-              You can also play <strong>Event</strong> cards, which trigger
+              You can also play <em>Event</em> cards, which trigger
               effects depending on the Actions already in play.
             </li>
+            <li>You will be competing alongside two other organisations.</li>
             <li>
-              You will be competing alongside two other organisations.
+              You have a SKIP ability. Once it is used up, it may occasionally
+              be recharged by certain <em>Choice</em> cards.
             </li>
-            <li>
-              You have a <strong>SKIP</strong> ability which you can use once:
-              occasionally it may be recharged.
-            </li>
-            <li>
-              Read the cards to learn more about AI, and
-              explore the work of the
-              <a
-                href="https://sas-dhrh.github.io/dhcc-toolkit/index.html"
-                target="_blank"
-                >Digital Humanities Climate Coalition</a
-              >
-              and
-              <a href="https://susaifutures.com/" target="_blank"
-                >Sustainable AI Futures</a
-              >
-              project.
-            </li>
-            <li>Good luck!</li>
           </ul>
         </div>
 
@@ -814,6 +818,13 @@
         <div id="choiceModalOptions"></div>
       </div>
     </div>
+
+    <div
+      id="eventImpactNotice"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    ></div>
 
     <audio id="backgroundMusic" preload="metadata"></audio>
     <div class="music-credit">Music: Andy Spragg</div>
