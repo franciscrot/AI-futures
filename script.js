@@ -1773,10 +1773,17 @@ function getActionIdsFromEvent(card) {
 }
 
 function getEventActionTooltip(card) {
-  return getActionIdsFromEvent(card)
+  const playedCardTitles = getActionIdsFromEvent(card)
+    .filter((id) => player.actionsPlayed.has(id))
     .map((id) => CARD_BY_ID[id]?.name)
-    .filter(Boolean)
-    .join(" | ");
+    .filter(Boolean);
+
+  if (playedCardTitles.length === 0) return "";
+  if (playedCardTitles.length === 1) {
+    return `You have played ${playedCardTitles[0]}`;
+  }
+
+  return `You have played ${playedCardTitles.slice(0, -1).join(", ")}, and ${playedCardTitles.at(-1)}`;
 }
 
 let eventActionTooltip = null;
