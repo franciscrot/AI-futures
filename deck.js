@@ -12,10 +12,10 @@ window.deck = [
   },
   {
     id: 2,
-    name: "2: We know ‘AI’ isn't just one thing (especially environmentally)",
+    name: "2: We know ‘AI’ isn't just one thing especially environmentally",
     type: "action",
     description: "* We understand that different AI types—e.g. generative vs. discriminative, large vs. small models—can have vastly different environmental costs.\n* We avoid misleading comparisons, avoid AI greenwashing, and make informed decisions about when and what kind of AI is appropriate—or whether it’s needed at all.",
-    tooltip: "We know ‘AI’ isn't just one thing (especially environmentally)",
+    tooltip: "We know ‘AI’ isn't just one thing especially environmentally",
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ window.deck = [
     id: 7,
     name: "7: We don’t greenwash our carbon accounting",
     type: "action",
-    description: "* We provide both location-based data and market-based data about our carbon emissions\n* We don’t base our green claims on inexpensive carbon credits, renewable energy credits, or “carbon matching”\n* We work with specialists like Greenpixie, to keep ourselves and our customers informed, and improve our emissions data",
+    description: "* We provide both location-based data and market-based data about our carbon emissions\n* We don’t base our green claims on inexpensive carbon credits, renewable energy credits, or “carbon matching”\n* We work with specialists like Leafpixie, to keep ourselves and our customers informed, and improve our emissions data",
     tooltip: "We don’t greenwash our carbon accounting",
   },
   {
@@ -313,7 +313,7 @@ window.deck = [
     id: 44,
     name: "44: Automated Storm in a Teacup",
     type: "event",
-    description: "* One café receives 1.5 million complaints after moving one of its outdoor tables.\n* Institutions respond using AI agents.\n* Legal disputes can be raised and settled with almost no human involvement.\n* Gain a progress point if you have played action card 30.",
+    description: "* Your visitor’s café receives 1.5 million complaints after moving one of its outdoor tables.\n* You respond using AI agents.\n* Legal disputes can be raised and settled with almost no human involvement.\n* Gain a progress point if you have played action card 30.",
     tooltip: "Automated Storm in a Teacup",
   },
   {
@@ -1114,6 +1114,34 @@ window.deck = [
     type: "action",
     description: "• Solarpunk data gardens are proliferating, powered by renewable energy on site.\n• They sound hopeful—but they do not really compete with the hyperscalers’ business model.",
     tooltip: "Hope or Hopewashing?",
+  },
+  {
+    id: 127,
+    name: "127: Stable Help or Flexible Models?",
+    type: "action",
+    description: "• Your AI supplier switches you between large and small models as volatile energy prices change hardware rents.\n• The architecture is efficient, but workers cannot rely on receiving the same kind of assistance.",
+    tooltip: "Stable Help or Flexible Models?",
+  },
+  {
+    id: 128,
+    name: "128: Take Out the Sting?",
+    type: "action",
+    description: "• A de-AI-ification consultancy argues that AI creates dependencies and can be difficult to remove.\n• It specialises in gently replacing AI with human processes, specialised software, or other tools.",
+    tooltip: "Take Out the Sting?",
+  },
+  {
+    id: 129,
+    name: "129: Standards or Support?",
+    type: "action",
+    description: "• Your Head of Procurement, Alon, is close to a meltdown.\n• Technology is moving too fast for the team to assess vendors against all its responsible-procurement criteria.",
+    tooltip: "Standards or Support?",
+  },
+  {
+    id: 130,
+    name: "130: Screening or Social Policy?",
+    type: "action",
+    description: "• Recruitment is swamped with applications for every post.\n• Some are AI-generated, but there are also more applicants as jobs disappear in adjacent sectors.",
+    tooltip: "Screening or Social Policy?",
   },
 ];
 
