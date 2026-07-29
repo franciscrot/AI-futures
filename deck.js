@@ -282,7 +282,7 @@ window.deck = [
     id: 46,
     name: "46: Shadow AI",
     type: "event",
-    description: "* AI use is spreading through your organisation, both through official systems and through practices nobody has approved.\n* Some people openly exchange prompts, workarounds and generated material. Others conceal their tools, their inputs or how much they rely on them—from managers, other teams and sometimes their closest colleagues.\n* Everyone is expected to work faster, but honesty may bring surveillance, disciplinary action, redundancy—or simply more work. People describe tidier workflows than the ones they actually follow.\n* Your organisation’s real workflows are becoming unknowable. Data crosses boundaries nobody can trace, hidden dependencies grow, and nobody is sure who will be accountable when something goes wrong.\n* Gain a progress point if you have played action cards 11 or 18.",
+    description: "* AI use is spreading, both through official systems and practices nobody has approved.\n* Many workers conceal how they use AI, from managers, other teams, and often even friends.\n* Many organisations expect AI-assisted labour to be faster and better, and honesty may bring surveillance, interference, disciplinary action, redundancy—or simply more work.\n* Many organisations’ real workflows are becoming untraceable to anyone in those organisations.\n* Gain a progress point if you have played action cards 11 or 18.",
   },
   {
     id: 47,
