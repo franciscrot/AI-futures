@@ -1941,7 +1941,7 @@ function updateScoreChart() {
   const plot = el("scoreChartPlot");
   if (!plot) return;
 
-  const scoreMaximum = 40;
+  const scoreMaximum = 28;
   const onePlanetPlayedByPlayer = player.eventsPlayed.has(81);
   const organisations = [
     { organisation: player, isPlayer: true },
