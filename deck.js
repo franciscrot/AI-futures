@@ -608,7 +608,7 @@ window.deck = [
     subplotPath: "path-1-1",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The medium-term consequences of your earlier decisions have become clear.",
+    description: "• You accepted an interface trained on your agents’ records. It now supports your memory, language, and judgement.\n• The provider announces that the service will be deprecated.",
     tooltip: "What Remains",
   },
   {
@@ -632,7 +632,7 @@ window.deck = [
     subplotPath: "path-1",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "* After you banned the shadow system, performance collapses.\n* Many colleagues had quietly come to depend on it.",
+    description: "• After you let the employee continue, other teams adopt their shadow system.\n• Productivity rises, but nobody can fully explain the work.",
     tooltip: "Chasing Shadows?",
   },
   {
@@ -644,7 +644,7 @@ window.deck = [
     subplotPath: "path-1-1",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation lives with the consequences of how it handled the shadow system.",
+    description: "• You formalised the shadow system.\n• The organisation is productive, but when the system does fail, nobody knows how to continue without it.",
     tooltip: "Efficiency or Understanding?",
   },
   {
@@ -704,7 +704,6 @@ window.deck = [
     subplotPath: "path-1",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "Remembering our colleague and friend.",
     tooltip: "Continuity or Closure?",
   },
   {
@@ -716,7 +715,6 @@ window.deck = [
     subplotPath: "path-1-1",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "[dummy text]",
     tooltip: "Believe It or Not",
   },
   {
@@ -788,7 +786,6 @@ window.deck = [
     subplotPath: "path-1-1",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "Your earlier choices reshape care, independence and your relationship.",
     tooltip: "Who Cares?",
   },
   {
@@ -815,7 +812,7 @@ window.deck = [
     subplotPath: "path-1-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The medium-term consequences of your earlier decisions have become clear.",
+    description: "• You refused the neural interface, though you kept relying on AI agents.\n• As your condition progresses, they increasingly remember, decide, and speak for you.",
     tooltip: "What Remains",
   },
   {
@@ -828,7 +825,7 @@ window.deck = [
     subplotPath: "path-2-1",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The medium-term consequences of your earlier decisions have become clear.",
+    description: "• You accepted an experimental treatment and resumed sole leadership of the organization.\n• Your inner AI slows the decline, but your former co-director is filling in a lot of gaps.",
     tooltip: "What Remains",
   },
   {
@@ -841,7 +838,7 @@ window.deck = [
     subplotPath: "path-2-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The medium-term consequences of your earlier decisions have become clear.",
+    description: "• You refused the AI interface and deepened shared leadership.\n• As your condition progresses, the organisation grows more collective and democratic.",
     tooltip: "What Remains",
   },
   {
@@ -854,7 +851,7 @@ window.deck = [
     subplotPath: "path-2",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "The hidden workflow spreads—or its absence exposes a deeper dependency.",
+    description: "• After you banned the shadow system, performance collapses.\n• Many colleagues had quietly come to depend on it.",
     tooltip: "Chasing Shadows?",
   },
   {
@@ -867,7 +864,7 @@ window.deck = [
     subplotPath: "path-1-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation lives with the consequences of how it handled the shadow system.",
+    description: "• Teams retained control of their own AI workflows.\n• Local knowledge flourishes, but the organisation now contains dozens of incompatible systems.",
     tooltip: "Efficiency or Understanding?",
   },
   {
@@ -880,7 +877,7 @@ window.deck = [
     subplotPath: "path-2-1",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation lives with the consequences of how it handled the shadow system.",
+    description: "• You restored the system.\n• Official procedures continue, but everybody knows the real organisation runs through an unacknowledged AI.",
     tooltip: "Efficiency or Understanding?",
   },
   {
@@ -893,7 +890,7 @@ window.deck = [
     subplotPath: "path-2-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation lives with the consequences of how it handled the shadow system.",
+    description: "• Rebuilding human expertise is slow and expensive.\n• The organisation becomes less efficient, but people once again understand its work.",
     tooltip: "Efficiency or Understanding?",
   },
   {
@@ -958,7 +955,6 @@ window.deck = [
     subplotPath: "path-2",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "[dummy text].",
     tooltip: "Closure or Continuation?",
   },
   {
@@ -971,7 +967,6 @@ window.deck = [
     subplotPath: "path-1-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "[dummy text]",
     tooltip: "Believe It or Not?",
   },
   {
@@ -984,7 +979,6 @@ window.deck = [
     subplotPath: "path-2-1",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "[dummy text]",
     tooltip: "Believe It or Not?",
   },
   {
@@ -997,7 +991,6 @@ window.deck = [
     subplotPath: "path-2-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "[dummy text]",
     tooltip: "Believe It or Not?",
   },
   {
@@ -1075,7 +1068,6 @@ window.deck = [
     subplotPath: "path-1-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "Your earlier choices reshape care, independence and your relationship.",
     tooltip: "Who Should Carry Care?",
   },
   {
@@ -1088,7 +1080,6 @@ window.deck = [
     subplotPath: "path-2-1",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "Your earlier choices reshape care, independence and your relationship.",
     tooltip: "Who Should Carry Care?",
   },
   {
@@ -1101,7 +1092,6 @@ window.deck = [
     subplotPath: "path-2-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "Your earlier choices reshape care, independence and your relationship.",
     tooltip: "Who Should Carry Care?",
   },
   {
