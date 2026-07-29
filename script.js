@@ -1033,14 +1033,24 @@ function createSubplotDChoiceConfig(stage, path) {
   }
 
   if (stage === 2) {
+    const getPrompt = () => {
+      const { deceased } = getActiveAlasStory();
+      const usedAI = path === "path-1";
+      if (usedAI) {
+        return `At a staff event, a few people are talking about how they haven’t seen ${deceased.fullReference} recently. You remember some of those same people posting heartfelt online eulogies about ${deceased.name}, but you guess those were written by their AI agents.`;
+      }
+      return `${deceased.fullReference} is still answering emails from beyond the grave, via an AI system they set up.`;
+    };
+
     return {
-      prompt: () => {
+      prompt: getPrompt,
+      cardDescription: () => {
         const { deceased } = getActiveAlasStory();
         const usedAI = path === "path-1";
         if (usedAI) {
-          return `At a staff event, a few people are talking about how they haven’t seen ${deceased.fullReference} recently. You remember some of those same people posting heartfelt online eulogies about ${deceased.name}, but you guess those were written by their AI agents.`;
+          return `• At a staff event, a few people are talking about how they haven’t seen ${deceased.fullReference} recently.\n• You remember some of those same people posting heartfelt online eulogies about ${deceased.name}, but you guess those were written by their AI agents.`;
         }
-        return `${deceased.fullReference} is still answering emails from beyond the grave, via an AI system they set up.`;
+        return `• ${getPrompt()}`;
       },
       options: () => {
         const usedAI = path === "path-1";
@@ -1075,6 +1085,8 @@ function createSubplotDChoiceConfig(stage, path) {
     "path-1-1": {
       prompt: () =>
         "After LLMs are used by pro-life activists to create live, interactive extrapolations of foetuses that “advocate for themselves” from ultrasound images, cardiotocography traces and maternal health records, a wider backlash against chatbots gathers force.",
+      cardDescription: () =>
+        "• After LLMs are used by pro-life activists to create live, interactive extrapolations of foetuses that “advocate for themselves” from ultrasound images, cardiotocography traces and maternal health records, a wider backlash against chatbots gathers force.",
       options: () => [
         {
           label:
@@ -1089,6 +1101,8 @@ function createSubplotDChoiceConfig(stage, path) {
     "path-1-2": {
       prompt: () =>
         "A client runs into you at an event and is startled that you are real. They assumed from your messages and video calls that you were an AI.\n\n“I mean, I thought maybe you used to be real, just maybe that you weren’t any more.”",
+      cardDescription: () =>
+        "• A client runs into you at an event and is startled that you are real.\n• They assumed from your messages and video calls that you were an AI.",
       options: () => [
         {
           label: "Ask if it matters.",
@@ -1102,6 +1116,8 @@ function createSubplotDChoiceConfig(stage, path) {
     "path-2-1": {
       prompt: () =>
         "Customers complain that your company is too slow and unresponsive. Others accuse you of using traditional chatbots instead of getting AI agents to pretend to be living employees.",
+      cardDescription: () =>
+        "• Customers complain that your company is too slow and unresponsive.\n• Others accuse you of using traditional chatbots instead of getting AI agents to pretend to be living employees.",
       options: () => [
         {
           label:
@@ -1116,6 +1132,10 @@ function createSubplotDChoiceConfig(stage, path) {
       prompt: () => {
         const { musician } = getActiveAlasStory();
         return `${musician.fullReference} has been using company time to build an incredibly successful career as a musician. The company lawyers advise that you may own the IP in some of ${musician.name}’s music and should negotiate, rather than take the straight disciplinary route.`;
+      },
+      cardDescription: () => {
+        const { musician } = getActiveAlasStory();
+        return `• ${musician.fullReference} has been using company time to build an incredibly successful career as a musician.\n• The company lawyers advise that you may own the IP in some of ${musician.name}’s music and should negotiate, rather than take the straight disciplinary route.`;
       },
       options: () => {
         const { musician, death } = getActiveAlasStory();
@@ -1133,6 +1153,7 @@ function createSubplotDChoiceConfig(stage, path) {
 
   return {
     prompt: () => conclusions[path].prompt(),
+    cardDescription: () => conclusions[path].cardDescription(),
     options: () => {
       return conclusions[path].options().map((option, index) => ({
         value: `${path}-${index + 1}`,
@@ -1207,20 +1228,34 @@ function createSubplotFChoiceConfig(stage, path) {
     };
   }
 
+  const getConclusion = () => {
+    const {
+      relation,
+      subjectPronoun: subject,
+    } = getRelative();
+    return {
+      "path-1-1": {
+        prompt: `You’re not sure how well ${subject} really understood the proposal, but your ${relation} seems fine with the networked devices. There are fewer crises. You feel weird that so much data is generated and for some reason shared with you.`,
+        cardDescription: `• You’re not sure how well ${subject} really understood the proposal, but your ${relation} seems fine with the networked devices.\n• There are fewer crises.\n• You feel weird that so much data is generated and for some reason shared with you.`,
+      },
+      "path-1-2": {
+        prompt: `You reduce your CEO role and take on more of your ${relation}’s care yourself. Time together deepens, but fatigue and lost work reshape both your lives.`,
+        cardDescription: `• You reduce your CEO role and take on more of your ${relation}’s care yourself.\n• Time together deepens, but fatigue and lost work reshape both your lives.`,
+      },
+      "path-2-1": {
+        prompt: `Robots and devices help your ${relation}’s care circle coordinate, and ${subject} remains at home longer. Responsibility is shared, but every alert seems to belong to everyone and no one.`,
+        cardDescription: `• Robots and devices help your ${relation}’s care circle coordinate, and ${subject} remains at home longer.\n• Responsibility is shared, but every alert seems to belong to everyone and no one.`,
+      },
+      "path-2-2": {
+        prompt: `Regular paid carers bring your ${relation} stability and skill. ${subject} forms bonds with some of them; staff turnover shows how much continuity depends on working conditions your family cannot control.`,
+        cardDescription: `• Regular paid carers bring your ${relation} stability and skill.\n• ${subject} forms bonds with some of them; staff turnover shows how much continuity depends on working conditions your family cannot control.`,
+      },
+    }[path];
+  };
+
   return {
-    prompt: () => {
-      const {
-        relation,
-        subjectPronoun: subject,
-      } = getRelative();
-      const prompts = {
-        "path-1-1": `You’re not sure how well ${subject} really understood the proposal, but your ${relation} seems fine with the networked devices. There are fewer crises. You feel weird that so much data is generated and for some reason shared with you.`,
-        "path-1-2": `You reduce your CEO role and take on more of your ${relation}’s care yourself. Time together deepens, but fatigue and lost work reshape both your lives.`,
-        "path-2-1": `Robots and devices help your ${relation}’s care circle coordinate, and ${subject} remains at home longer. Responsibility is shared, but every alert seems to belong to everyone and no one.`,
-        "path-2-2": `Regular paid carers bring your ${relation} stability and skill. ${subject} forms bonds with some of them; staff turnover shows how much continuity depends on working conditions your family cannot control.`,
-      };
-      return prompts[path];
-    },
+    prompt: () => getConclusion().prompt,
+    cardDescription: () => getConclusion().cardDescription,
     options: () => {
       const optionsByPath = {
         "path-1-1": [
@@ -1323,7 +1358,7 @@ const AUTHORED_SUBPLOTS = {
     second: {
       "path-1": {
         prompt:
-          "The new employee Dennis is a real whizz, though they do seem to organize their whole working life around algorithmic assessment. Other employees begin imitating them.",
+          "The candidate excels by organising their whole working life around algorithmic assessment. Other employees begin imitating them.",
         options: [
           "Encourage the new measurable standard.",
           "Protect less measurable ways of working.",
@@ -1331,10 +1366,10 @@ const AUTHORED_SUBPLOTS = {
       },
       "path-2": {
         prompt:
-          "The rejected candidate, Dennis, joins a competitor. One day you notice on SinkingIn that the competitor has let go most of their staff, though Dennis is still there as Chief Automation Officer.",
+          "The rejected candidate joins a competitor and helps automate much of the profession you excluded them from.",
         options: [
-          "Start learning some tricks from this competitor.",
-          "Defend human roles, and try to create new ones where you can.",
+          "Adopt similar automation.",
+          "Defend the profession as a human practice.",
         ],
       },
     },
@@ -1811,8 +1846,13 @@ function dealOpeningHands() {
 
 // --- Rendering ---
 function formatCardDescription(card) {
-  const usesChoiceLayout = Boolean(CHOICE_CARD_OPTIONS[card.id]);
-  return String(card.description || "")
+  const choiceConfig = CHOICE_CARD_OPTIONS[card.id];
+  const usesChoiceLayout = Boolean(choiceConfig);
+  const configuredDescription =
+    typeof choiceConfig?.cardDescription === "function"
+      ? choiceConfig.cardDescription()
+      : choiceConfig?.cardDescription;
+  return String(configuredDescription ?? card.description ?? "")
     .replace(/^\s*\*\s?/gm, "• ")
     .split("\n")
     .map((line) => {
