@@ -306,7 +306,7 @@ document.getElementById("closeIntro").addEventListener("click", () => {
 // feedback button
 document.getElementById("feedbackButton").addEventListener("click", () => {
   window.open(
-    "https://docs.google.com/forms/d/e/1FAIpQLSfQMXLZjtXLTzqoOexaV6OnHHjlQPnXXmLFFBiTu924gQw01g/viewform",
+    "https://docs.google.com/forms/d/e/1FAIpQLSeTkcLmuXXczUbDJPjv2-Dqp1tEeQAXnwiQE5kL2iYgmfYl5w/viewform?usp=publish-editor",
     "_blank",
   );
 });
