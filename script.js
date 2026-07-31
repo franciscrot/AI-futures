@@ -1554,7 +1554,7 @@ const AUTHORED_SUBPLOTS = {
       },
       "path-1-2": {
         prompt:
-          "You protected less measurable work. The candidate remains brilliant but unusual, and the recruitment system loses much of its authority.",
+          "You have been doing your best to combat AI-powered performancemaxxing by protecting less measurable ways of working. You notice that Dennis has now pushed through a series of “protecting the unquantifiable” KPIs and metrics, which everyone is busy pursuing.",
         options: [
           "I hope excellence can remain plural",
           "I still wonder what the system saw before we did",
@@ -2559,7 +2559,6 @@ function dismissEventImpactNotice() {
 
 const eventImpactNotice = document.getElementById("eventImpactNotice");
 if (eventImpactNotice) {
-  eventImpactNotice.addEventListener("click", dismissEventImpactNotice);
   eventImpactNotice.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -2567,6 +2566,22 @@ if (eventImpactNotice) {
     }
   });
 }
+
+document.addEventListener(
+  "click",
+  (event) => {
+    if (
+      !eventImpactNotice ||
+      eventImpactNotice.style.display !== "block"
+    ) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    dismissEventImpactNotice();
+  },
+  true,
+);
 
 function getPlayerImpactNotice(card, opponentName) {
   const rule = getEventRule(card);
