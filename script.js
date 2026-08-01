@@ -778,6 +778,51 @@ const CHOICE_CARD_OPTIONS = {
       },
     ],
   },
+  131: {
+    imagePath: "images/tarot-28.jpg",
+    prompt:
+      "Former employees are selling interactive simulations of their organisational knowledge. Your competitors are buying.",
+    options: [
+      {
+        value: "buy-exclusive-access",
+        label: "Buy exclusive access.",
+      },
+      {
+        value: "shop-the-market",
+        label: "Let them sell—but maybe do some shopping yourself.",
+      },
+    ],
+  },
+  132: {
+    imagePath: "images/art-wolf.jpg",
+    prompt:
+      "A fully automated competitor is undercutting you. Nobody can identify its staff, offices, owners or legal jurisdiction.",
+    options: [
+      {
+        value: "legal-challenge",
+        label: "Try to launch a legal challenge.",
+      },
+      {
+        value: "copy-practices",
+        label: "Try to copy some of its business practices.",
+      },
+    ],
+  },
+  133: {
+    imagePath: "images/tarot-22.jpg",
+    prompt:
+      "Gunther from Organisational Development says he has a religious belief that AIs are sentient, which means he cannot comply with certain company policies governing AI use.",
+    options: [
+      {
+        value: "accommodate-faith",
+        label: "Accommodate Gunther’s faith.",
+      },
+      {
+        value: "send-training",
+        label: "This is ridiculous. Send Gunther on some training.",
+      },
+    ],
+  },
 };
 
 // Each pair is classified relative to the other answer on that card:
@@ -838,6 +883,30 @@ const CHOICE_TECHNOPHILIA_SCORES = {
   128: [-1, 1],
   129: [1, -1],
   130: [1, -1],
+  131: [1, 0],
+  132: [-1, 1],
+  133: [1, -1],
+  134: [1, -1],
+  135: [1, 0],
+  136: [1, -1],
+  137: [1, -1],
+  138: [0, -1],
+  139: [1, -1],
+  140: [0, -1],
+  141: [1, -1],
+  142: [-1, 0],
+  143: [1, -1],
+  144: [-1, 1],
+  145: [0, -1],
+  146: [1, -1],
+  147: [-1, 1],
+  148: [1, -1],
+  149: [1, -1],
+  150: [1, -1],
+  151: [-1, 1],
+  152: [-1, 1],
+  153: [1, -1],
+  154: [-1, 1],
 };
 
 const TECHNOPHILIA_CLASSIFICATIONS = {
@@ -931,6 +1000,42 @@ const SUBPLOT_TREES = {
       "path-2-2": 126,
     },
   },
+  G: {
+    root: 134,
+    nodes: {
+      root: 134,
+      "path-1": 135,
+      "path-2": 136,
+      "path-1-1": 137,
+      "path-1-2": 138,
+      "path-2-1": 139,
+      "path-2-2": 140,
+    },
+  },
+  H: {
+    root: 141,
+    nodes: {
+      root: 141,
+      "path-1": 142,
+      "path-2": 143,
+      "path-1-1": 144,
+      "path-1-2": 145,
+      "path-2-1": 146,
+      "path-2-2": 147,
+    },
+  },
+  I: {
+    root: 148,
+    nodes: {
+      root: 148,
+      "path-1": 149,
+      "path-2": 150,
+      "path-1-1": 151,
+      "path-1-2": 152,
+      "path-2-1": 153,
+      "path-2-2": 154,
+    },
+  },
 };
 
 const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
@@ -976,6 +1081,27 @@ const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
   124: "images/tarot-23.jpg",
   125: "images/tarot-23.jpg",
   126: "images/tarot-23.jpg",
+  134: "images/art-beets.jpg",
+  135: "images/tarot-17.jpg",
+  136: "images/tarot-17.jpg",
+  137: "images/tarot-2.jpg",
+  138: "images/tarot-2.jpg",
+  139: "images/tarot-2.jpg",
+  140: "images/tarot-2.jpg",
+  141: "images/choice-35-organic-mushroom.jpg",
+  142: "images/tarot-18.jpg",
+  143: "images/tarot-18.jpg",
+  144: "images/tarot-27.jpg",
+  145: "images/tarot-27.jpg",
+  146: "images/tarot-27.jpg",
+  147: "images/tarot-27.jpg",
+  148: "images/tarot-28.jpg",
+  149: "images/tarot-3.jpg",
+  150: "images/tarot-3.jpg",
+  151: "images/tarot-27.jpg",
+  152: "images/tarot-27.jpg",
+  153: "images/tarot-27.jpg",
+  154: "images/tarot-27.jpg",
 };
 
 const CARE_RELATIVES = [
@@ -1637,6 +1763,192 @@ const AUTHORED_SUBPLOTS = {
         options: [
           "I accept that judgement can never be fully transparent.",
           "I suspect the forbidden scores still govern us.",
+        ],
+      },
+    },
+  },
+  G: {
+    first: {
+      prompt:
+        "Four-day weeks are becoming more common. Several competitors have switched without reducing salaries.",
+      options: [
+        "Introduce a four-day week.",
+        "Keep the five-day week.",
+      ],
+    },
+    second: {
+      "path-1": {
+        prompt:
+          "Your four-day week works well. Now three-day weeks are becoming more common as automation raises productivity.",
+        options: [
+          "Reduce the week again.",
+          "Four days is enough.",
+        ],
+      },
+      "path-2": {
+        prompt:
+          "You retained the five-day week. Now three-day weeks are becoming more common, and recruitment is becoming difficult.",
+        options: [
+          "Go down to four days.",
+          "Hold the line at five.",
+        ],
+      },
+    },
+    third: {
+      "path-1-1": {
+        prompt:
+          "You kept reducing working hours. Now two-day weeks are becoming common. Work occupies less of life, although inequalities beyond the workplace remain.",
+        options: [
+          "I hope employment is loosening its grip on life.",
+          "I worry leisure is becoming another unevenly distributed resource.",
+        ],
+      },
+      "path-1-2": {
+        prompt:
+          "You stopped at four days. Two-day weeks spread elsewhere, but your organisation remains stable and attractive.",
+        options: [
+          "I’m worried that worker power is being eroded.",
+          "I’m worried about who’s getting exploited outside the workplace.",
+        ],
+      },
+      "path-2-1": {
+        prompt:
+          "You finally introduce a four-day week. By then, two-day weeks are becoming common, and the change feels less transformative than expected.",
+        options: [
+          "Better late than never.",
+          "We are adapting just slowly enough to preserve the old system.",
+        ],
+      },
+      "path-2-2": {
+        prompt:
+          "You retain the five-day week while two-day weeks become common. Your organisation attracts people who love work—and people with few alternatives.",
+        options: [
+          "Work still gives life structure and purpose.",
+          "We may have mistaken necessity for devotion.",
+        ],
+      },
+    },
+  },
+  H: {
+    first: {
+      prompt:
+        "A new AI supplier offers to build a miniature simulation of your organisation. Its agents will sit in on meetings, learn everyone’s habits and rehearse decisions overnight. They call it SproutAI.",
+      options: [
+        "Sign up.",
+        "Stay with your current systems.",
+      ],
+    },
+    second: {
+      "path-1": {
+        prompt:
+          "After several years, SproutAI’s agents draft most decisions, maintain the records and remember why past compromises were made. The service is now slower, less reliable and much more expensive—but that’s where a lot of your institutional memory lives. Without it, you doubt anyone knows how the organisation works.",
+        options: [
+          "Get out before it gets any worse.",
+          "Lobby for stronger right-to-exit policies.",
+        ],
+      },
+      "path-2": {
+        prompt:
+          "Meanwhile, your largest new customer appears to be a network of purchasing agents with no identifiable human principal.",
+        options: [
+          "Accept its rapidly growing business.",
+          "Require a responsible human counterparty.",
+        ],
+      },
+    },
+    third: {
+      "path-1-1": {
+        prompt:
+          "You leave SproutAI. Years of organisational memory are lost, but people begin rebuilding knowledge they can control.",
+        options: [
+          "Dependence is sometimes more expensive than departure.",
+          "I wonder whether we destroyed more knowledge than we liberated.",
+        ],
+      },
+      "path-1-2": {
+        prompt:
+          "You remain with SproutAI while campaigning for stronger exit rights. The campaign grows, but so does your dependence.",
+        options: [
+          "Collective regulation is the only realistic route out.",
+          "We are asking our captor to design the door.",
+        ],
+      },
+      "path-2-1": {
+        prompt:
+          "The purchasing agents become your largest customer. They order constantly, negotiate aggressively and cannot explain what their purchases are for.",
+        options: [
+          "We need to give these customers what they want.",
+          "Let’s try harder to sell to humans.",
+        ],
+      },
+      "path-2-2": {
+        prompt:
+          "You insist on a human counterparty. The business disappears into a maze of agents and shell companies.",
+        options: [
+          "Some relationships require someone who can answer for them.",
+          "Perhaps we rejected the future because it lacked a face.",
+        ],
+      },
+    },
+  },
+  I: {
+    first: {
+      prompt:
+        "You are invited to join a payment platform using programmable money. Payments can release automatically, expire, split themselves and restrict how they are spent.",
+      options: [
+        "Join the platform.",
+        "Reject it.",
+      ],
+    },
+    second: {
+      "path-1": {
+        prompt:
+          "The platform grows rapidly. Its risk system now blocks some payments and restricts how portions of your revenue may be used.",
+        options: [
+          "Accept the rules to retain access.",
+          "Begin building an exit.",
+        ],
+      },
+      "path-2": {
+        prompt:
+          "You stayed out. The platform becomes dominant, and some customers’ purchasing agents can no longer transact with you.",
+        options: [
+          "Join before you lose more business.",
+          "Build an alternative with other excluded organisations.",
+        ],
+      },
+    },
+    third: {
+      "path-1-1": {
+        prompt:
+          "Transactions are fast and efficient. The platform’s rules increasingly determine what your organisation can buy, sell and support.",
+        options: [
+          "Convenience has become a form of government.",
+          "Rules embedded in money can still serve shared purposes.",
+        ],
+      },
+      "path-1-2": {
+        prompt:
+          "Leaving is painful. Some partners disappear, but your organisation regains control over how its money moves.",
+        options: [
+          "Autonomy was worth paying for.",
+          "We may have confused inconvenience with freedom.",
+        ],
+      },
+      "path-2-1": {
+        prompt:
+          "You join the platform. Access returns, but importing your financial history makes the organisation newly visible—and newly governable.",
+        options: [
+          "Legibility is the price of participation.",
+          "We have handed over more than payment processing.",
+        ],
+      },
+      "path-2-2": {
+        prompt:
+          "Excluded organisations create an interoperable payment network. It is slower and full of arguments about governance, but nobody owns it.",
+        options: [
+          "Shared control is worth the friction.",
+          "Every alternative eventually needs rules and rulers.",
         ],
       },
     },
