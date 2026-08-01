@@ -283,9 +283,12 @@
         top: 50%;
         left: calc(100% - 73px);
         z-index: 10;
+        display: flex;
         box-sizing: border-box;
         width: 132px;
+        height: var(--card-height);
         padding: 9px 8px 8px;
+        flex-direction: column;
         transform: translate(-50%, -50%);
         border: 1px solid #3d3d3d;
         border-radius: 7px;
@@ -298,7 +301,7 @@
       .score-chart-title {
         margin: 0 0 7px;
         color: #a9a9a9;
-        font-size: 9px;
+        font-size: 18px;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-align: center;
@@ -307,8 +310,9 @@
 
       .score-chart-plot {
         display: flex;
-        height: 112px;
+        min-height: 0;
         margin-bottom: 22px;
+        flex: 1;
         align-items: flex-end;
         justify-content: center;
         gap: 11px;
@@ -389,10 +393,6 @@
       @media (max-width: 850px) {
         #scoreRail {
           width: 100px;
-        }
-
-        .score-chart-plot {
-          height: 82px;
         }
       }
 
