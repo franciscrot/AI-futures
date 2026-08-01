@@ -313,8 +313,9 @@ document.getElementById("feedbackButton").addEventListener("click", () => {
 
 // play again
 document.getElementById("resetButton").addEventListener("click", () => {
-  emptyDeckStreak = 0;
+  gameResultsShown = false;
   window.playerChoices = {};
+  skippedChoiceCardIds.clear();
   resetSkipToken();
   clearEventImpactNotices();
   // reset players
@@ -1554,7 +1555,7 @@ const AUTHORED_SUBPLOTS = {
       },
       "path-1-2": {
         prompt:
-          "You protected less measurable work. The candidate remains brilliant but unusual, and the recruitment system loses much of its authority.",
+          "You have been doing your best to combat AI-powered performancemaxxing by protecting less measurable ways of working. You notice that Dennis has now pushed through a series of “protecting the unquantifiable” KPIs and metrics, which everyone is busy pursuing.",
         options: [
           "I hope excellence can remain plural",
           "I still wonder what the system saw before we did",
@@ -1994,6 +1995,7 @@ let activeSubplotNextCardId = null;
 let activeSubplotComplete = false;
 let subplotCardsById = {};
 let mainDeckSize = 0;
+const skippedChoiceCardIds = new Set();
 
 function chooseActiveSubplot() {
   activeSubplotId = pickRandom(Object.keys(SUBPLOT_TREES));
@@ -2016,6 +2018,19 @@ function advanceActiveSubplot(nextCardId) {
   activeSubplotComplete = nextCardId === null;
 }
 
+function cancelActiveSubplot(subplotId) {
+  if (!subplotId || subplotId !== activeSubplotId) return;
+
+  Object.values(SUBPLOT_TREES[subplotId].nodes).forEach((cardId) => {
+    skippedChoiceCardIds.add(cardId);
+  });
+  activeSubplotNextCardId = null;
+  activeSubplotComplete = true;
+  player.hand = player.hand.filter(
+    (card) => !card.isSubplot || card.subplotId !== subplotId,
+  );
+}
+
 function regularCardsDealt() {
   return mainDeckSize - window.deck.length;
 }
@@ -2026,6 +2041,7 @@ function getDueSubplotCard() {
   if (
     !card ||
     regularCardsDealt() < card.subplotPosition ||
+    skippedChoiceCardIds.has(card.id) ||
     window.playerChoices[card.id] ||
     player.hand.some((heldCard) => heldCard.id === card.id)
   ) {
@@ -2559,7 +2575,6 @@ function dismissEventImpactNotice() {
 
 const eventImpactNotice = document.getElementById("eventImpactNotice");
 if (eventImpactNotice) {
-  eventImpactNotice.addEventListener("click", dismissEventImpactNotice);
   eventImpactNotice.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -2567,6 +2582,22 @@ if (eventImpactNotice) {
     }
   });
 }
+
+document.addEventListener(
+  "click",
+  (event) => {
+    if (
+      !eventImpactNotice ||
+      eventImpactNotice.style.display !== "block"
+    ) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    dismissEventImpactNotice();
+  },
+  true,
+);
 
 function getPlayerImpactNotice(card, opponentName) {
   const rule = getEventRule(card);
@@ -2656,7 +2687,11 @@ function skipPlayerCard(index) {
   const selectedCard = player.hand[index];
   if (!selectedCard) return;
 
-  if ((!Array.isArray(window.deck) || deck.length === 0) && !getDueSubplotCard()) {
+  if (
+    !selectedCard.isSubplot &&
+    (!Array.isArray(window.deck) || deck.length === 0) &&
+    !getDueSubplotCard()
+  ) {
     setSkipArmed(false);
     return;
   }
@@ -2664,6 +2699,12 @@ function skipPlayerCard(index) {
   skipReplacementInProgress = true;
   playCardSfx("skip");
   const skippedCard = player.hand.splice(index, 1)[0];
+  if (CHOICE_CARD_OPTIONS[skippedCard.id]) {
+    skippedChoiceCardIds.add(skippedCard.id);
+  }
+  if (skippedCard.isSubplot) {
+    cancelActiveSubplot(skippedCard.subplotId);
+  }
   const replacementCard = drawPlayerCard();
   if (replacementCard) player.hand.push(replacementCard);
   consumeSkipToken();
@@ -2671,13 +2712,38 @@ function skipPlayerCard(index) {
   renderPlayerHand();
   updateGameInfo();
   updatePlayedLists();
+  showOutroIfGameComplete();
 
   requestAnimationFrame(() => {
     skipReplacementInProgress = false;
   });
 }
 
-let emptyDeckStreak = 0;
+let gameResultsShown = false;
+
+function showOutroIfGameComplete() {
+  if (
+    gameResultsShown ||
+    !Array.isArray(window.deck) ||
+    window.deck.length !== 0 ||
+    !activeSubplotComplete ||
+    player.hand.length !== 0
+  ) {
+    return false;
+  }
+
+  gameResultsShown = true;
+  console.log(player.sustainability, player.progress);
+
+  const outro = document.getElementById("outro");
+  outro.style.opacity = 1;
+  outro.style.display = "flex";
+  const outroContent = document.querySelector(".outro-text");
+  const message = generateOutroMessage(player, AI1, AI2);
+  outroContent.innerHTML = message;
+  return true;
+}
+
 async function playPlayerCard(index) {
   const selectedCard = player.hand[index];
   if (!selectedCard) return;
@@ -2711,26 +2777,7 @@ async function playPlayerCard(index) {
   updateGameInfo();
   updatePlayedLists();
 
-  // check for empty deck and show game results
-  function checkDeck() {
-    if (window.deck.length === 0 && activeSubplotComplete) {
-      emptyDeckStreak++;
-
-      if (emptyDeckStreak === 4) {
-
-        console.log(player.sustainability, player.progress);
-
-        const outro = document.getElementById("outro");
-        outro.style.opacity = 1;
-        outro.style.display = "flex";
-        const outroContent = document.querySelector(".outro-text");
-        const message = generateOutroMessage(player, AI1, AI2);
-        outroContent.innerHTML = message;
-      }
-    }
-  }
-
-  checkDeck();
+  showOutroIfGameComplete();
 }
 
 // --- Bootstrapping with diagnostics ---

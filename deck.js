@@ -796,7 +796,7 @@ window.deck = [
     subplotPath: "path-2",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "Time for Dennis's Performance Review.",
+    description: "You didn't hire Dennis, but you haven't heard the last of him.",
   },
   {
     id: 112,
@@ -808,7 +808,7 @@ window.deck = [
     subplotPath: "path-1-2",
     subplotStage: 3,
     subplotPosition: 63,
-    description: "The organisation fills with model employees. Performance scores soar. Working styles and work personae steadily converge.",
+    description: "• You have been doing your best to combat AI-powered performancemaxxing by protecting less measurable ways of working.\n• You notice that Dennis has now pushed through a series of “protecting the unquantifiable” KPIs and metrics, which everyone is busy pursuing.",
   },
   {
     id: 113,
