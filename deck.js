@@ -796,7 +796,7 @@ window.deck = [
     subplotPath: "path-2",
     subplotStage: 2,
     subplotPosition: 39,
-    description: "Time for Dennis's Performance Review.",
+    description: "You didn't hire Dennis, but you haven't heard the last of him.",
   },
   {
     id: 112,
