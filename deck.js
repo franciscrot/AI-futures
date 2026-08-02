@@ -997,7 +997,7 @@ window.deck = [
   },
   {
     id: 128,
-    name: "128: Take Out the Sting?",
+    name: "128: Bee, Where is thy Sting?",
     type: "action",
     description: "• A de-AI-ification consultancy argues that AI creates dependencies and can be difficult to remove.\n• It specialises in gently replacing AI with human processes, specialised software, or other tools.",
   },
@@ -1276,6 +1276,13 @@ window.deck = [
     subplotStage: 3,
     subplotPosition: 63,
     description: "• Excluded organisations create an interoperable payment network.\n• It is slower and full of arguments about governance, but nobody owns it.",
+  },
+  {
+    id: 155,
+    displayId: 151,
+    name: "151: Music While You Work?",
+    type: "action",
+    description: "• The union is demanding that workers have the right to listen to music while they work, no matter what.",
   },
 ];
 
