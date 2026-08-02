@@ -831,6 +831,21 @@ const CHOICE_CARD_OPTIONS = {
       },
     ],
   },
+  155: {
+    imagePath: "images/tarot-23.jpg",
+    prompt:
+      "The union is demanding that workers have the right to listen to music while they work, no matter what.",
+    options: [
+      {
+        value: "allow-music",
+        label: "Er, sure, whatever.",
+      },
+      {
+        value: "reject-music",
+        label: "No, what’s next? Podcasts? Dual screening?",
+      },
+    ],
+  },
 };
 
 // Subplot choice options are generated from narrative data, so their
@@ -922,6 +937,7 @@ const CHOICE_TECHNOPHILIA_SCORES = {
   152: [-1, 1],
   153: [1, -1],
   154: [-1, 1],
+  155: [1, -1],
 };
 
 const TECHNOPHILIA_CLASSIFICATIONS = {
@@ -2204,10 +2220,10 @@ function getEventActionTooltip(card) {
 
   if (playedCardTitles.length === 0) return "";
   if (playedCardTitles.length === 1) {
-    return `You have played ${playedCardTitles[0]}`;
+    return `You are prepared for this event. You have played ${playedCardTitles[0]}.`;
   }
 
-  return `You have played ${playedCardTitles.slice(0, -1).join(", ")}, and ${playedCardTitles.at(-1)}`;
+  return `You are prepared for this event. You have played ${playedCardTitles.slice(0, -1).join(", ")}, and ${playedCardTitles.at(-1)}.`;
 }
 
 let eventActionTooltip = null;
