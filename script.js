@@ -613,7 +613,7 @@ const CHOICE_CARD_OPTIONS = {
       {
         value: "cloud-computing",
         label: "In remotely accessible cloud computing",
-        correlatedActionId: 8,
+        correlatedActionId: 3,
       },
     ],
   },
@@ -625,7 +625,7 @@ const CHOICE_CARD_OPTIONS = {
       {
         value: "space-data-centres",
         label: "Data centres in space and on the Moon",
-        correlatedActionId: 9,
+        correlatedActionId: 7,
       },
       {
         value: "organic-data-centres",
@@ -691,10 +691,12 @@ const CHOICE_CARD_OPTIONS = {
       {
         value: "another-hyperscaler",
         label: "Pivot to Glamazon Inc. or Giggle Inc.",
+        correlatedActionId: 8,
       },
       {
         value: "open-and-on-site",
         label: "Pivot to open-source and on-site alternatives.",
+        correlatedActionId: 25,
       },
     ],
   },
@@ -706,11 +708,13 @@ const CHOICE_CARD_OPTIONS = {
       {
         value: "affiliate",
         label: "Affiliate — it sounds promising.",
+        correlatedActionId: 27,
       },
       {
         value: "steer-clear",
         label:
           "Steer clear — it isn’t really competing with the hyperscalers’ business model.",
+        correlatedActionId: 32,
       },
     ],
   },
@@ -723,11 +727,13 @@ const CHOICE_CARD_OPTIONS = {
         value: "predictable-assistance",
         label:
           "You have to switch. Workers need predictable AI assistance so they can form good working habits.",
+        correlatedActionId: 13,
       },
       {
         value: "federated-efficiency",
         label:
           "Using smaller models when energy prices are high sounds sensible. Stick with the supplier.",
+        correlatedActionId: 4,
       },
     ],
   },
@@ -770,11 +776,13 @@ const CHOICE_CARD_OPTIONS = {
       {
         value: "ai-recruitment",
         label: "Lean heavily into AI tools for recruitment.",
+        correlatedActionId: 15,
       },
       {
         value: "employment-policy",
         label:
           "Lobby policymakers to investigate automation-driven unemployment.",
+        correlatedActionId: 23,
       },
     ],
   },
@@ -823,6 +831,13 @@ const CHOICE_CARD_OPTIONS = {
       },
     ],
   },
+};
+
+// Subplot choice options are generated from narrative data, so their
+// conditional SKIP recharges are keyed separately by card and option order.
+const SUBPLOT_CHOICE_RECHARGE_ACTION_IDS = {
+  88: [14, 22],
+  94: [16, 21],
 };
 
 // Each pair is classified relative to the other answer on that card:
@@ -2051,6 +2066,9 @@ function promptForCardChoice(card) {
         "click",
         () => {
           const technophilia = getChoiceTechnophilia(card.id, index);
+          const correlatedActionId =
+            option.correlatedActionId ??
+            SUBPLOT_CHOICE_RECHARGE_ACTION_IDS[card.id]?.[index];
           window.playerChoices[card.id] = {
             value: option.value,
             label: option.label,
@@ -2060,12 +2078,15 @@ function promptForCardChoice(card) {
           player.technophilia += technophilia;
           player.choicesMade += 1;
           if (card.isSubplot) {
-            advanceActiveSubplot(config.nextCardIds?.[option.value] || null);
+            advanceActiveSubplot(
+              card.subplotId,
+              config.nextCardIds?.[option.value] || null,
+            );
           }
           if (
             !skipAvailable &&
-            option.correlatedActionId &&
-            player.actionsPlayed.has(option.correlatedActionId)
+            correlatedActionId &&
+            player.actionsPlayed.has(correlatedActionId)
           ) {
             restoreSkipToken();
           }
@@ -2302,44 +2323,72 @@ function clearEventHighlights() {
   updatePlayedLists();
 }
 
-let activeSubplotId = null;
-let activeSubplotNextCardId = null;
-let activeSubplotComplete = false;
+const SUBPLOTS_PER_GAME = 2;
+const SUBPLOT_START_OFFSETS = [0, 6];
+let activeSubplots = [];
 let subplotCardsById = {};
 let mainDeckSize = 0;
 const skippedChoiceCardIds = new Set();
 
-function chooseActiveSubplot() {
-  activeSubplotId = pickRandom(Object.keys(SUBPLOT_TREES));
-  activeSubplotNextCardId = SUBPLOT_TREES[activeSubplotId].root;
-  activeSubplotComplete = false;
-  activeAlasStory =
-    activeSubplotId === "D" ? createAlasStory() : null;
+function chooseActiveSubplots() {
+  const subplotIds = Object.keys(SUBPLOT_TREES);
+  shuffle(subplotIds);
+  activeSubplots = subplotIds
+    .slice(0, SUBPLOTS_PER_GAME)
+    .map((subplotId, index) => ({
+      id: subplotId,
+      nextCardId: SUBPLOT_TREES[subplotId].root,
+      complete: false,
+      positionOffset: SUBPLOT_START_OFFSETS[index] || 0,
+    }));
+
+  activeAlasStory = activeSubplots.some(({ id }) => id === "D")
+    ? createAlasStory()
+    : null;
   window.activeAlasStory = activeAlasStory;
-  activeCareRelative =
-    activeSubplotId === "F" ? chooseCareRelative() : null;
+  activeCareRelative = activeSubplots.some(({ id }) => id === "F")
+    ? chooseCareRelative()
+    : null;
   window.activeCareRelative = activeCareRelative;
+
   console.log(
-    `[DSG] Selected subplot ${activeSubplotId}`,
-    activeCareRelative || "",
+    "[DSG] Selected subplots",
+    activeSubplots.map(({ id, positionOffset }) => ({
+      id,
+      positionOffset,
+    })),
   );
 }
 
-function advanceActiveSubplot(nextCardId) {
-  activeSubplotNextCardId = nextCardId;
-  activeSubplotComplete = nextCardId === null;
+function getActiveSubplot(subplotId) {
+  return activeSubplots.find(({ id }) => id === subplotId) || null;
+}
+
+function advanceActiveSubplot(subplotId, nextCardId) {
+  const subplot = getActiveSubplot(subplotId);
+  if (!subplot) return;
+  subplot.nextCardId = nextCardId;
+  subplot.complete = nextCardId === null;
 }
 
 function cancelActiveSubplot(subplotId) {
-  if (!subplotId || subplotId !== activeSubplotId) return;
+  const subplot = getActiveSubplot(subplotId);
+  if (!subplot) return;
 
   Object.values(SUBPLOT_TREES[subplotId].nodes).forEach((cardId) => {
     skippedChoiceCardIds.add(cardId);
   });
-  activeSubplotNextCardId = null;
-  activeSubplotComplete = true;
+  subplot.nextCardId = null;
+  subplot.complete = true;
   player.hand = player.hand.filter(
     (card) => !card.isSubplot || card.subplotId !== subplotId,
+  );
+}
+
+function allActiveSubplotsComplete() {
+  return (
+    activeSubplots.length === SUBPLOTS_PER_GAME &&
+    activeSubplots.every(({ complete }) => complete)
   );
 }
 
@@ -2348,18 +2397,22 @@ function regularCardsDealt() {
 }
 
 function getDueSubplotCard() {
-  if (activeSubplotComplete || activeSubplotNextCardId === null) return null;
-  const card = subplotCardsById[activeSubplotNextCardId];
-  if (
-    !card ||
-    regularCardsDealt() < card.subplotPosition ||
-    skippedChoiceCardIds.has(card.id) ||
-    window.playerChoices[card.id] ||
-    player.hand.some((heldCard) => heldCard.id === card.id)
-  ) {
-    return null;
+  for (const subplot of activeSubplots) {
+    if (subplot.complete || subplot.nextCardId === null) continue;
+
+    const card = subplotCardsById[subplot.nextCardId];
+    if (
+      !card ||
+      regularCardsDealt() < card.subplotPosition + subplot.positionOffset ||
+      skippedChoiceCardIds.has(card.id) ||
+      window.playerChoices[card.id] ||
+      player.hand.some((heldCard) => heldCard.id === card.id)
+    ) {
+      continue;
+    }
+    return card;
   }
-  return card;
+  return null;
 }
 
 function drawPlayerCard() {
@@ -2394,7 +2447,7 @@ function prepareSubdecks() {
   // Cards are drawn with deck.pop(), so Subdeck A must be at the end.
   window.deck = [...subdeckB, ...subdeckA];
   mainDeckSize = window.deck.length;
-  chooseActiveSubplot();
+  chooseActiveSubplots();
 
   console.log(
     "[DSG] Prepared subdecks — A:",
@@ -3038,7 +3091,7 @@ function showOutroIfGameComplete() {
     gameResultsShown ||
     !Array.isArray(window.deck) ||
     window.deck.length !== 0 ||
-    !activeSubplotComplete ||
+    !allActiveSubplotsComplete() ||
     player.hand.length !== 0
   ) {
     return false;
