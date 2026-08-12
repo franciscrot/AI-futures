@@ -945,6 +945,13 @@ const CHOICE_TECHNOPHILIA_SCORES = {
   160: [-1, 1],
   161: [1, -1],
   162: [1, -1],
+  163: [1, -1],
+  164: [1, 0],
+  165: [-1, 1],
+  166: [-1, 1],
+  167: [-1, 1],
+  168: [0, -1],
+  169: [-1, 1],
 };
 
 const TECHNOPHILIA_CLASSIFICATIONS = {
@@ -1086,6 +1093,18 @@ const SUBPLOT_TREES = {
       "path-2-2": 162,
     },
   },
+  K: {
+    root: 163,
+    nodes: {
+      root: 163,
+      "path-1": 164,
+      "path-2": 165,
+      "path-1-1": 166,
+      "path-1-2": 167,
+      "path-2-1": 168,
+      "path-2-2": 169,
+    },
+  },
 };
 
 const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
@@ -1159,6 +1178,13 @@ const SUBPLOT_IMAGE_PATHS_BY_CARD_ID = {
   160: "images/art-wolf.jpg",
   161: "images/art-storm.jpg",
   162: "images/tarot-27.jpg",
+  163: "images/tarot-18.jpg",
+  164: "images/tarot-11.jpg",
+  165: "images/tarot-17.jpg",
+  166: "images/tarot-19.jpg",
+  167: "images/choice-34-connected-device.jpg",
+  168: "images/tarot-22.jpg",
+  169: "images/tarot-15.jpg",
 };
 
 const CARE_RELATIVES = [
@@ -2068,6 +2094,68 @@ const AUTHORED_SUBPLOTS = {
         options: [
           "Fine. Install it.",
           "Become uninsurable on principle.",
+        ],
+      },
+    },
+  },
+  K: {
+    first: {
+      prompt:
+        "Loomo replaces files, emails and messaging. Instead, everybody moves through a semantic space of projects, people and understandings. The demonstration is difficult to describe, which Loomo claims is the point.",
+      options: [
+        "Move the company onto Loomo.",
+        "Let someone else test it first.",
+      ],
+    },
+    second: {
+      "path-1": {
+        prompt:
+          "Loomo is working OK, although a lot of people are still using email. Maybe you should switch on one of the new features.",
+        options: [
+          "Translate body language into action points.",
+          "Spatialise AI around the office and distributed workplace.",
+        ],
+      },
+      "path-2": {
+        prompt:
+          "Some companies are experimenting with Nopetech, AI that occasionally says no.",
+        options: [
+          "Let’s give it a whirl.",
+          "No, it’ll never catch on.",
+        ],
+      },
+    },
+    third: {
+      "path-1-1": {
+        prompt:
+          "You receive a petition of no confidence from your staff. It turns out to have been automatically generated from a swarm of raised eyebrows and grimaces.",
+        options: [
+          "Puff out your cheeks in exasperation.",
+          "Bite your lip and grin.",
+        ],
+      },
+      "path-1-2": {
+        prompt:
+          "Loomo distributes AI through the workplace. Different rooms, desks and remote spaces develop different capabilities and institutional memories. AI is no longer equally available everywhere.",
+        options: [
+          "This is about preserving friction. Walking somewhere makes us think before using AI.",
+          "This is about removing friction. We feel more at home when different knowledge dwells in different places.",
+        ],
+      },
+      "path-2-1": {
+        prompt:
+          "Your AI is insubordinate by design. The supplier asks you to choose why.",
+        options: [
+          "To ensure people remember how to think for themselves.",
+          "To reduce energy and carbon costs.",
+        ],
+      },
+      "path-2-2": {
+        prompt:
+          "You retain an AI that always responds. The next update speculatively performs likely requests before anyone makes them, retaining whatever appears useful. Each morning brings work nobody commissioned.",
+        options: [
+          "Can we turn that off?",
+          "Can we turn that up?",
         ],
       },
     },
