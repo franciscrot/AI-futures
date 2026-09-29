@@ -1,3 +1,32 @@
+// Anonymous aggregate play counts; analytics must never interrupt the game.
+let analyticsGameStarted = false;
+const pendingAnalyticsEvents = [];
+
+function flushAnalyticsEvents() {
+  if (typeof window.goatcounter?.count !== "function") return;
+  while (pendingAnalyticsEvents.length) {
+    const event = pendingAnalyticsEvents.shift();
+    try {
+      window.goatcounter.count(event);
+    } catch (_) {
+      // The game remains playable if analytics is unavailable.
+    }
+  }
+}
+
+function trackGameEvent(path, title) {
+  pendingAnalyticsEvents.push({ path, title, event: true, no_session: true });
+  flushAnalyticsEvents();
+}
+
+function trackGameStart() {
+  if (analyticsGameStarted) return;
+  analyticsGameStarted = true;
+  trackGameEvent("ai-futures-start", "AI Futures: game started");
+}
+
+window.addEventListener("load", flushAnalyticsEvents);
+
 // ===========================================
 // script.js — diagnostics + robust rendering
 // ===========================================
@@ -296,6 +325,7 @@ function getCardSfxType(card) {
 
 // close intre screen
 document.getElementById("closeIntro").addEventListener("click", () => {
+  trackGameStart();
   startBackgroundMusic();
   const intro = document.getElementById("intro");
   intro.style.opacity = 0;
@@ -391,6 +421,9 @@ document.getElementById("resetButton").addEventListener("click", () => {
   if (a2EHeader) a2EHeader.textContent = `${AI2.name} Events Played`;
 
   console.log("[DSG] Boot end");
+
+  analyticsGameStarted = false;
+  trackGameStart();
 
   const intro = document.getElementById("outro");
   intro.style.opacity = 0;
@@ -3290,6 +3323,7 @@ function showOutroIfGameComplete() {
   }
 
   gameResultsShown = true;
+  trackGameEvent("ai-futures-complete", "AI Futures: game completed");
   console.log(player.sustainability, player.progress);
 
   const outro = document.getElementById("outro");
